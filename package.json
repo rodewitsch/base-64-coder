@@ -1,0 +1,25 @@
+{
+  "name": "base64coder",
+  "version": "0.1",
+  "description": "",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodewitsch/Base64Coder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rodewitsch/Base64Coder/issues"
+  },
+  "homepage": "https://github.com/rodewitsch/Base64Coder#readme",
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "is-base64": "^1.1.0",
+    "webextension-polyfill": "^0.8.0"
+  }
+}

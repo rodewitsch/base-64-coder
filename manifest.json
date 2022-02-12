@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "Base64Coder",
+  "description": "",
+  "version": "0.1",
+  "browser_action": {
+    "default_icon": "/assets/images/icons/b64c128.png"
+  },
+  "icons": {
+    "48": "/assets/images/icons/b64c48.png",
+    "128": "/assets/images/icons/b64c128.png"
+  },
+  "background": {
+    "scripts": [
+      "node_modules/webextension-polyfill/dist/browser-polyfill.js",
+      "node_modules/base-64/base64.js",
+      "core.js",
+      "background.js"
+    ]
+  },
+  "permissions": ["contextMenus"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "node_modules/webextension-polyfill/dist/browser-polyfill.js",
+        "node_modules/base-64/base64.js",
+        "node_modules/is-base64/is-base64.js",
+        "core.js",
+        "content.js"
+      ],
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ]
+}
