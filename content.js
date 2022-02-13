@@ -22,6 +22,7 @@ function findNearestImageSrc(element) {
   if (!element) return null;
   if (element.nodeName.toLowerCase() === "img") return element.currentSrc;
   const parentElement = element.parentNode;
+  if(!parentElement) return null;
   if (parentElement.nodeName.toLowerCase() === "img") return parentElement.currentSrc;
   const parentImage = parentElement.querySelector('img');
   if (parentImage) return parentImage.currentSrc;

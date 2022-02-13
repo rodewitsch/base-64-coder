@@ -23,17 +23,27 @@ browser.contextMenus.create({
 });
 
 async function encodeImage(info, tab) {
+  browser.browserAction.setBadgeText({text: "copying"});
+  browser.browserAction.setBadgeBackgroundColor({color: "red"});
   const response = await browser.tabs.sendMessage(tab.id, "getClickedEl", { frameId: info.frameId });
   copyTextToClipboard(response.base64);
+  browser.browserAction.setBadgeText({text: "copied"});
+  browser.browserAction.setBadgeBackgroundColor({color: "green"});
+  setTimeout(() =>browser.browserAction.setBadgeText({text: ""}), 500);
 }
 
 function decodeText(base64) {
-  const decodedText = atob(base64);
+  const decodedText = decodeURIComponent(atob(base64));
   copyTextToClipboard(decodedText)
 }
 
 function encodeText(text) {
-  const encodedText = btoa(text);
+  let encodedText;
+  try{
+    encodedText = btoa(text);
+  } catch(err) {
+    encodedText = btoa(encodeURIComponent(text));
+  }
   copyTextToClipboard(encodedText)
 }
 
