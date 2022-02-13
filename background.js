@@ -103,7 +103,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       img.src = request.src;
       if (img.complete || img.complete === undefined) {
         img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-        img.src = src;
+        img.src = request.src;
       }
     })();
   }
