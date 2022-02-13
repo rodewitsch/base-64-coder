@@ -108,7 +108,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         canvas.width = this.naturalWidth;
         ctx.drawImage(this, 0, 0);
         dataURL = canvas.toDataURL();
-        return sendResponse({ base64: dataURL });
+        sendResponse({ base64: dataURL });
+        canvas.remove();
       };
       img.src = request.src;
       if (img.complete || img.complete === undefined) {
