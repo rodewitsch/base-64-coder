@@ -1,5 +1,5 @@
 browser.contextMenus.create({
-  title: "base64 ➜ text",
+  title: 'base64 ➜ text',
   id: 'base64coderbase64text',
   contexts: ['selection'],
   onclick: (info) => decodeText(info.selectionText),
@@ -7,7 +7,7 @@ browser.contextMenus.create({
 });
 
 browser.contextMenus.create({
-  title: "text ➜ base64",
+  title: 'text ➜ base64',
   id: 'base64codermenutextbase64',
   contexts: ['selection'],
   onclick: async (info) => await encodeText(info.selectionText),
@@ -15,7 +15,7 @@ browser.contextMenus.create({
 });
 
 browser.contextMenus.create({
-  title: "image ➜ base64",
+  title: 'image ➜ base64',
   id: 'base64codermenuimagebase64',
   contexts: ['all'],
   onclick: (info, tab) => encodeImage(info, tab),
@@ -23,13 +23,13 @@ browser.contextMenus.create({
 });
 
 async function encodeImage(info, tab) {
-  browser.browserAction.setBadgeText({text: "copying"});
-  browser.browserAction.setBadgeBackgroundColor({color: "red"});
-  const response = await browser.tabs.sendMessage(tab.id, "getClickedEl", { frameId: info.frameId });
+  browser.browserAction.setBadgeText({text: 'copying'});
+  browser.browserAction.setBadgeBackgroundColor({color: 'red'});
+  const response = await browser.tabs.sendMessage(tab.id, 'getClickedEl', { frameId: info.frameId });
   copyTextToClipboard(response.base64);
-  browser.browserAction.setBadgeText({text: "copied"});
-  browser.browserAction.setBadgeBackgroundColor({color: "green"});
-  setTimeout(() =>browser.browserAction.setBadgeText({text: ""}), 500);
+  browser.browserAction.setBadgeText({text: 'copied'});
+  browser.browserAction.setBadgeBackgroundColor({color: 'green'});
+  setTimeout(() =>browser.browserAction.setBadgeText({text: ''}), 500);
 }
 
 function decodeText(base64) {
@@ -86,7 +86,6 @@ function copyTextToClipboard(input, { target = document.body } = {}) {
     selection.addRange(originalRange);
   }
 
-  // Get the focus back on the previously focused element, if any
   if (previouslyFocusedElement) {
     previouslyFocusedElement.focus();
   }
@@ -96,7 +95,7 @@ function copyTextToClipboard(input, { target = document.body } = {}) {
 
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.type == "getBase64ImageFromElement") {
+  if (request.type == 'getBase64ImageFromElement') {
     (async function(){
       var img = new Image();
       img.crossOrigin = 'Anonymous';
@@ -113,7 +112,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       };
       img.src = request.src;
       if (img.complete || img.complete === undefined) {
-        img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
         img.src = request.src;
       }
     })();
