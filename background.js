@@ -1,121 +1,75 @@
-browser.contextMenus.create({
+chrome.contextMenus.create({
   title: 'base64 ➜ text',
   id: 'base64coderbase64text',
   contexts: ['selection'],
-  onclick: (info) => decodeText(info.selectionText),
   visible: true
 });
 
-browser.contextMenus.create({
+chrome.contextMenus.create({
   title: 'text ➜ base64',
   id: 'base64codermenutextbase64',
   contexts: ['selection'],
-  onclick: async (info) => await encodeText(info.selectionText),
   visible: true
 });
 
-browser.contextMenus.create({
+chrome.contextMenus.create({
   title: 'image ➜ base64',
   id: 'base64codermenuimagebase64',
   contexts: ['all'],
-  onclick: (info, tab) => encodeImage(info, tab),
   visible: true
 });
 
+chrome.contextMenus.onClicked.addListener(async function (info, tab) {
+  if (info.menuItemId == "base64coderbase64text") decodeText(info.selectionText, tab);
+  if (info.menuItemId == "base64codermenutextbase64") encodeText(info.selectionText, tab);
+  if (info.menuItemId == "base64codermenuimagebase64") await encodeImage(info, tab);
+});
+
 async function encodeImage(info, tab) {
-  browser.browserAction.setBadgeText({text: 'copying'});
-  browser.browserAction.setBadgeBackgroundColor({color: 'red'});
-  const response = await browser.tabs.sendMessage(tab.id, 'getClickedEl', { frameId: info.frameId });
-  copyTextToClipboard(response.base64);
-  browser.browserAction.setBadgeText({text: 'copied'});
-  browser.browserAction.setBadgeBackgroundColor({color: 'green'});
-  setTimeout(() =>browser.browserAction.setBadgeText({text: ''}), 500);
+  chrome.action.setBadgeText({ text: 'copying' });
+  chrome.action.setBadgeBackgroundColor({ color: 'red' });
+  await chrome.tabs.sendMessage(tab.id, { type: 'getClickedEl', frameId: info.frameId, tabId: tab.id });
 }
 
-function decodeText(base64) {
+async function decodeText(base64, tab) {
   const decodedText = decodeURIComponent(atob(base64));
-  copyTextToClipboard(decodedText)
+  await chrome.tabs.sendMessage(tab.id, { type: 'copy', text: decodedText });
+  successBadge();
 }
 
-function encodeText(text) {
+async function encodeText(text, tab) {
   let encodedText;
-  try{
+  try {
     encodedText = btoa(text);
-  } catch(err) {
+  } catch (err) {
     encodedText = btoa(encodeURIComponent(text));
   }
-  copyTextToClipboard(encodedText)
+  await chrome.tabs.sendMessage(tab.id, { type: 'copy', text: encodedText });
+  successBadge();
 }
-
-function copyTextToClipboard(input, { target = document.body } = {}) {
-  const element = document.createElement('textarea');
-  const previouslyFocusedElement = document.activeElement;
-
-  element.value = input;
-
-  // Prevent keyboard from showing on mobile
-  element.setAttribute('readonly', '');
-
-  element.style.contain = 'strict';
-  element.style.position = 'absolute';
-  element.style.left = '-9999px';
-  element.style.fontSize = '12pt'; // Prevent zooming on iOS
-
-  const selection = document.getSelection();
-  let originalRange = false;
-  if (selection.rangeCount > 0) {
-    originalRange = selection.getRangeAt(0);
-  }
-
-  target.append(element);
-  element.select();
-
-  // Explicit selection workaround for iOS
-  element.selectionStart = 0;
-  element.selectionEnd = input.length;
-
-  let isSuccess = false;
-  try {
-    isSuccess = document.execCommand('copy');
-  } catch { }
-
-  element.remove();
-
-  if (originalRange) {
-    selection.removeAllRanges();
-    selection.addRange(originalRange);
-  }
-
-  if (previouslyFocusedElement) {
-    previouslyFocusedElement.focus();
-  }
-
-  return isSuccess;
-}
-
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type == 'getBase64ImageFromElement') {
-    (async function(){
-      var img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.onload = function () {
-        var canvas = document.createElement('CANVAS');
-        var ctx = canvas.getContext('2d');
-        var dataURL;
-        canvas.height = this.naturalHeight;
-        canvas.width = this.naturalWidth;
-        ctx.drawImage(this, 0, 0);
-        dataURL = canvas.toDataURL();
-        sendResponse({ base64: dataURL });
-        canvas.remove();
-      };
-      img.src = request.src;
-      if (img.complete || img.complete === undefined) {
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-        img.src = request.src;
-      }
+    (async function () {
+      fetch(request.src)
+        .then(response => response.blob())
+        .then(blob => {
+          var reader = new FileReader();
+          reader.onload = async function () {
+            await chrome.tabs.sendMessage(request.tabId, { type: 'copy', text: this.result });
+            sendResponse('ok');
+            successBadge();
+          };
+          reader.readAsDataURL(blob);
+        });
     })();
   }
   return true;
 });
+
+
+function successBadge(){
+  chrome.action.setBadgeText({ text: 'copied' });
+  chrome.action.setBadgeBackgroundColor({ color: 'green' });
+  setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);
+}
