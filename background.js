@@ -3,21 +3,21 @@ chrome.contextMenus.create({
   id: 'base64coderbase64text',
   contexts: ['selection'],
   visible: true
-});
+}, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
   title: 'text ➜ base64',
   id: 'base64codermenutextbase64',
   contexts: ['selection'],
   visible: true
-});
+}, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
   title: 'image ➜ base64',
   id: 'base64codermenuimagebase64',
   contexts: ['all'],
   visible: true
-});
+}, () => chrome.runtime.lastError);
 
 chrome.contextMenus.onClicked.addListener(async function (info, tab) {
   if (info.menuItemId == "base64coderbase64text") decodeText(info.selectionText, tab);
@@ -48,27 +48,25 @@ async function encodeText(text, tab) {
   successBadge();
 }
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.type == 'getBase64ImageFromElement') {
-    (async function () {
-      fetch(request.src)
-        .then(response => response.blob())
-        .then(blob => {
-          var reader = new FileReader();
-          reader.onload = async function () {
-            await chrome.tabs.sendMessage(request.tabId, { type: 'copy', text: this.result });
-            sendResponse('ok');
-            successBadge();
-          };
-          reader.readAsDataURL(blob);
-        });
-    })();
+    fetch(request.src)
+      .then(response => response.blob())
+      .then(blob => {
+        var reader = new FileReader();
+        reader.onload = async function () {
+          await chrome.tabs.sendMessage(request.tabId, { type: 'copy', text: this.result });
+          sendResponse('ok');
+          successBadge();
+        };
+        reader.readAsDataURL(blob);
+      });
   }
   return true;
 });
 
 
-function successBadge(){
+function successBadge() {
   chrome.action.setBadgeText({ text: 'copied' });
   chrome.action.setBadgeBackgroundColor({ color: 'green' });
   setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);

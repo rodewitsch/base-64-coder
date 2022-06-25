@@ -2,13 +2,11 @@ let clickedEl = null;
 
 document.addEventListener('contextmenu', (event) => clickedEl = event.target, true);
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   if (request.type === 'getClickedEl' && clickedEl) {
-    (async function () {
-      const imageSrc = findNearestImageSrc(clickedEl);
-      if (!imageSrc) alert('No image found');
-      await getBase64ImageFromImageSrc(imageSrc, request.tabId);
-    })();
+    const imageSrc = findNearestImageSrc(clickedEl);
+    if (!imageSrc) alert('No image found');
+    await getBase64ImageFromImageSrc(imageSrc, request.tabId);
   }
   if (request.type === 'copy') copyToClipboard(request.text);
   return true;
