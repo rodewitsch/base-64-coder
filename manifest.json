@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Base64Coder",
   "description": "",
-  "version": "0.2",
+  "version": "1.0",
   "omnibox": { "keyword" : "64" },
   "action": {
     "default_icon": "/assets/images/icons/b64c128.png"
