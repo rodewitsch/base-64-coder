@@ -19,11 +19,35 @@ chrome.contextMenus.create({
   visible: true
 }, () => chrome.runtime.lastError);
 
+chrome.omnibox.onInputEntered.addListener((text) => {
+  const decoded = encodeURIComponent(text);
+  chrome.tabs.create({ url: chrome.runtime.getURL(`convert/index.html?text=${decoded}`) });
+});
+
+chrome.omnibox.onInputChanged.addListener((text, suggest) => {
+  text = text.replace(" ", "");
+
+  var suggestions = [];
+  suggestions.push({ content: text, description: "Base64Coder" });
+  suggestions.push({ content: "[from] " + text, description: "base64 ➜ text" });
+  suggestions.push({ content: "[to] " + text, description: "text ➜ base64" });
+
+  // Set first suggestion as the default suggestion
+  chrome.omnibox.setDefaultSuggestion({ description: suggestions[0].description });
+
+  // Suggest the remaining suggestions
+  suggest(suggestions);
+})
+
 chrome.contextMenus.onClicked.addListener(async function (info, tab) {
   if (info.menuItemId == "base64coderbase64text") decodeText(info.selectionText, tab);
   if (info.menuItemId == "base64codermenutextbase64") encodeText(info.selectionText, tab);
   if (info.menuItemId == "base64codermenuimagebase64") await encodeImage(info, tab);
 });
+
+chrome.action.onClicked.addListener(function () {
+  chrome.tabs.create({ url: chrome.runtime.getURL('convert/index.html') });
+})
 
 async function encodeImage(info, tab) {
   chrome.action.setBadgeText({ text: 'copying' });
