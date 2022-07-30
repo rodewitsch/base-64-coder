@@ -17,6 +17,10 @@ body {
   margin: 0;
 }
 
+h1 {
+  cursor: default;
+}
+
 .action-area {
   display: flex;
   flex-direction: column;

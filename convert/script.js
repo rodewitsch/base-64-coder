@@ -54,6 +54,14 @@ document.onreadystatechange = function () {
 
   source.value = text || '';
 
+  if(source.value.length > 0) {
+    decodeBtn.classList.remove('disabled');
+    encodeBtn.classList.remove('disabled');
+    decodeImage.classList.remove('disabled');
+    decodeAudio.classList.remove('disabled');
+    decodeVideo.classList.remove('disabled');
+  }
+
   if (text && text.startsWith('[from]')) {
     source.value = text.substring(7);
     decodeBtn.click();
