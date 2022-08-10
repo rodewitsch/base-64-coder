@@ -76,6 +76,12 @@ document.onreadystatechange = function () {
   resultAudio.style.display = 'none';
   resultVideo.style.display = 'none';
 
+  resultImg.onerror = () => {
+    resultImg.src = null;
+    resultImg.src = "../assets/images/icons/corrupted-file.png";
+    return true; 
+  }
+
   openSourceFile.onclick = () => {
     let input = document.createElement('input');
     input.type = 'file';
@@ -135,6 +141,7 @@ document.onreadystatechange = function () {
       return;
     }
     const base64 = source.value.replace(/data:image\/.+?;base64,/, '');
+    resultImg.src = null;
     resultImg.src = `data:image/jpeg;base64,${base64}`;
     result.style.display = 'none';
     resultImg.style.display = 'block';

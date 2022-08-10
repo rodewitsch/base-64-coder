@@ -104,7 +104,7 @@ textarea {
   background: white;
 }
 
-video, audio {
+video, audio, img {
   width: 50vw;
 }
 
