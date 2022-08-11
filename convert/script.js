@@ -151,6 +151,9 @@ document.onreadystatechange = function () {
 
   decodeJwt.onclick = (event) => {
     result.value = JSON.stringify(parseJwt(source.value));
+    if (isJSON(result.value)) {
+      beautify.style.display = 'inline';
+    }
   }
 
   decodeBtn.onclick = (event) => {
