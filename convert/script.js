@@ -28,6 +28,28 @@ function getBase64(file) {
   });
 }
 
+function isJSON(str) {
+  if (str.startsWith('{') || str.startsWith('[')) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+  return false;
+}
+
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
 document.onreadystatechange = function () {
   const source = document.getElementById('source');
   const result = document.getElementById('result');
@@ -38,6 +60,7 @@ document.onreadystatechange = function () {
   const openSourceFile = document.getElementById('open-source-file');
   const encodeBtn = document.getElementById('encode-btn');
   const decodeBtn = document.getElementById('decode-btn');
+  const decodeJwt = document.getElementById('decode-jwt-btn');
   const decodeImage = document.getElementById('decode-image-btn');
   const decodeAudio = document.getElementById('decode-audio-btn');
   const decodeVideo = document.getElementById('decode-video-btn');
@@ -47,6 +70,7 @@ document.onreadystatechange = function () {
   const clearSource = document.getElementById('clear-source');
   const clearResult = document.getElementById('clear-result');
   const saveResult = document.getElementById('save-result');
+  const beautify = document.getElementById('beautify-result');
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
 
@@ -54,9 +78,10 @@ document.onreadystatechange = function () {
 
   source.value = text || '';
 
-  if(source.value.length > 0) {
+  if (source.value.length > 0) {
     decodeBtn.classList.remove('disabled');
     encodeBtn.classList.remove('disabled');
+    decodeJwt.classList.remove('disabled');
     decodeImage.classList.remove('disabled');
     decodeAudio.classList.remove('disabled');
     decodeVideo.classList.remove('disabled');
@@ -75,11 +100,12 @@ document.onreadystatechange = function () {
   resultImg.style.display = 'none';
   resultAudio.style.display = 'none';
   resultVideo.style.display = 'none';
+  beautify.style.display = 'none';
 
   resultImg.onerror = () => {
     resultImg.src = null;
     resultImg.src = "../assets/images/icons/corrupted-file.png";
-    return true; 
+    return true;
   }
 
   openSourceFile.onclick = () => {
@@ -107,6 +133,7 @@ document.onreadystatechange = function () {
       encodedText = btoa(encodeURIComponent(text));
     }
     result.value = encodedText;
+    beautify.style.display = 'none';
     result.style.display = 'block';
     resultImg.src = null;
     resultImg.style.display = 'none';
@@ -115,6 +142,16 @@ document.onreadystatechange = function () {
     resultType = 'text';
     copyResult.classList.remove('disabled');
   };
+
+  beautify.onclick = (event) => {
+    if (isJSON(result.value)) {
+      result.value = JSON.stringify(JSON.parse(result.value), null, 2);
+    }
+  }
+
+  decodeJwt.onclick = (event) => {
+    result.value = JSON.stringify(parseJwt(source.value));
+  }
 
   decodeBtn.onclick = (event) => {
     if (event.currentTarget.classList.contains('disabled')) {
@@ -126,6 +163,10 @@ document.onreadystatechange = function () {
     }
     catch (err) {
       result.value = atob(base64);
+    }
+    beautify.style.display = 'none';
+    if (isJSON(result.value)) {
+      beautify.style.display = 'inline';
     }
     result.style.display = 'block';
     resultImg.style.display = 'none';
@@ -143,6 +184,7 @@ document.onreadystatechange = function () {
     const base64 = source.value.replace(/data:image\/.+?;base64,/, '');
     resultImg.src = null;
     resultImg.src = `data:image/jpeg;base64,${base64}`;
+    beautify.style.display = 'none';
     result.style.display = 'none';
     resultImg.style.display = 'block';
     resultAudio.style.display = 'none';
@@ -158,6 +200,7 @@ document.onreadystatechange = function () {
     }
     const base64 = source.value.replace(/data:audio\/.+?;base64,/, '');
     resultAudio.src = `data:audio/mp3;base64,${base64}`;
+    beautify.style.display = 'none';
     result.style.display = 'none';
     resultImg.style.display = 'none';
     resultAudio.style.display = 'block';
@@ -172,6 +215,7 @@ document.onreadystatechange = function () {
     }
     const base64 = source.value.replace(/data:video\/.+?;base64,/, '');
     resultVideoSource.src = `data:video/mp4;base64,${base64}`;
+    beautify.style.display = 'none';
     result.style.display = 'none';
     resultImg.style.display = 'none';
     resultAudio.style.display = 'none';
@@ -185,12 +229,14 @@ document.onreadystatechange = function () {
     if (event.target.value) {
       decodeBtn.classList.remove('disabled');
       encodeBtn.classList.remove('disabled');
+      decodeJwt.classList.remove('disabled');
       decodeImage.classList.remove('disabled');
       decodeAudio.classList.remove('disabled');
       decodeVideo.classList.remove('disabled');
     } else {
       decodeBtn.classList.add('disabled');
       encodeBtn.classList.add('disabled');
+      decodeJwt.classList.add('disabled');
       decodeImage.classList.add('disabled');
       decodeAudio.classList.add('disabled');
       decodeVideo.classList.add('disabled');
@@ -218,6 +264,7 @@ document.onreadystatechange = function () {
     resultImg.src = null;
     resultAudio.src = null;
     resultVideoSource.src = null;
+    beautify.style.display = 'none';
     result.style.display = 'block';
     resultImg.style.display = 'none';
     resultAudio.style.display = 'none';
@@ -231,8 +278,13 @@ document.onreadystatechange = function () {
       return;
     }
     if (resultType === 'text') {
-      const blob = new Blob([result.value], { type: 'text/plain' });
-      saveAs(blob, "text.txt");
+      if (isJSON(result.value)) {
+        const blob = new Blob([JSON.stringify(JSON.parse(result.value), null, 2)], { type: 'application/json' });
+        saveAs(blob, "data.json");
+      } else {
+        const blob = new Blob([result.value], { type: 'text/plain' });
+        saveAs(blob, "text.txt");
+      }
     }
     if (resultType === 'image') {
       saveAs(resultImg.src, "image.jpeg");

@@ -14,6 +14,7 @@
     <div class="action-area header">
       <h1>Source:</h1>
       <div class="btn-panel">
+
         <button class="btn" id="open-source-file">
           <input type="file" name="input-name" style="display: none;" />
           <img src="../assets/images/icons/file.png" alt="open file">
@@ -44,14 +45,20 @@
       <h1>Actions:</h1>
     </div>
     <div class="actions">
+
+      <button class="btn disabled" id="decode-btn">
+        <img src="../assets/images/icons/text.png" alt="to text">
+        <span>text</span>
+      </button>
+
       <button class="btn disabled" id="encode-btn">
         <img src="../assets/images/icons/base64.png" alt="to base64">
         <span>base64</span>
       </button>
 
-      <button class="btn disabled" id="decode-btn">
-        <img src="../assets/images/icons/text.png" alt="to text">
-        <span>text</span>
+      <button class="btn disabled" id="decode-jwt-btn">
+        <img src="../assets/images/icons/jwt.png" alt="decode jwt">
+        <span>jwt</span>
       </button>
 
       <button class="btn disabled" id="decode-image-btn">
@@ -76,6 +83,10 @@
     <div class="action-area header">
       <h1>Result:</h1>
       <div class="btn-panel">
+        <button class="btn" id="beautify-result">
+          <img src="../assets/images/icons/structure.png" alt="tree">
+          <span>pretty</span>
+        </button>
         <button class="btn" id="copy-result">
           <img src="../assets/images/icons/copy.png" alt="copy">
           <span>copy</span>

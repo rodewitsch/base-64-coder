@@ -73,6 +73,7 @@ textarea {
   resize: none;
   width: 100%;
   height: 30vh;
+  border-radius: 5px;
 }
 
 .actions {

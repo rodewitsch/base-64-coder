@@ -1,6 +1,6 @@
 {
   "name": "base64coder",
-  "version": "1.4",
+  "version": "1.5",
   "description": "",
   "main": "background.js",
   "scripts": {
@@ -18,11 +18,9 @@
   },
   "homepage": "https://github.com/rodewitsch/Base64Coder#readme",
   "dependencies": {
-    "file-saver": "^2.0.5",
-    "is-base64": "^1.1.0"
+    "file-saver": "^2.0.5"
   },
   "bundleDependencies": [
-    "file-saver",
-    "is-base64"
+    "file-saver"
   ]
 }
