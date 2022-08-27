@@ -87,6 +87,10 @@ document.onreadystatechange = function () {
     decodeVideo.classList.remove('disabled');
   }
 
+  if (text) {
+    decodeBtn.click();
+  }
+
   if (text && text.startsWith('[from]')) {
     source.value = text.substring(7);
     decodeBtn.click();

@@ -1,21 +1,28 @@
 chrome.contextMenus.create({
-  title: 'base64 ➜ text',
+  title: 'copy base64 ➜ text',
   id: 'base64coderbase64text',
   contexts: ['selection'],
   visible: true
 }, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
-  title: 'text ➜ base64',
+  title: 'copy text ➜ base64',
   id: 'base64codermenutextbase64',
   contexts: ['selection'],
   visible: true
 }, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
-  title: 'image ➜ base64',
+  title: 'copy image ➜ base64',
   id: 'base64codermenuimagebase64',
   contexts: ['all'],
+  visible: true
+}, () => chrome.runtime.lastError);
+
+chrome.contextMenus.create({
+  title: 'open base64',
+  id: 'base64coderopenbase64',
+  contexts: ['selection'],
   visible: true
 }, () => chrome.runtime.lastError);
 
@@ -40,6 +47,7 @@ chrome.omnibox.onInputChanged.addListener((text, suggest) => {
 })
 
 chrome.contextMenus.onClicked.addListener(async function (info, tab) {
+  if (info.menuItemId == "base64coderopenbase64") openBase64(info.selectionText, tab);
   if (info.menuItemId == "base64coderbase64text") decodeText(info.selectionText, tab);
   if (info.menuItemId == "base64codermenutextbase64") encodeText(info.selectionText, tab);
   if (info.menuItemId == "base64codermenuimagebase64") await encodeImage(info, tab);
@@ -53,6 +61,10 @@ async function encodeImage(info, tab) {
   chrome.action.setBadgeText({ text: 'copying' });
   chrome.action.setBadgeBackgroundColor({ color: 'red' });
   await chrome.tabs.sendMessage(tab.id, { type: 'getClickedEl', frameId: info.frameId, tabId: tab.id });
+}
+
+async function openBase64(base64) {
+  chrome.tabs.create({ url: chrome.runtime.getURL(`convert/index.html?text=${base64}`) });
 }
 
 async function decodeText(base64, tab) {
