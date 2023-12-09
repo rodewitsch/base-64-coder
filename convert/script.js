@@ -40,11 +40,11 @@ function isJSON(str) {
   return false;
 }
 
-function parseJwt (token) {
+function parseJwt(token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
 
   return JSON.parse(jsonPayload);
@@ -119,7 +119,16 @@ document.onreadystatechange = function () {
       let files = Array.from(input.files);
       if (files.length > 0) {
         const base64 = await getBase64(files[0]);
+        source.value = null;
         result.value = base64.replace('data:text/plain;base64,', '');
+        beautify.style.display = 'none';
+        result.style.display = 'block';
+        resultImg.src = null;
+        resultImg.style.display = 'none';
+        resultAudio.style.display = 'none';
+        resultVideo.style.display = 'none';
+        resultType = 'text';
+        copyResult.classList.remove('disabled');
       }
     };
     input.click();
@@ -188,9 +197,8 @@ document.onreadystatechange = function () {
     if (event.currentTarget.classList.contains('disabled')) {
       return;
     }
-    const base64 = source.value.replace(/data:image\/.+?;base64,/, '');
     resultImg.src = null;
-    resultImg.src = `data:image/jpeg;base64,${base64}`;
+    resultImg.src = source.value;
     beautify.style.display = 'none';
     result.style.display = 'none';
     resultImg.style.display = 'block';
@@ -294,7 +302,11 @@ document.onreadystatechange = function () {
       }
     }
     if (resultType === 'image') {
-      saveAs(resultImg.src, "image.jpeg");
+      if (resultImg.src.startsWith('data:image/png;base64,')) {
+        saveAs(resultImg.src, "image.png");
+      } else {
+        saveAs(resultImg.src, "image.jpeg");
+      }
     }
     if (resultType === 'audio') {
       saveAs(resultAudio.src, "audio.mp3");
