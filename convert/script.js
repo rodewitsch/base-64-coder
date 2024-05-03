@@ -53,6 +53,7 @@ function parseJwt(token) {
 document.onreadystatechange = function () {
   const source = document.getElementById('source');
   const result = document.getElementById('result');
+  const resultTooltip = document.getElementById('result-tooltip');
   const resultImg = document.getElementById('result-img');
   const resultAudio = document.getElementById('result-audio');
   const resultVideo = document.getElementById('result-video');
@@ -120,7 +121,7 @@ document.onreadystatechange = function () {
       if (files.length > 0) {
         const base64 = await getBase64(files[0]);
         source.value = null;
-        result.value = base64.replace('data:text/plain;base64,', '');
+        result.innerText = base64.replace('data:text/plain;base64,', '');
         beautify.style.display = 'none';
         result.style.display = 'block';
         resultImg.src = null;
@@ -145,7 +146,7 @@ document.onreadystatechange = function () {
     } catch (err) {
       encodedText = btoa(encodeURIComponent(text));
     }
-    result.value = encodedText;
+    result.innerText = encodedText;
     beautify.style.display = 'none';
     result.style.display = 'block';
     resultImg.src = null;
@@ -157,17 +158,47 @@ document.onreadystatechange = function () {
   };
 
   beautify.onclick = (event) => {
-    if (isJSON(result.value)) {
-      result.value = JSON.stringify(JSON.parse(result.value), null, 2);
+    if (isJSON(result.innerText)) {
+      result.innerText = JSON.stringify(JSON.parse(result.innerText), null, 2);
+      result.childNodes.forEach((node) => {
+        if (!node.textContent) return;
+        if (node.textContent.includes('iat') || node.textContent.includes('exp')) {
+          const span = document.createElement('span');
+          node.parentNode.insertBefore(span, node);
+          span.appendChild(node);
+          span.style.backgroundColor = '#d3d3d347';
+          span.addEventListener('mouseover', (event) => {
+            const date = node.textContent.match(/"(iat|exp)": (?<date>\d+)/).groups.date;
+            resultTooltip.textContent = dayjs.unix(date).format('YYYY-MM-DD HH:mm:ss');
+            const rect = span.getBoundingClientRect();
+            resultTooltip.style.top = `${rect.top - 16}px`;
+            resultTooltip.style.left = `${rect.left - 125}px`;
+            span.style.backgroundColor = 'lightgrey';
+            resultTooltip.style.display = 'block';
+          });
+          span.addEventListener('mouseout', () => {
+            span.style.backgroundColor = '#d3d3d347';
+            resultTooltip.style.display = 'none';
+          });
+        }
+      });
     }
   }
 
   decodeJwt.onclick = (event) => {
-    result.value = JSON.stringify(parseJwt(source.value));
-    if (isJSON(result.value)) {
+    result.innerText = JSON.stringify(parseJwt(source.value));
+    if (isJSON(result.innerText)) {
       beautify.style.display = 'inline';
+      copyResult.classList.remove('disabled');
+      result.style.display = 'block';
+      resultImg.style.display = 'none';
+      resultAudio.style.display = 'none';
+      resultVideo.style.display = 'none';
+      resultVideo.style.display = 'none';
+      resultType = 'text';
     }
   }
+
 
   decodeBtn.onclick = (event) => {
     if (event.currentTarget.classList.contains('disabled')) {
@@ -175,13 +206,13 @@ document.onreadystatechange = function () {
     }
     const base64 = source.value;
     try {
-      result.value = decodeURIComponent(atob(base64));
+      result.innerText = decodeURIComponent(atob(base64));
     }
     catch (err) {
-      result.value = atob(base64);
+      result.innerText = atob(base64);
     }
     beautify.style.display = 'none';
-    if (isJSON(result.value)) {
+    if (isJSON(result.innerText)) {
       beautify.style.display = 'inline';
     }
     result.style.display = 'block';
@@ -275,7 +306,7 @@ document.onreadystatechange = function () {
     if (event.currentTarget.classList.contains('disabled')) {
       return;
     }
-    result.value = '';
+    result.innerText = '';
     resultImg.src = null;
     resultAudio.src = null;
     resultVideoSource.src = null;
@@ -293,11 +324,11 @@ document.onreadystatechange = function () {
       return;
     }
     if (resultType === 'text') {
-      if (isJSON(result.value)) {
-        const blob = new Blob([JSON.stringify(JSON.parse(result.value), null, 2)], { type: 'application/json' });
+      if (isJSON(result.innerText)) {
+        const blob = new Blob([JSON.stringify(JSON.parse(result.innerText), null, 2)], { type: 'application/json' });
         saveAs(blob, "data.json");
       } else {
-        const blob = new Blob([result.value], { type: 'text/plain' });
+        const blob = new Blob([result.innerText], { type: 'text/plain' });
         saveAs(blob, "text.txt");
       }
     }
@@ -321,7 +352,7 @@ document.onreadystatechange = function () {
       return;
     }
     if (resultType === 'text') {
-      copyToClipboard(result.value);
+      copyToClipboard(result.innerText);
     }
     if (resultType === 'image') {
       alert('Image is not copyable. Please use context menu.');
