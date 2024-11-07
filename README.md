@@ -1,7 +1,5 @@
 # Base64Coder
 [![GitHub license](https://img.shields.io/github/license/rodewitsch/Base64Coder)](https://github.com/rodewitsch/Base64Coder/blob/master/LICENSE)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/rodewitsch/Base64Coder.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rodewitsch/Base64Coder/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/rodewitsch/Base64Coder.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rodewitsch/Base64Coder/context:javascript)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/ebgonfpmppfndacngpbmgajldoabnjkm?label=chrome%20web%20store%20users)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/ebgonfpmppfndacngpbmgajldoabnjkm?label=chrome%20web%20store%20rating)
 
