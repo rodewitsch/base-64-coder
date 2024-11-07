@@ -50,6 +50,8 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 };
 
+
+
 document.onreadystatechange = function () {
   const source = document.getElementById('source');
   const result = document.getElementById('result');
@@ -229,7 +231,11 @@ document.onreadystatechange = function () {
       return;
     }
     resultImg.src = null;
-    resultImg.src = source.value;
+    if (source.value.startsWith('data:image/')) {
+      resultImg.src = source.value;
+    } else {
+      resultImg.src = `data:image/png;base64,${source.value}`;
+    }
     beautify.style.display = 'none';
     result.style.display = 'none';
     resultImg.style.display = 'block';
@@ -271,23 +277,29 @@ document.onreadystatechange = function () {
     copyResult.classList.add('disabled');
   };
 
-  source.onkeyup = (event) => {
-    if (event.target.value) {
-      decodeBtn.classList.remove('disabled');
-      encodeBtn.classList.remove('disabled');
-      decodeJwt.classList.remove('disabled');
-      decodeImage.classList.remove('disabled');
-      decodeAudio.classList.remove('disabled');
-      decodeVideo.classList.remove('disabled');
-    } else {
-      decodeBtn.classList.add('disabled');
-      encodeBtn.classList.add('disabled');
-      decodeJwt.classList.add('disabled');
-      decodeImage.classList.add('disabled');
-      decodeAudio.classList.add('disabled');
-      decodeVideo.classList.add('disabled');
-    }
-  };
+  function activateFunctionsOnSourceEvent() {
+    setTimeout(() => {
+      if (source.value) {
+        decodeBtn.classList.remove('disabled');
+        encodeBtn.classList.remove('disabled');
+        decodeJwt.classList.remove('disabled');
+        decodeImage.classList.remove('disabled');
+        decodeAudio.classList.remove('disabled');
+        decodeVideo.classList.remove('disabled');
+      } else {
+        decodeBtn.classList.add('disabled');
+        encodeBtn.classList.add('disabled');
+        decodeJwt.classList.add('disabled');
+        decodeImage.classList.add('disabled');
+        decodeAudio.classList.add('disabled');
+        decodeVideo.classList.add('disabled');
+      }
+    });
+  }
+
+  source.onpaste = (event) => activateFunctionsOnSourceEvent(event);
+
+  source.onkeyup = (event) => activateFunctionsOnSourceEvent(event);
 
   copySource.onclick = () => copyToClipboard(source.value);
 

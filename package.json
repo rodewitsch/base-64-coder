@@ -1,6 +1,6 @@
 {
   "name": "base64coder",
-  "version": "1.9",
+  "version": "1.10",
   "description": "",
   "main": "background.js",
   "scripts": {
@@ -24,6 +24,7 @@
   },
   "bundleDependencies": [
     "file-saver",
-    "is-base64"
+    "is-base64",
+    "dayjs"
   ]
 }
