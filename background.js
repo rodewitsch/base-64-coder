@@ -58,8 +58,8 @@ chrome.action.onClicked.addListener(function () {
 })
 
 async function encodeImage(info, tab) {
-  chrome.action.setBadgeText({ text: 'copying' });
-  chrome.action.setBadgeBackgroundColor({ color: 'red' });
+  chrome.action.setBadgeText({ text: 'WAIT' });
+  chrome.action.setBadgeBackgroundColor({ color: 'yellow' });
   await chrome.tabs.sendMessage(tab.id, { type: 'getClickedEl', frameId: info.frameId, tabId: tab.id });
 }
 
@@ -96,14 +96,24 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
           successBadge();
         };
         reader.readAsDataURL(blob);
-      });
+      })
+      .catch(() => errorBadge());
   }
-  return true;
+  if (request.type == 'error') {
+    errorBadge();
+  }
+  sendResponse({ received: true });
 });
 
 
 function successBadge() {
-  chrome.action.setBadgeText({ text: 'copied' });
+  chrome.action.setBadgeText({ text: 'DONE' });
   chrome.action.setBadgeBackgroundColor({ color: 'green' });
+  setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);
+}
+
+function errorBadge() {
+  chrome.action.setBadgeText({ text: 'ERR' });
+  chrome.action.setBadgeBackgroundColor({ color: 'red' });
   setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);
 }

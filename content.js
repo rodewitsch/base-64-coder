@@ -3,13 +3,20 @@ let clickedEl = null;
 document.addEventListener('contextmenu', (event) => clickedEl = event.target, true);
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-  if (request.type === 'getClickedEl' && clickedEl) {
-    const imageSrc = findNearestImageSrc(clickedEl);
-    if (!imageSrc) alert('No image found');
-    await getBase64ImageFromImageSrc(imageSrc, request.tabId);
+  try {
+    if (request.type === 'getClickedEl' && clickedEl) {
+      const imageSrc = findNearestImageSrc(clickedEl);
+      if (!imageSrc) throw new Error('No image found');
+      if (isBase64(imageSrc, { allowMime: true })) copyToClipboard(src);
+      await chrome.runtime.sendMessage({ type: 'getBase64ImageFromElement', src: imageSrc, tabId: request.tabId });
+    }
+    if (request.type === 'copy') copyToClipboard(request.text);
+
+  } catch (err) {
+    await chrome.runtime.sendMessage({ type: 'error', tabId: request.tabId, err });
+  } finally {
+    sendResponse({ received: true });
   }
-  if (request.type === 'copy') copyToClipboard(request.text);
-  return true;
 });
 
 function findNearestImageSrc(element) {
@@ -22,7 +29,7 @@ function findNearestImageSrc(element) {
   if (parentImage) return parentImage.currentSrc;
   const elementStyles = element.currentStyle || window.getComputedStyle(element, false);
   if (elementStyles.backgroundImage && elementStyles.backgroundImage !== 'none') {
-    return elementStyles.backgroundImage.slice(4, -1).replace(/"/g, "");
+    return elementStyles.backgroundImage.match(/url\(['"]?(.*?)['"]?\)/)[1];
   }
   return findNearestImageSrc(parentElement);
 }
@@ -33,8 +40,3 @@ const copyToClipboard = str => {
   }
   return Promise.reject('The Clipboard API is not available.');
 };
-
-async function getBase64ImageFromImageSrc(src, tabId) {
-  if (isBase64(src, { allowMime: true })) copyToClipboard(src);
-  await chrome.runtime.sendMessage({ type: 'getBase64ImageFromElement', src, tabId });
-}
