@@ -8,6 +8,7 @@
 - copy text to base64
 - copy base64 to text
 - copy image to base64
+- decode JWT tokens
 
 ### Video preview (click to play)
 
