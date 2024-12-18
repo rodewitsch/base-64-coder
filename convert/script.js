@@ -51,8 +51,8 @@ function parseJwt(token) {
 };
 
 
-
 document.onreadystatechange = function () {
+  const body = document.body;
   const source = document.getElementById('source');
   const result = document.getElementById('result');
   const resultTooltip = document.getElementById('result-tooltip');
@@ -76,6 +76,34 @@ document.onreadystatechange = function () {
   const beautify = document.getElementById('beautify-result');
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
+
+  body.ondrop = async (event) => {
+    event.preventDefault();
+
+    let droppedFile;
+
+    if (event.dataTransfer.items) {
+      [...event.dataTransfer.items].forEach((item, i) => {
+        if (item.kind === "file") droppedFile = item.getAsFile();
+      });
+    } else {
+      [...event.dataTransfer.files].forEach((file, i) => droppedFile = file);
+    }
+
+    if (droppedFile) {
+      const base64 = await getBase64(droppedFile);
+      source.value = null;
+      result.innerText = base64.replace('data:text/plain;base64,', '');
+      beautify.style.display = 'none';
+      result.style.display = 'block';
+      resultImg.src = null;
+      resultImg.style.display = 'none';
+      resultAudio.style.display = 'none';
+      resultVideo.style.display = 'none';
+      resultType = 'text';
+      copyResult.classList.remove('disabled');
+    }
+  };
 
   let resultType = 'text';
 
