@@ -53,6 +53,9 @@ function parseJwt(token) {
 
 document.onreadystatechange = function () {
   const body = document.body;
+  const dropOverlay = document.getElementById('drop-overlay');
+  const dropOverlayImg = document.getElementById('drop-overlay-img');
+  const dropOverlayText = document.getElementById('drop-overlay-text');
   const source = document.getElementById('source');
   const result = document.getElementById('result');
   const resultTooltip = document.getElementById('result-tooltip');
@@ -77,8 +80,17 @@ document.onreadystatechange = function () {
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
 
+  function showDropOverlay() {
+    dropOverlay.classList.add('active');
+  }
+
+  function hideDropOverlay() {
+    dropOverlay.classList.remove('active');
+  }
+
   body.ondrop = async (event) => {
     event.preventDefault();
+    hideDropOverlay();
 
     let droppedFile;
 
@@ -104,6 +116,18 @@ document.onreadystatechange = function () {
       copyResult.classList.remove('disabled');
     }
   };
+
+  body.ondragover = (event) => {
+    event.preventDefault();
+    showDropOverlay();
+  }
+
+  body.ondragleave = (event) => {
+    if(event.fromElement === dropOverlay) return;
+    if(event.fromElement === dropOverlayImg) return;
+    if(event.fromElement === dropOverlayText) return;
+    hideDropOverlay();  
+  }
 
   let resultType = 'text';
 

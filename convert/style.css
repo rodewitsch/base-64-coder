@@ -21,6 +21,32 @@ h1 {
   cursor: default;
 }
 
+#drop-overlay {
+  /* pointer-events: none; */
+  position: fixed;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(128,128,128,0.5);
+}
+
+#drop-overlay.active {
+  display: flex;
+}
+
+#drop-overlay img {
+  width: 15vw;
+}
+
+#drop-overlay p {
+  font-size: 1vw;
+  font-weight: bold;
+}
+
 .action-area {
   display: flex;
   flex-direction: column;
