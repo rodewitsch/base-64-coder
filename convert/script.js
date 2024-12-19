@@ -258,7 +258,7 @@ document.onreadystatechange = function () {
     if (event.currentTarget.classList.contains('disabled')) {
       return;
     }
-    const base64 = source.value;
+    const base64 = source.value.replace(/data:.+?;base64,/, '');
     try {
       result.innerText = decodeURIComponent(atob(base64));
     }
