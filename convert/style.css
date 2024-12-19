@@ -13,7 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
   margin: 0;
 }
 
@@ -22,7 +22,6 @@ h1 {
 }
 
 #drop-overlay {
-  /* pointer-events: none; */
   position: fixed;
   z-index: 99;
   height: 100%;
@@ -82,17 +81,17 @@ button {
 .btn {
   background: var(--main-bg-color);
   border: none;
-  width: 40px;
-  height: 43px;
+  width: 45px;
+  height: 45px;
   cursor: pointer;
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
-  padding: 0;
+  padding-top: 2px;
   margin-left: 5px;
 }
 
-.btn:hover {
+.btn:not(.disabled):hover {
   background: white;
 }
 
@@ -137,17 +136,17 @@ button {
 .actions .btn {
   background: var(--main-bg-color);
   border: none;
-  width: 55px;
-  height: 56px;
+  width: 62px;
+  height: 62px;
   cursor: pointer;
   font-size: 20px;
   text-align: center;
   border-radius: 5px;
-  padding: 0;
+  padding-top: 2px;
   margin-left: 5px;
 }
 
-.actions .btn:hover {
+.actions .btn:not(.disabled):hover {
   background: white;
 }
 
@@ -158,4 +157,56 @@ video, audio, img {
 .btn.disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #333333;
+  }
+
+  h1 {
+    color: white;
+  }
+
+  #source,#result {
+    background-color: #454545;
+    color: white;
+  }
+
+  .btn {
+    background: #3d3d3d;
+    color: white;
+  }
+
+  .btn.disabled {
+    background: #3d3d3d;
+  }
+
+  .btn:not(.disabled):hover {
+    background: #4d4d4d;
+  }
+
+  .actions .btn:not(.disabled):hover {
+    background: #4d4d4d;
+  }
+
+  .actions .btn {
+    background: #3d3d3d;
+  }
+
+  .btn img {
+    filter: invert(90%);
+  }
+
+  #drop-overlay img {
+    filter: invert(90%);
+  }
+
+  #drop-overlay p {
+    color: white;
+  }
+
+  #result-img[src*="corrupted-file.png"] {
+    filter: invert(90%);
+  }
 }
