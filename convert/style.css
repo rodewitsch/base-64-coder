@@ -51,7 +51,8 @@ h1 {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  width: 50vw;
+  width: 90vw;
+  max-width: 1366px;
 }
 
 .action-area .header {
