@@ -13,12 +13,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
   margin: 0;
 }
 
-h1 {
+label {
   cursor: default;
+  font-size: 2em; 
+  margin: .67em 0;
+  font-weight: bold;
 }
 
 #drop-overlay {
@@ -107,7 +110,6 @@ button {
 }
 
 #source,#result {
-  width: 100%;
   word-wrap: break-word;
   overflow-x: hidden;
   resize: none;
@@ -160,12 +162,19 @@ video, audio, img {
   cursor: not-allowed;
 }
 
+@media (max-height: 40rem) {
+  #source,#result {
+    height: 20vh;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #333333;
+
+  :root {
+    --main-bg-color: #333333;
   }
 
-  h1 {
+  label {
     color: white;
   }
 

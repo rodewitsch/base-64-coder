@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Base64Coder</title>
-    <link rel="icon" type="image/x-icon" href="../assets/images/icons/b64c48.png">
+    <link rel="icon" type="image/x-icon" href="../assets/images/icons/b64c48.png" />
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="../node_modules/file-saver/dist/FileSaver.min.js"></script>
@@ -18,7 +18,7 @@
 
     <div class="action-area">
       <div class="action-area header">
-        <h1>Source:</h1>
+        <label for="source">Source: </label>
         <div class="btn-panel">
           <button class="btn" id="open-source-file">
             <input type="file" name="input-name" style="display: none" />
@@ -40,13 +40,13 @@
         </div>
       </div>
       <div class="panel-body">
-        <textarea id="source"></textarea>
+        <textarea id="source" placeholder="Enter your text or drop your file."></textarea>
       </div>
     </div>
 
     <div class="action-area">
       <div class="action-area header">
-        <h1>Convert to:</h1>
+        <label>Convert to:</label>
       </div>
       <div class="actions">
         <button class="btn disabled" id="decode-btn">
@@ -83,7 +83,7 @@
 
     <div class="action-area">
       <div class="action-area header">
-        <h1>Result:</h1>
+        <label for="result">Result:</label>
         <div class="btn-panel">
           <button class="btn" id="beautify-result">
             <img src="../assets/images/icons/structure.png" alt="tree" />
