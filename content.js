@@ -7,11 +7,17 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
     if (request.type === 'getClickedEl' && clickedEl) {
       const imageSrc = findNearestImageSrc(clickedEl);
       if (!imageSrc) throw new Error('No image found');
-      if (isBase64(imageSrc, { allowMime: true })) copyToClipboard(src);
-      await chrome.runtime.sendMessage({ type: 'getBase64ImageFromElement', src: imageSrc, tabId: request.tabId });
+      if (isBase64(imageSrc, { allowMime: true })) {
+        copyToClipboard(imageSrc);
+        await chrome.runtime.sendMessage({ type: 'success', tabId: request.tabId });
+      } else {
+        await chrome.runtime.sendMessage({ type: 'getBase64ImageFromElement', src: imageSrc, tabId: request.tabId });
+      }
     }
-    if (request.type === 'copy') copyToClipboard(request.text);
-
+    if (request.type === 'copy') {
+      copyToClipboard(request.text);
+      await chrome.runtime.sendMessage({ type: 'success', tabId: request.tabId });
+    }
   } catch (err) {
     await chrome.runtime.sendMessage({ type: 'error', tabId: request.tabId, err });
   } finally {

@@ -5,7 +5,6 @@
 
 html,
 body {
-  height: 100%;
   background-color: var(--main-bg-color);
 }
 
@@ -154,7 +153,9 @@ button {
 }
 
 video, audio, img {
-  width: 50vw;
+  object-fit: contain;
+  max-width: 50vw;
+  max-height: 30vh;
 }
 
 .btn.disabled {
@@ -165,6 +166,12 @@ video, audio, img {
 @media (max-height: 40rem) {
   #source,#result {
     height: 20vh;
+  }
+
+  video, audio, img {
+    object-fit: contain;
+    max-width: 20vw;
+    max-height: 30vh;
   }
 }
 

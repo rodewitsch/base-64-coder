@@ -102,6 +102,9 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   if (request.type == 'error') {
     errorBadge();
   }
+  if (request.type == 'success') {
+    successBadge();
+  }
   sendResponse({ received: true });
 });
 
