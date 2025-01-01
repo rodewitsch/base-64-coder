@@ -1,6 +1,6 @@
 {
   "name": "base64coder",
-  "version": "1.18",
+  "version": "1.19",
   "description": "",
   "main": "background.js",
   "scripts": {
