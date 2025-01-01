@@ -123,10 +123,10 @@ document.onreadystatechange = function () {
   }
 
   body.ondragleave = (event) => {
-    if(event.fromElement === dropOverlay) return;
-    if(event.fromElement === dropOverlayImg) return;
-    if(event.fromElement === dropOverlayText) return;
-    hideDropOverlay();  
+    if (event.fromElement === dropOverlay) return;
+    if (event.fromElement === dropOverlayImg) return;
+    if (event.fromElement === dropOverlayText) return;
+    hideDropOverlay();
   }
 
   let resultType = 'text';
@@ -167,7 +167,7 @@ document.onreadystatechange = function () {
     return true;
   }
 
-  openSourceFile.onclick = () => {
+  openSourceFile.onclick = (event) => {
     let input = document.createElement('input');
     input.type = 'file';
     input.onchange = async () => {
@@ -184,6 +184,9 @@ document.onreadystatechange = function () {
         resultVideo.style.display = 'none';
         resultType = 'text';
         copyResult.classList.remove('disabled');
+
+        Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+        event.currentTarget.classList.add('active');
       }
     };
     input.click();
@@ -207,8 +210,11 @@ document.onreadystatechange = function () {
     resultImg.style.display = 'none';
     resultAudio.style.display = 'none';
     resultVideo.style.display = 'none';
-    resultType = 'text';
+    resultType = 'base64';
     copyResult.classList.remove('disabled');
+
+    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+    event.currentTarget.classList.add('active');
   };
 
   beautify.onclick = (event) => {
@@ -250,6 +256,9 @@ document.onreadystatechange = function () {
       resultVideo.style.display = 'none';
       resultVideo.style.display = 'none';
       resultType = 'text';
+
+      Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+      event.currentTarget.classList.add('active');
     }
   }
 
@@ -276,6 +285,9 @@ document.onreadystatechange = function () {
     resultVideo.style.display = 'none';
     resultType = 'text';
     copyResult.classList.remove('disabled');
+
+    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+    event.currentTarget.classList.add('active');
   };
 
   decodeImage.onclick = (event) => {
@@ -296,6 +308,9 @@ document.onreadystatechange = function () {
     resultVideo.style.display = 'none';
     resultType = 'image';
     copyResult.classList.add('disabled');
+
+    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+    event.currentTarget.classList.add('active');
   };
 
   decodeAudio.onclick = (event) => {
@@ -311,6 +326,9 @@ document.onreadystatechange = function () {
     resultVideo.style.display = 'none';
     resultType = 'audio';
     copyResult.classList.add('disabled');
+
+    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+    event.currentTarget.classList.add('active');
   };
 
   decodeVideo.onclick = (event) => {
@@ -327,6 +345,9 @@ document.onreadystatechange = function () {
     resultVideo.load();
     resultType = 'video';
     copyResult.classList.add('disabled');
+
+    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
+    event.currentTarget.classList.add('active');
   };
 
   function activateFunctionsOnSourceEvent() {
@@ -364,6 +385,8 @@ document.onreadystatechange = function () {
   clearSource.onclick = () => {
     source.value = '';
     source.dispatchEvent(new Event('keyup'));
+
+    Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
   }
 
   clearResult.onclick = (event) => {
@@ -381,6 +404,8 @@ document.onreadystatechange = function () {
     resultVideo.style.display = 'none';
     resultVideo.style.display = 'none';
     resultType = 'text';
+
+    Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
   }
 
   saveResult.onclick = (event) => {
