@@ -28,6 +28,21 @@ function getBase64(file) {
   });
 }
 
+function isJWT(str) {
+  const parts = str.split('.');
+  if (parts.length === 3) {
+    try {
+      atob(parts[0]);
+      atob(parts[1]);
+      JSON.parse(atob(parts[1]));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  return false;
+}
+
 function isJSON(str) {
   if (str.startsWith('{') || str.startsWith('[')) {
     try {
@@ -136,10 +151,13 @@ document.onreadystatechange = function () {
   if (source.value.length > 0) {
     decodeBtn.classList.remove('disabled');
     encodeBtn.classList.remove('disabled');
-    decodeJwt.classList.remove('disabled');
     decodeImage.classList.remove('disabled');
     decodeAudio.classList.remove('disabled');
     decodeVideo.classList.remove('disabled');
+
+    if (isJWT(source.value)) {
+      decodeJwt.classList.remove('disabled');
+    }
   }
 
   if (text) {
@@ -355,17 +373,22 @@ document.onreadystatechange = function () {
       if (source.value) {
         decodeBtn.classList.remove('disabled');
         encodeBtn.classList.remove('disabled');
-        decodeJwt.classList.remove('disabled');
         decodeImage.classList.remove('disabled');
         decodeAudio.classList.remove('disabled');
         decodeVideo.classList.remove('disabled');
+
+        if (isJWT(source.value)) {
+          decodeJwt.classList.remove('disabled');
+        } else {
+          decodeJwt.classList.add('disabled');
+        }
       } else {
         decodeBtn.classList.add('disabled');
         encodeBtn.classList.add('disabled');
-        decodeJwt.classList.add('disabled');
         decodeImage.classList.add('disabled');
         decodeAudio.classList.add('disabled');
         decodeVideo.classList.add('disabled');
+        decodeJwt.classList.add('disabled');
       }
     });
   }
