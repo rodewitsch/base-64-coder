@@ -431,6 +431,14 @@ document.onreadystatechange = function () {
     Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
   }
 
+  document.onkeydown = function (event) {
+    console.log(event);
+    if (event.ctrlKey && event.key === 's') {
+      saveResult.click();
+      return false;
+    }
+  };
+
   saveResult.onclick = (event) => {
     if (event.currentTarget.classList.contains('disabled')) {
       return;
