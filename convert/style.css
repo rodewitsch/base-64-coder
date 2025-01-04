@@ -148,6 +148,28 @@ button {
   height: 62px;
 }
 
+.action-area-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+  height: 30vh;
+}
+
+.action-area-body .file-info {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.action-area-body .file-info.active {
+  display: flex;
+}
+
 .action-area-body video,
 .action-area-body audio,
 .action-area-body img {
@@ -210,7 +232,7 @@ button {
     filter: invert(90%);
   }
 
-  #drop-overlay img {
+  #drop-overlay img, .file-info img {
     filter: invert(90%);
   }
 

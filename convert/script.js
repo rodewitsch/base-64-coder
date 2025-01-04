@@ -5,6 +5,8 @@ document.onreadystatechange = function () {
   const dropOverlayImg = document.getElementById('drop-overlay-img');
   const dropOverlayText = document.getElementById('drop-overlay-text');
   const source = document.getElementById('source');
+  const sourceFileInfo = document.getElementById('source-file-info');
+  const sourceFileName = document.getElementById('source-file-name');
   const resultText = document.getElementById('result');
   const resultTooltip = document.getElementById('result-tooltip');
   const resultImg = document.getElementById('result-img');
@@ -27,6 +29,7 @@ document.onreadystatechange = function () {
   const beautifyBtn = document.getElementById('beautify-result');
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
+  let selectedFile;
 
 
   function setCurrentActiveConvertBtn(btn) {
@@ -113,6 +116,13 @@ document.onreadystatechange = function () {
         } else {
           decodeJwtBtn.classList.add('disabled');
         }
+      } else if (selectedFile) {
+        decodeBtn.classList.add('disabled');
+        encodeBtn.classList.remove('disabled');
+        decodeImageBtn.classList.add('disabled');
+        decodeAudioBtn.classList.add('disabled');
+        decodeVideoBtn.classList.add('disabled');
+        decodeJwtBtn.classList.add('disabled');
       } else {
         decodeBtn.classList.add('disabled');
         encodeBtn.classList.add('disabled');
@@ -128,28 +138,25 @@ document.onreadystatechange = function () {
     event.preventDefault();
     dropOverlay.classList.remove('active');
 
-    let droppedFile;
-
     if (event.dataTransfer.items) {
       [...event.dataTransfer.items].forEach((item, i) => {
-        if (item.kind === "file") droppedFile = item.getAsFile();
+        if (item.kind === "file") selectedFile = item.getAsFile();
       });
     } else {
-      [...event.dataTransfer.files].forEach((file, i) => droppedFile = file);
+      [...event.dataTransfer.files].forEach((file, i) => selectedFile = file);
     }
 
-    if (droppedFile) {
-      const base64 = await getBase64(droppedFile);
+    if (selectedFile) {
+      const base64 = await getBase64(selectedFile);
       source.value = null;
       resultText.innerText = base64.replace('data:text/plain;base64,', '');
-      beautifyBtn.style.display = 'none';
-      resultText.style.display = 'block';
-      resultImg.src = null;
-      resultImg.style.display = 'none';
-      resultAudio.style.display = 'none';
-      resultVideo.style.display = 'none';
-      resultType = 'text';
-      copyResultBtn.classList.remove('disabled');
+
+      setCurrentResultType('text');
+      activateAvailableConvertBtns();
+
+      source.style.display = 'none';
+      sourceFileInfo.classList.add('active');
+      sourceFileName.innerText = selectedFile.name;
     }
   };
 
@@ -189,40 +196,47 @@ document.onreadystatechange = function () {
     return true;
   }
 
-  openSourceFile.onclick = (event) => {
+  openSourceFile.onclick = () => {
     let input = document.createElement('input');
     input.type = 'file';
     input.onchange = async () => {
       let files = Array.from(input.files);
       if (files.length > 0) {
+        selectedFile = files[0];
         const base64 = await getBase64(files[0]);
         source.value = null;
         resultText.innerText = base64.replace('data:text/plain;base64,', '');
-        beautifyBtn.style.display = 'none';
-        resultText.style.display = 'block';
-        resultImg.src = null;
-        resultImg.style.display = 'none';
-        resultAudio.style.display = 'none';
-        resultVideo.style.display = 'none';
-        resultType = 'text';
-        copyResultBtn.classList.remove('disabled');
 
-        Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-        event.currentTarget.classList.add('active');
+        source.style.display = 'none';
+        sourceFileInfo.classList.add('active');
+        setCurrentResultType('base64');
+        setCurrentActiveConvertBtn(encodeBtn);
+        activateAvailableConvertBtns();
+        sourceFileName.innerText = files[0].name;
       }
     };
     input.click();
   }
 
-  encodeBtn.onclick = (event) => {
-    let encodedText;
-    const text = source.value;
-    try {
-      encodedText = btoa(text);
-    } catch (err) {
-      encodedText = btoa(encodeURIComponent(text));
+  encodeBtn.onclick = async () => {
+    if (!selectedFile) {
+      let encodedText;
+      const text = source.value;
+      try {
+        encodedText = btoa(text);
+      } catch (err) {
+        encodedText = btoa(encodeURIComponent(text));
+      }
+      resultText.innerText = encodedText;
+    } else {
+      const base64 = await getBase64(selectedFile);
+      source.value = null;
+      resultText.innerText = base64.replace('data:text/plain;base64,', '');
+
+      source.style.display = 'none';
+      sourceFileInfo.classList.add('active');
+      sourceFileName.innerText = files[0].name;
     }
-    resultText.innerText = encodedText;
 
     setCurrentResultType('base64');
     setCurrentActiveConvertBtn(encodeBtn);
@@ -318,6 +332,9 @@ document.onreadystatechange = function () {
 
   clearSourceBtn.onclick = () => {
     source.value = '';
+    selectedFile = null;
+    source.style.display = 'block';
+    sourceFileInfo.classList.remove('active');
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
     activateAvailableConvertBtns();
@@ -325,6 +342,7 @@ document.onreadystatechange = function () {
 
   clearResultBtn.onclick = () => {
     resultText.innerText = '';
+
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
     activateAvailableConvertBtns();
