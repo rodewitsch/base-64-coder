@@ -103,7 +103,7 @@ document.onreadystatechange = function () {
     }
   }
 
-  function activateAvailableConvertBtns() {
+  function activateAvailableBtns() {
     setTimeout(() => {
       if (source.value) {
         decodeBtn.classList.remove('disabled');
@@ -117,6 +117,9 @@ document.onreadystatechange = function () {
         } else {
           decodeJwtBtn.classList.add('disabled');
         }
+
+        copySourceBtn.classList.remove('disabled');
+        clearSourceBtn.classList.remove('disabled');
       } else if (selectedFile) {
         decodeBtn.classList.add('disabled');
         encodeBtn.classList.remove('disabled');
@@ -124,6 +127,10 @@ document.onreadystatechange = function () {
         decodeAudioBtn.classList.add('disabled');
         decodeVideoBtn.classList.add('disabled');
         decodeJwtBtn.classList.add('disabled');
+
+        pasteSourceBtn.classList.add('disabled');
+        copySourceBtn.classList.add('disabled');
+        clearSourceBtn.classList.remove('disabled');
       } else {
         decodeBtn.classList.add('disabled');
         encodeBtn.classList.add('disabled');
@@ -131,6 +138,19 @@ document.onreadystatechange = function () {
         decodeAudioBtn.classList.add('disabled');
         decodeVideoBtn.classList.add('disabled');
         decodeJwtBtn.classList.add('disabled');
+
+        copySourceBtn.classList.add('disabled');
+        clearSourceBtn.classList.add('disabled');
+      }
+
+      if (resultText.innerHTML) {
+        copyResultBtn.classList.remove('disabled');
+        saveResultBtn.classList.remove('disabled');
+        clearResultBtn.classList.remove('disabled');
+      } else {
+        copyResultBtn.classList.add('disabled');
+        saveResultBtn.classList.add('disabled');
+        clearResultBtn.classList.add('disabled');
       }
     });
   }
@@ -179,7 +199,8 @@ document.onreadystatechange = function () {
       resultText.innerText = base64.replace('data:text/plain;base64,', '');
 
       setCurrentResultType('text');
-      activateAvailableConvertBtns();
+      activateAvailableBtns();
+      setCurrentActiveConvertBtn(encodeBtn);
 
       source.style.display = 'none';
       sourceFileInfo.classList.add('active');
@@ -201,7 +222,7 @@ document.onreadystatechange = function () {
 
   source.value = text || '';
 
-  if (source.value.length > 0) activateAvailableConvertBtns();
+  if (source.value.length > 0) activateAvailableBtns();
 
   if (text) decodeBtn.click();
 
@@ -214,6 +235,8 @@ document.onreadystatechange = function () {
     source.value = text.substring(5);
     encodeBtn.click();
   }
+
+  activateAvailableBtns();
 
   setCurrentResultType('text');
 
@@ -235,10 +258,12 @@ document.onreadystatechange = function () {
         resultText.innerText = base64.replace('data:text/plain;base64,', '');
 
         source.style.display = 'none';
+        copySourceBtn.classList.add('disabled');
+        pasteSourceBtn.classList.add('disabled');
         sourceFileInfo.classList.add('active');
         setCurrentResultType('base64');
         setCurrentActiveConvertBtn(encodeBtn);
-        activateAvailableConvertBtns();
+        activateAvailableBtns();
         sourceFileName.innerText = files[0].name;
       }
     };
@@ -265,6 +290,7 @@ document.onreadystatechange = function () {
       sourceFileName.innerText = files[0].name;
     }
 
+    activateAvailableBtns();
     setCurrentResultType('base64');
     setCurrentActiveConvertBtn(encodeBtn);
   };
@@ -299,6 +325,7 @@ document.onreadystatechange = function () {
 
   decodeJwtBtn.onclick = () => {
     resultText.innerText = JSON.stringify(parseJwt(source.value));
+    activateAvailableBtns();
     setCurrentResultType('text');
     setCurrentActiveConvertBtn(decodeJwtBtn);
   }
@@ -312,6 +339,7 @@ document.onreadystatechange = function () {
       resultText.innerText = atob(base64);
     }
 
+    activateAvailableBtns();
     setCurrentResultType('text');
     setCurrentActiveConvertBtn(decodeBtn);
   };
@@ -324,6 +352,7 @@ document.onreadystatechange = function () {
       resultImg.src = `data:image/png;base64,${source.value}`;
     }
 
+    activateAvailableBtns();
     setCurrentResultType('image');
     setCurrentActiveConvertBtn(decodeImageBtn);
   };
@@ -332,6 +361,7 @@ document.onreadystatechange = function () {
     const base64 = source.value.replace(/data:audio\/.+?;base64,/, '');
     resultAudio.src = `data:audio/mp3;base64,${base64}`;
 
+    activateAvailableBtns();
     setCurrentResultType('audio');
     setCurrentActiveConvertBtn(decodeAudioBtn);
   };
@@ -341,19 +371,21 @@ document.onreadystatechange = function () {
     resultVideoSource.src = `data:video/mp4;base64,${base64}`;
     resultVideo.load();
 
+    activateAvailableBtns();
     setCurrentResultType('video');
     setCurrentActiveConvertBtn(decodeVideoBtn);
   };
 
-  source.onpaste = () => activateAvailableConvertBtns();
+  source.onpaste = () => activateAvailableBtns();
 
-  source.onkeyup = () => activateAvailableConvertBtns();
+  source.onkeyup = () => activateAvailableBtns();
 
   copySourceBtn.onclick = () => copyToClipboard(source.value);
 
   pasteSourceBtn.onclick = async () => {
     const text = await pasteFromClipboard();
     source.value = text;
+    activateAvailableBtns();
     setCurrentResultType('text');
   };
 
@@ -362,9 +394,11 @@ document.onreadystatechange = function () {
     selectedFile = null;
     source.style.display = 'block';
     sourceFileInfo.classList.remove('active');
+    copySourceBtn.classList.remove('disabled');
+    pasteSourceBtn.classList.remove('disabled');
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
-    activateAvailableConvertBtns();
+    activateAvailableBtns();
   }
 
   clearResultBtn.onclick = () => {
@@ -372,7 +406,7 @@ document.onreadystatechange = function () {
 
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
-    activateAvailableConvertBtns();
+    activateAvailableBtns();
   }
 
   document.onkeyup = function (event) {
