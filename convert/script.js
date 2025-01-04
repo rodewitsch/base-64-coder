@@ -48,7 +48,8 @@ document.onreadystatechange = function () {
         resultImg.src = null;
         resultAudio.src = null;
         resultVideoSource.src = null;
-
+        beautifyBtn.style.display = 'none';
+        
         if (isJSON(resultText.innerText)) beautifyBtn.style.display = 'inline';
         copyResultBtn.classList.remove('disabled');
         break;
