@@ -108,14 +108,20 @@ document.onreadystatechange = function () {
       if (source.value) {
         decodeBtn.classList.remove('disabled');
         encodeBtn.classList.remove('disabled');
-        decodeImageBtn.classList.remove('disabled');
-        decodeAudioBtn.classList.remove('disabled');
-        decodeVideoBtn.classList.remove('disabled');
 
         if (isJWT(source.value)) {
           decodeJwtBtn.classList.remove('disabled');
         } else {
           decodeJwtBtn.classList.add('disabled');
+        }
+
+        if (isBase64(source.value.replace(/data:.+?;base64,/, ''))) {
+          decodeImageBtn.classList.remove('disabled');
+          decodeAudioBtn.classList.remove('disabled');
+          decodeVideoBtn.classList.remove('disabled');
+          decodeBtn.classList.remove('disabled');
+        } else {
+          decodeBtn.classList.add('disabled');
         }
 
         copySourceBtn.classList.remove('disabled');
@@ -235,6 +241,8 @@ document.onreadystatechange = function () {
     source.value = text.substring(5);
     encodeBtn.click();
   }
+
+  source.focus();
 
   activateAvailableBtns();
 

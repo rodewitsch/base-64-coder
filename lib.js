@@ -64,3 +64,7 @@ function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 };
+
+function isBase64(str) {
+  return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$/g.test(str);
+}
