@@ -27,6 +27,7 @@
       ],
       "js": [
         "node_modules/is-base64/is-base64.js",
+        "lib.js",
         "content.js"
       ],
       "all_frames": true,

@@ -58,8 +58,7 @@ chrome.action.onClicked.addListener(function () {
 })
 
 async function encodeImage(info, tab) {
-  chrome.action.setBadgeText({ text: 'WAIT' });
-  chrome.action.setBadgeBackgroundColor({ color: 'yellow' });
+  waitBadge();
   await chrome.tabs.sendMessage(tab.id, { type: 'getClickedEl', frameId: info.frameId, tabId: tab.id });
 }
 
@@ -99,12 +98,8 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
       })
       .catch(() => errorBadge());
   }
-  if (request.type == 'error') {
-    errorBadge();
-  }
-  if (request.type == 'success') {
-    successBadge();
-  }
+  if (request.type == 'error') errorBadge();
+  if (request.type == 'success') successBadge();
   sendResponse({ received: true });
 });
 
@@ -119,4 +114,12 @@ function errorBadge() {
   chrome.action.setBadgeText({ text: 'ERR' });
   chrome.action.setBadgeBackgroundColor({ color: 'red' });
   setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);
+}
+
+function waitBadge() {
+  chrome.action.setBadgeText({ text: 'WAIT' });
+  chrome.action.setBadgeBackgroundColor({ color: 'yellow' });
+  setTimeout(() => {
+    if (chrome.action.getBadgeText() == 'WAIT') errorBadge();
+  }, 2000);
 }

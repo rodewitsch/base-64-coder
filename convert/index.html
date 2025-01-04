@@ -7,112 +7,115 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="../node_modules/file-saver/dist/FileSaver.min.js"></script>
     <script src="../node_modules/dayjs/dayjs.min.js"></script>
+    <script src="../lib.js" type="text/javascript"></script>
     <script src="./script.js" type="text/javascript"></script>
   </head>
 
   <body>
     <div id="drop-overlay">
-      <img id="drop-overlay-img" src="../assets/images/icons/drag.png" alt="drag" />
+      <img draggable="false" id="drop-overlay-img" src="../assets/images/icons/drag.png" alt="drag" />
       <p id="drop-overlay-text">Drag & Drop to Upload File</p>
     </div>
 
     <div class="action-area">
-      <div class="action-area header">
+      <div class="action-area-header">
         <label for="source">Source: </label>
         <div class="btn-panel">
           <button class="btn" id="open-source-file">
             <input type="file" name="input-name" style="display: none" />
-            <img src="../assets/images/icons/file.png" alt="open file" />
+            <img draggable="false" src="../assets/images/icons/file.png" alt="open file" />
             <span>file</span>
           </button>
           <button class="btn" id="copy-source">
-            <img src="../assets/images/icons/copy.png" alt="copy" />
+            <img draggable="false" src="../assets/images/icons/copy.png" alt="copy" />
             <span>copy</span>
           </button>
           <button class="btn" id="paste-source">
-            <img src="../assets/images/icons/paste.png" alt="paste" />
+            <img draggable="false" src="../assets/images/icons/paste.png" alt="paste" />
             <span>paste</span>
           </button>
           <button class="btn" id="clear-source">
-            <img src="../assets/images/icons/delete.png" alt="clear" />
+            <img draggable="false" src="../assets/images/icons/delete.png" alt="clear" />
             <span>clear</span>
           </button>
         </div>
       </div>
-      <div class="panel-body">
+      <div class="action-area-body">
         <textarea id="source" placeholder="Enter your text or drop your file."></textarea>
       </div>
     </div>
 
     <div class="action-area">
-      <div class="action-area header">
+      <div class="action-area-header">
         <label>Convert to:</label>
       </div>
       <div class="actions">
         <button class="btn disabled" id="decode-btn">
-          <img src="../assets/images/icons/text.png" alt="to text" />
+          <img draggable="false" src="../assets/images/icons/text.png" alt="to text" />
           <span>text</span>
         </button>
 
         <button class="btn disabled" id="encode-btn">
-          <img src="../assets/images/icons/base64.png" alt="to base64" />
+          <img draggable="false" src="../assets/images/icons/base64.png" alt="to base64" />
           <span>base64</span>
         </button>
 
         <button class="btn disabled" id="decode-jwt-btn">
-          <img src="../assets/images/icons/jwt.png" alt="decode jwt" />
+          <img draggable="false" src="../assets/images/icons/jwt.png" alt="decode jwt" />
           <span>jwt</span>
         </button>
 
         <button class="btn disabled" id="decode-image-btn">
-          <img src="../assets/images/icons/image.png" alt="to image" />
+          <img draggable="false" src="../assets/images/icons/image.png" alt="to image" />
           <span>image</span>
         </button>
 
         <button class="btn disabled" id="decode-audio-btn">
-          <img src="../assets/images/icons/audio.png" alt="to audio" />
+          <img draggable="false" src="../assets/images/icons/audio.png" alt="to audio" />
           <span>audio</span>
         </button>
 
         <button class="btn disabled" id="decode-video-btn">
-          <img src="../assets/images/icons/video.png" alt="to video" />
+          <img draggable="false" src="../assets/images/icons/video.png" alt="to video" />
           <span>video</span>
         </button>
       </div>
     </div>
 
     <div class="action-area">
-      <div class="action-area header">
+      <div class="action-area-header">
         <label for="result">Result:</label>
         <div class="btn-panel">
           <button class="btn" id="beautify-result">
-            <img src="../assets/images/icons/structure.png" alt="tree" />
+            <img draggable="false" src="../assets/images/icons/structure.png" alt="tree" />
             <span>pretty</span>
           </button>
           <button class="btn" id="copy-result">
-            <img src="../assets/images/icons/copy.png" alt="copy" />
+            <img draggable="false" src="../assets/images/icons/copy.png" alt="copy" />
             <span>copy</span>
           </button>
           <button class="btn" id="save-result">
-            <img src="../assets/images/icons/save.png" alt="save" />
+            <img draggable="false" src="../assets/images/icons/save.png" alt="save" />
             <span>save</span>
           </button>
           <button class="btn" id="clear-result">
-            <img src="../assets/images/icons/delete.png" alt="clear" />
+            <img draggable="false" src="../assets/images/icons/delete.png" alt="clear" />
             <span>clear</span>
           </button>
         </div>
       </div>
-      <p class="tooltip" id="result-tooltip">20.04.2004</p>
-      <div id="result" contenteditable="true"></div>
-      <img id="result-img" alt="CORRUPTED FILE IMAGE" />
-      <audio id="result-audio" controls>
-        Your browser does not support the
-        <code>audio</code> element.
-      </audio>
-      <video controls id="result-video">
-        <source id="result-video-source" src="" />
-      </video>
+      <div class="action-area-body">
+        <p class="tooltip" id="result-tooltip">20.04.2004</p>
+        <div id="result" contenteditable="true"></div>
+        <img draggable="false" id="result-img" alt="CORRUPTED FILE IMAGE" />
+        <audio id="result-audio" controls>
+          Your browser does not support the
+          <code>audio</code> element.
+        </audio>
+        <video controls id="result-video">
+          <source id="result-video-source" src="" />
+        </video>
+      </div>
     </div>
   </body>
 </html>

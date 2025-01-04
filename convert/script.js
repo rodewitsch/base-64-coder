@@ -1,78 +1,11 @@
-const copyToClipboard = value => {
-  if (navigator && navigator.clipboard && navigator.clipboard.writeText && typeof value === 'string') {
-    return navigator.clipboard.writeText(value);
-  }
-  if (navigator && navigator.clipboard && navigator.clipboard.write && typeof value === 'object') {
-    return navigator.clipboard.write(value);
-  }
-  return Promise.reject('The Clipboard API is not available.');
-};
-
-function pasteFromClipboard() {
-  if (navigator && navigator.clipboard && navigator.clipboard.readText) {
-    return navigator.clipboard.readText();
-  }
-  return Promise.reject('The Clipboard API is not available.');
-}
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      return resolve(reader.result);
-    };
-    reader.onerror = function (error) {
-      return reject(error);
-    };
-  });
-}
-
-function isJWT(str) {
-  const parts = str.split('.');
-  if (parts.length === 3) {
-    try {
-      atob(parts[0]);
-      atob(parts[1]);
-      JSON.parse(atob(parts[1]));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-  return false;
-}
-
-function isJSON(str) {
-  if (str.startsWith('{') || str.startsWith('[')) {
-    try {
-      JSON.parse(str);
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-  return false;
-}
-
-function parseJwt(token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-
-  return JSON.parse(jsonPayload);
-};
-
-
 document.onreadystatechange = function () {
+  let resultType;
   const body = document.body;
   const dropOverlay = document.getElementById('drop-overlay');
   const dropOverlayImg = document.getElementById('drop-overlay-img');
   const dropOverlayText = document.getElementById('drop-overlay-text');
   const source = document.getElementById('source');
-  const result = document.getElementById('result');
+  const resultText = document.getElementById('result');
   const resultTooltip = document.getElementById('result-tooltip');
   const resultImg = document.getElementById('result-img');
   const resultAudio = document.getElementById('result-audio');
@@ -81,31 +14,119 @@ document.onreadystatechange = function () {
   const openSourceFile = document.getElementById('open-source-file');
   const encodeBtn = document.getElementById('encode-btn');
   const decodeBtn = document.getElementById('decode-btn');
-  const decodeJwt = document.getElementById('decode-jwt-btn');
-  const decodeImage = document.getElementById('decode-image-btn');
-  const decodeAudio = document.getElementById('decode-audio-btn');
-  const decodeVideo = document.getElementById('decode-video-btn');
-  const copyResult = document.getElementById('copy-result');
-  const copySource = document.getElementById('copy-source');
-  const pasteSource = document.getElementById('paste-source');
-  const clearSource = document.getElementById('clear-source');
-  const clearResult = document.getElementById('clear-result');
-  const saveResult = document.getElementById('save-result');
-  const beautify = document.getElementById('beautify-result');
+  const decodeJwtBtn = document.getElementById('decode-jwt-btn');
+  const decodeImageBtn = document.getElementById('decode-image-btn');
+  const decodeAudioBtn = document.getElementById('decode-audio-btn');
+  const decodeVideoBtn = document.getElementById('decode-video-btn');
+  const copyResultBtn = document.getElementById('copy-result');
+  const copySourceBtn = document.getElementById('copy-source');
+  const pasteSourceBtn = document.getElementById('paste-source');
+  const clearSourceBtn = document.getElementById('clear-source');
+  const clearResultBtn = document.getElementById('clear-result');
+  const saveResultBtn = document.getElementById('save-result');
+  const beautifyBtn = document.getElementById('beautify-result');
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
 
-  function showDropOverlay() {
-    dropOverlay.classList.add('active');
+
+  function setCurrentActiveConvertBtn(btn) {
+    Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
+    if (btn) btn.classList.add('active');
   }
 
-  function hideDropOverlay() {
-    dropOverlay.classList.remove('active');
+  function setCurrentResultType(type) {
+    resultType = type;
+    switch (type) {
+      case 'text': {
+        resultText.style.display = 'block';
+        resultImg.style.display = 'none';
+        resultAudio.style.display = 'none';
+        resultVideo.style.display = 'none';
+        resultImg.src = null;
+        resultAudio.src = null;
+        resultVideoSource.src = null;
+
+        if (isJSON(resultText.innerText)) beautifyBtn.style.display = 'inline';
+        copyResultBtn.classList.remove('disabled');
+        break;
+      }
+      case 'base64': {
+        resultText.style.display = 'block';
+        resultImg.style.display = 'none';
+        resultAudio.style.display = 'none';
+        resultVideo.style.display = 'none';
+        resultImg.src = null;
+        resultAudio.src = null;
+        resultVideoSource.src = null;
+
+        beautifyBtn.style.display = 'none';
+        copyResultBtn.classList.remove('disabled');
+        break;
+      }
+      case 'image': {
+        resultText.style.display = 'none';
+        resultImg.style.display = 'block';
+        resultAudio.style.display = 'none';
+        resultVideo.style.display = 'none';
+        resultAudio.src = null;
+        resultVideoSource.src = null;
+
+        copyResultBtn.classList.add('disabled');
+        break;
+      }
+      case 'audio': {
+        resultText.style.display = 'none';
+        resultImg.style.display = 'none';
+        resultAudio.style.display = 'block';
+        resultVideo.style.display = 'none';
+        resultImg.src = null;
+        resultVideoSource.src = null;
+
+        copyResultBtn.classList.add('disabled');
+        break;
+      }
+      case 'video': {
+        resultText.style.display = 'none';
+        resultImg.style.display = 'none';
+        resultAudio.style.display = 'none';
+        resultVideo.style.display = 'block';
+        resultImg.src = null;
+        resultAudio.src = null;
+
+        copyResultBtn.classList.add('disabled');
+        break;
+      }
+    }
+  }
+
+  function activateAvailableConvertBtns() {
+    setTimeout(() => {
+      if (source.value) {
+        decodeBtn.classList.remove('disabled');
+        encodeBtn.classList.remove('disabled');
+        decodeImageBtn.classList.remove('disabled');
+        decodeAudioBtn.classList.remove('disabled');
+        decodeVideoBtn.classList.remove('disabled');
+
+        if (isJWT(source.value)) {
+          decodeJwtBtn.classList.remove('disabled');
+        } else {
+          decodeJwtBtn.classList.add('disabled');
+        }
+      } else {
+        decodeBtn.classList.add('disabled');
+        encodeBtn.classList.add('disabled');
+        decodeImageBtn.classList.add('disabled');
+        decodeAudioBtn.classList.add('disabled');
+        decodeVideoBtn.classList.add('disabled');
+        decodeJwtBtn.classList.add('disabled');
+      }
+    });
   }
 
   body.ondrop = async (event) => {
     event.preventDefault();
-    hideDropOverlay();
+    dropOverlay.classList.remove('active');
 
     let droppedFile;
 
@@ -120,49 +141,35 @@ document.onreadystatechange = function () {
     if (droppedFile) {
       const base64 = await getBase64(droppedFile);
       source.value = null;
-      result.innerText = base64.replace('data:text/plain;base64,', '');
-      beautify.style.display = 'none';
-      result.style.display = 'block';
+      resultText.innerText = base64.replace('data:text/plain;base64,', '');
+      beautifyBtn.style.display = 'none';
+      resultText.style.display = 'block';
       resultImg.src = null;
       resultImg.style.display = 'none';
       resultAudio.style.display = 'none';
       resultVideo.style.display = 'none';
       resultType = 'text';
-      copyResult.classList.remove('disabled');
+      copyResultBtn.classList.remove('disabled');
     }
   };
 
   body.ondragover = (event) => {
     event.preventDefault();
-    showDropOverlay();
+    dropOverlay.classList.add('active');
   }
 
   body.ondragleave = (event) => {
     if (event.fromElement === dropOverlay) return;
     if (event.fromElement === dropOverlayImg) return;
     if (event.fromElement === dropOverlayText) return;
-    hideDropOverlay();
+    dropOverlay.classList.remove('active');
   }
-
-  let resultType = 'text';
 
   source.value = text || '';
 
-  if (source.value.length > 0) {
-    decodeBtn.classList.remove('disabled');
-    encodeBtn.classList.remove('disabled');
-    decodeImage.classList.remove('disabled');
-    decodeAudio.classList.remove('disabled');
-    decodeVideo.classList.remove('disabled');
+  if (source.value.length > 0) activateAvailableConvertBtns();
 
-    if (isJWT(source.value)) {
-      decodeJwt.classList.remove('disabled');
-    }
-  }
-
-  if (text) {
-    decodeBtn.click();
-  }
+  if (text) decodeBtn.click();
 
   if (text && text.startsWith('[from]')) {
     source.value = text.substring(7);
@@ -174,10 +181,7 @@ document.onreadystatechange = function () {
     encodeBtn.click();
   }
 
-  resultImg.style.display = 'none';
-  resultAudio.style.display = 'none';
-  resultVideo.style.display = 'none';
-  beautify.style.display = 'none';
+  setCurrentResultType('text');
 
   resultImg.onerror = () => {
     resultImg.src = null;
@@ -193,15 +197,15 @@ document.onreadystatechange = function () {
       if (files.length > 0) {
         const base64 = await getBase64(files[0]);
         source.value = null;
-        result.innerText = base64.replace('data:text/plain;base64,', '');
-        beautify.style.display = 'none';
-        result.style.display = 'block';
+        resultText.innerText = base64.replace('data:text/plain;base64,', '');
+        beautifyBtn.style.display = 'none';
+        resultText.style.display = 'block';
         resultImg.src = null;
         resultImg.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
         resultType = 'text';
-        copyResult.classList.remove('disabled');
+        copyResultBtn.classList.remove('disabled');
 
         Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
         event.currentTarget.classList.add('active');
@@ -211,9 +215,6 @@ document.onreadystatechange = function () {
   }
 
   encodeBtn.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
     let encodedText;
     const text = source.value;
     try {
@@ -221,24 +222,16 @@ document.onreadystatechange = function () {
     } catch (err) {
       encodedText = btoa(encodeURIComponent(text));
     }
-    result.innerText = encodedText;
-    beautify.style.display = 'none';
-    result.style.display = 'block';
-    resultImg.src = null;
-    resultImg.style.display = 'none';
-    resultAudio.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultType = 'base64';
-    copyResult.classList.remove('disabled');
+    resultText.innerText = encodedText;
 
-    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-    event.currentTarget.classList.add('active');
+    setCurrentResultType('base64');
+    setCurrentActiveConvertBtn(encodeBtn);
   };
 
-  beautify.onclick = (event) => {
-    if (isJSON(result.innerText)) {
-      result.innerText = JSON.stringify(JSON.parse(result.innerText), null, 2);
-      result.childNodes.forEach((node) => {
+  beautifyBtn.onclick = () => {
+    if (isJSON(resultText.innerText)) {
+      resultText.innerText = JSON.stringify(JSON.parse(resultText.innerText), null, 2);
+      resultText.childNodes.forEach((node) => {
         if (!node.textContent) return;
         if (node.textContent.includes('iat') || node.textContent.includes('exp')) {
           const span = document.createElement('span');
@@ -263,225 +256,120 @@ document.onreadystatechange = function () {
     }
   }
 
-  decodeJwt.onclick = (event) => {
-    result.innerText = JSON.stringify(parseJwt(source.value));
-    if (isJSON(result.innerText)) {
-      beautify.style.display = 'inline';
-      copyResult.classList.remove('disabled');
-      result.style.display = 'block';
-      resultImg.style.display = 'none';
-      resultAudio.style.display = 'none';
-      resultVideo.style.display = 'none';
-      resultVideo.style.display = 'none';
-      resultType = 'text';
-
-      Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-      event.currentTarget.classList.add('active');
-    }
+  decodeJwtBtn.onclick = () => {
+    resultText.innerText = JSON.stringify(parseJwt(source.value));
+    setCurrentResultType('text');
+    setCurrentActiveConvertBtn(decodeJwtBtn);
   }
 
-
-  decodeBtn.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
+  decodeBtn.onclick = () => {
     const base64 = source.value.replace(/data:.+?;base64,/, '');
     try {
-      result.innerText = decodeURIComponent(atob(base64));
+      resultText.innerText = decodeURIComponent(atob(base64));
     }
     catch (err) {
-      result.innerText = atob(base64);
+      resultText.innerText = atob(base64);
     }
-    beautify.style.display = 'none';
-    if (isJSON(result.innerText)) {
-      beautify.style.display = 'inline';
-    }
-    result.style.display = 'block';
-    resultImg.style.display = 'none';
-    resultAudio.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultType = 'text';
-    copyResult.classList.remove('disabled');
 
-    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-    event.currentTarget.classList.add('active');
+    setCurrentResultType('text');
+    setCurrentActiveConvertBtn(decodeBtn);
   };
 
-  decodeImage.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
+  decodeImageBtn.onclick = () => {
     resultImg.src = null;
     if (source.value.startsWith('data:image/')) {
       resultImg.src = source.value;
     } else {
       resultImg.src = `data:image/png;base64,${source.value}`;
     }
-    beautify.style.display = 'none';
-    result.style.display = 'none';
-    resultImg.style.display = 'block';
-    resultAudio.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultType = 'image';
-    copyResult.classList.add('disabled');
 
-    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-    event.currentTarget.classList.add('active');
+    setCurrentResultType('image');
+    setCurrentActiveConvertBtn(decodeImageBtn);
   };
 
-  decodeAudio.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
+  decodeAudioBtn.onclick = () => {
     const base64 = source.value.replace(/data:audio\/.+?;base64,/, '');
     resultAudio.src = `data:audio/mp3;base64,${base64}`;
-    beautify.style.display = 'none';
-    result.style.display = 'none';
-    resultImg.style.display = 'none';
-    resultAudio.style.display = 'block';
-    resultVideo.style.display = 'none';
-    resultType = 'audio';
-    copyResult.classList.add('disabled');
 
-    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-    event.currentTarget.classList.add('active');
+    setCurrentResultType('audio');
+    setCurrentActiveConvertBtn(decodeAudioBtn);
   };
 
-  decodeVideo.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
+  decodeVideoBtn.onclick = () => {
     const base64 = source.value.replace(/data:video\/.+?;base64,/, '');
     resultVideoSource.src = `data:video/mp4;base64,${base64}`;
-    beautify.style.display = 'none';
-    result.style.display = 'none';
-    resultImg.style.display = 'none';
-    resultAudio.style.display = 'none';
-    resultVideo.style.display = 'block';
     resultVideo.load();
-    resultType = 'video';
-    copyResult.classList.add('disabled');
 
-    Array.from(event.currentTarget.parentNode.querySelectorAll('.active')).forEach((elem) => { elem.classList.remove('active'); })
-    event.currentTarget.classList.add('active');
+    setCurrentResultType('video');
+    setCurrentActiveConvertBtn(decodeVideoBtn);
   };
 
-  function activateFunctionsOnSourceEvent() {
-    setTimeout(() => {
-      if (source.value) {
-        decodeBtn.classList.remove('disabled');
-        encodeBtn.classList.remove('disabled');
-        decodeImage.classList.remove('disabled');
-        decodeAudio.classList.remove('disabled');
-        decodeVideo.classList.remove('disabled');
+  source.onpaste = () => activateAvailableConvertBtns();
 
-        if (isJWT(source.value)) {
-          decodeJwt.classList.remove('disabled');
-        } else {
-          decodeJwt.classList.add('disabled');
-        }
-      } else {
-        decodeBtn.classList.add('disabled');
-        encodeBtn.classList.add('disabled');
-        decodeImage.classList.add('disabled');
-        decodeAudio.classList.add('disabled');
-        decodeVideo.classList.add('disabled');
-        decodeJwt.classList.add('disabled');
-      }
-    });
-  }
+  source.onkeyup = () => activateAvailableConvertBtns();
 
-  source.onpaste = (event) => activateFunctionsOnSourceEvent(event);
+  copySourceBtn.onclick = () => copyToClipboard(source.value);
 
-  source.onkeyup = (event) => activateFunctionsOnSourceEvent(event);
-
-  copySource.onclick = () => copyToClipboard(source.value);
-
-  pasteSource.onclick = async () => {
+  pasteSourceBtn.onclick = async () => {
     const text = await pasteFromClipboard();
     source.value = text;
-    source.dispatchEvent(new Event('keyup'));
+    setCurrentResultType('text');
   };
 
-  clearSource.onclick = () => {
+  clearSourceBtn.onclick = () => {
     source.value = '';
-    source.dispatchEvent(new Event('keyup'));
-
-    Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
+    setCurrentResultType('text');
+    setCurrentActiveConvertBtn();
+    activateAvailableConvertBtns();
   }
 
-  clearResult.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
-    result.innerText = '';
-    resultImg.src = null;
-    resultAudio.src = null;
-    resultVideoSource.src = null;
-    beautify.style.display = 'none';
-    result.style.display = 'block';
-    resultImg.style.display = 'none';
-    resultAudio.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultVideo.style.display = 'none';
-    resultType = 'text';
-
-    Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
+  clearResultBtn.onclick = () => {
+    resultText.innerText = '';
+    setCurrentResultType('text');
+    setCurrentActiveConvertBtn();
+    activateAvailableConvertBtns();
   }
 
   document.onkeydown = function (event) {
-    console.log(event);
     if (event.ctrlKey && event.key === 's') {
-      saveResult.click();
+      saveResultBtn.click();
       return false;
     }
   };
 
-  saveResult.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
-    if (resultType === 'text') {
-      if (isJSON(result.innerText)) {
-        const blob = new Blob([JSON.stringify(JSON.parse(result.innerText), null, 2)], { type: 'application/json' });
-        saveAs(blob, "data.json");
-      } else {
-        const blob = new Blob([result.innerText], { type: 'text/plain' });
-        saveAs(blob, "text.txt");
+  saveResultBtn.onclick = () => {
+    switch (resultType) {
+      case 'text':
+      case 'base64': {
+        if (isJSON(resultText.innerText)) {
+          const blob = new Blob([JSON.stringify(JSON.parse(resultText.innerText), null, 2)], { type: 'application/json' });
+          saveAs(blob, "data.json");
+        } else {
+          const blob = new Blob([resultText.innerText], { type: 'text/plain' });
+          saveAs(blob, "text.txt");
+        }
+        break;
       }
-    }
-    if (resultType === 'image') {
-      if (resultImg.src.startsWith('data:image/png;base64,')) {
-        saveAs(resultImg.src, "image.png");
-      } else {
-        saveAs(resultImg.src, "image.jpeg");
+      case 'image': {
+        if (resultImg.src.startsWith('data:image/png;base64,')) {
+          saveAs(resultImg.src, "image.png");
+        } else {
+          saveAs(resultImg.src, "image.jpeg");
+        }
+        break;
       }
-    }
-    if (resultType === 'audio') {
-      saveAs(resultAudio.src, "audio.mp3");
-    }
-    if (resultType === 'video') {
-      alert('Video is not supported yet.');
+      case 'audio': saveAs(resultAudio.src, "audio.mp3"); break;
+      case 'video': alert('Video is not supported yet.'); break;
     }
   };
 
-  copyResult.onclick = (event) => {
-    if (event.currentTarget.classList.contains('disabled')) {
-      return;
-    }
-    if (resultType === 'text') {
-      copyToClipboard(result.innerText);
-    }
-    if (resultType === 'image') {
-      alert('Image is not copyable. Please use context menu.');
-    }
-    if (resultType === 'audio') {
-      alert('Audio is not copyable. Please use context menu.');
-    }
-    if (resultType === 'video') {
-      alert('Video is not copyable. Please use context menu.');
+  copyResultBtn.onclick = () => {
+    switch (resultType) {
+      case 'text':
+      case 'base64': copyToClipboard(resultText.innerText); break;
+      case 'image':
+      case 'audio':
+      case 'video': alert(`Result of ${resultType} type is not copyable. Please use context menu.`); break;
     }
   }
 };
