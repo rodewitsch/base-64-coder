@@ -376,14 +376,14 @@ document.onreadystatechange = function () {
   }
 
   document.onkeyup = function (event) {
-    if(!event.shiftKey) {
+    if (!event.shiftKey) {
       copyResultBtn.querySelector('span').innerText = 'copy';
       saveResultBtn.querySelector('span').innerText = 'save';
     }
   }
 
   document.onkeydown = function (event) {
-    if(event.shiftKey) {
+    if (event.shiftKey) {
       copyResultBtn.querySelector('span').innerText = 'copy*';
       saveResultBtn.querySelector('span').innerText = 'save*';
     }
@@ -405,10 +405,17 @@ document.onreadystatechange = function () {
     }
   }
 
-  copyResultBtn.onclick = () => {
+  copyResultBtn.onclick = (event) => {
     switch (resultType) {
       case 'text':
-      case 'base64': copyToClipboard(resultText.innerText); break;
+      case 'base64': {
+        if (event.shiftKey) {
+          copyToClipboard(resultText.innerText.replace(/data:.*?;base64,/, ''));
+        } else {
+          copyToClipboard(resultText.innerText);
+        }
+        break;
+      }
       case 'image':
       case 'audio':
       case 'video': alert(`Result of ${resultType} type is not copyable. Please use context menu.`); break;
