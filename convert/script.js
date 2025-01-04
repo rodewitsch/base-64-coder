@@ -49,7 +49,7 @@ document.onreadystatechange = function () {
         resultAudio.src = null;
         resultVideoSource.src = null;
         beautifyBtn.style.display = 'none';
-        
+
         if (isJSON(resultText.innerText)) beautifyBtn.style.display = 'inline';
         copyResultBtn.classList.remove('disabled');
         break;
@@ -133,6 +133,32 @@ document.onreadystatechange = function () {
         decodeJwtBtn.classList.add('disabled');
       }
     });
+  }
+
+  function saveResultToFile(result) {
+    switch (resultType) {
+      case 'text':
+      case 'base64': {
+        if (isJSON(resultText.innerText)) {
+          const blob = new Blob([JSON.stringify(JSON.parse(resultText.innerText), null, 2)], { type: 'application/json' });
+          saveAs(blob, "data.json");
+        } else {
+          const blob = new Blob([result || resultText.innerText], { type: 'text/plain' });
+          saveAs(blob, "text.txt");
+        }
+        break;
+      }
+      case 'image': {
+        if (resultImg.src.startsWith('data:image/png;base64,')) {
+          saveAs(resultImg.src, "image.png");
+        } else {
+          saveAs(resultImg.src, "image.jpeg");
+        }
+        break;
+      }
+      case 'audio': saveAs(resultAudio.src, "audio.mp3"); break;
+      case 'video': alert('Video is not supported yet.'); break;
+    }
   }
 
   body.ondrop = async (event) => {
@@ -349,38 +375,35 @@ document.onreadystatechange = function () {
     activateAvailableConvertBtns();
   }
 
+  document.onkeyup = function (event) {
+    if(!event.shiftKey) {
+      copyResultBtn.querySelector('span').innerText = 'copy';
+      saveResultBtn.querySelector('span').innerText = 'save';
+    }
+  }
+
   document.onkeydown = function (event) {
+    if(event.shiftKey) {
+      copyResultBtn.querySelector('span').innerText = 'copy*';
+      saveResultBtn.querySelector('span').innerText = 'save*';
+    }
     if (event.ctrlKey && event.key === 's') {
-      saveResultBtn.click();
+      saveResultToFile();
+      return false;
+    }
+    if (event.shiftKey && event.key.toLowerCase() === 's') {
+      saveResultToFile(resultText.innerText.replace(/data:.*?;base64,/, ''));
       return false;
     }
   };
 
-  saveResultBtn.onclick = () => {
-    switch (resultType) {
-      case 'text':
-      case 'base64': {
-        if (isJSON(resultText.innerText)) {
-          const blob = new Blob([JSON.stringify(JSON.parse(resultText.innerText), null, 2)], { type: 'application/json' });
-          saveAs(blob, "data.json");
-        } else {
-          const blob = new Blob([resultText.innerText], { type: 'text/plain' });
-          saveAs(blob, "text.txt");
-        }
-        break;
-      }
-      case 'image': {
-        if (resultImg.src.startsWith('data:image/png;base64,')) {
-          saveAs(resultImg.src, "image.png");
-        } else {
-          saveAs(resultImg.src, "image.jpeg");
-        }
-        break;
-      }
-      case 'audio': saveAs(resultAudio.src, "audio.mp3"); break;
-      case 'video': alert('Video is not supported yet.'); break;
+  saveResultBtn.onclick = (event) => {
+    if (event.shiftKey) {
+      saveResultToFile(resultText.innerText.replace(/data:.*?;base64,/, ''));
+    } else {
+      saveResultToFile();
     }
-  };
+  }
 
   copyResultBtn.onclick = () => {
     switch (resultType) {
