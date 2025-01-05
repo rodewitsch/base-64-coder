@@ -100,6 +100,9 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   }
   if (request.type == 'error') errorBadge();
   if (request.type == 'success') successBadge();
+  if (request.type == 'openFAQ') {
+    chrome.tabs.create({ url: chrome.runtime.getURL('faq/index.html') });
+  }
   sendResponse({ received: true });
 });
 

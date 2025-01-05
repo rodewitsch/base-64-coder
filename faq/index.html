@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Base64Coder Guide</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/icons/b64c48.png" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./script.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>
+        <img draggable="false" src="../assets/images/icons/b64c48.png" alt="Base64Coder" />
+        Base64Coder Guide
+      </h1>
+
+      <button class="accordion">How to use the extension in the search bar</button>
+      <div class="panel">
+        <p>To activate the extension, enter '64' in the search bar and press 'Tab'.</p>
+
+        <p>
+          Write or paste text that you want to convert and choose the conversion direction: 'base64 - text' or 'text -
+          base64' using keyboard or mouse.
+        </p>
+
+        <div class="hcenter">
+          <iframe
+            width="840"
+            height="473"
+            src="https://www.youtube.com/embed/TfT2OFRtAo0?si=sq5uGAzT1vfhkScX"
+            title="How to use the extension in the search bar"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <button class="accordion">Context menu features</button>
+      <div class="panel">
+        <p class="hcenter">
+          <img draggable="false" src="../assets/images/context menu.jpg" alt="context menu" />
+        </p>
+
+        <p>The context menu provides access to the following extension features:</p>
+
+        <ul>
+          <li><b>copy base64 -> text</b> - converts the selected text from base64 to text.</li>
+          <li><b>copy text -> base64</b> - converts the selected text to base64.</li>
+          <li>
+            <b>copy image -> base64</b> - converts and copy the image under the pointer to base64. Process of converting
+            images to base64 can take some time, you can see the progress in the extension icon.
+
+            <p class="vcenter">
+              <img draggable="false " src="../assets/images/wait.jpg" alt="wait icon" /> - the process is running.
+            </p>
+
+            <p class="vcenter">
+              <img draggable="false" src="../assets/images/done.jpg" alt="done icon" /> - the process is done.
+            </p>
+
+            <p class="vcenter">
+              <img draggable="false" src="../assets/images/err.jpg" alt="err icon" /> - an error occurred during the
+              process.
+            </p>
+          </li>
+          <li>
+            <b>open base64</b> - opens the selected text in the extension where you can covert it to what you need.
+          </li>
+        </ul>
+      </div>
+
+      <button class="accordion">Available hot keys</button>
+      <div class="panel">
+        <p>The extension provides the following keyboard shortcuts:</p>
+
+        <ul>
+          <li><b>Ctrl + S</b> - saves the result to the file. (Video is not supported)</li>
+          <li>
+            <b>Ctrl + Shift + S</b> - saves the result to the file without base64 mime prefix. (Video is not supported)
+          </li>
+          <li>
+            <b>Shift</b> - buttons "Copy" and "Save" will do their function removing base64 mime prefix. <br /><br />
+            <p class="hcenter">
+              <img src="../assets/images/extended copy mode.jpg" alt="extended copy mode" />
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <button class="accordion">Result formatting</button>
+      <div class="panel">
+        <p>
+          If the result is JSON, you can use the "Pretty" button, which formats the JSON. If JSON contains properties
+          such as "iat", "exp" (which usually exist in JWT), the extension allows you to view the date/time in a
+          human-readable format.
+        </p>
+
+        <p class="hcenter">
+          <img src="../assets/images/format.jpg" alt="format" />
+        </p>
+      </div>
+
+      <button class="accordion">What to do if something goes wrong?</button>
+      <div class="panel">
+        <p>Try turning it off and then turning it back on.</p>
+
+        <p style="display: flex; justify-content: space-around">
+          <img width="400" src="../assets/images/browser extension menu.jpg" alt="browser extension menu" />
+          <img width="400" src="../assets/images/reload.jpg" alt="reload" />
+        </p>
+
+        <p>If this doesn't help, write to me. Maybe I can help.</p>
+
+        <p>E-mail: <a href="mailto:rodewitsch@inbox.ru">rodewitsch@inbox.ru</a></p>
+      </div>
+    </div>
+  </body>
+</html>

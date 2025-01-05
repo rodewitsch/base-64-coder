@@ -1,0 +1,121 @@
+:root {
+  --main-bg-color: #f8f8f8;
+}
+
+html,
+body {
+  background-color: var(--main-bg-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+}
+
+h1 img {
+  margin-right: 10px;
+}
+
+.container {
+  max-width: 1366px;
+  width: 90vw;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.accordion.active {
+  border-radius: 10px 10px 0 0;
+}
+
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  border-radius: 0 0 10px 10px;
+  font-size: 16px;
+  padding-bottom: 20px;
+}
+
+.accordion:before {
+  content: '▼';
+  color: #777;
+  float: left;
+  margin-right: 10px;
+  width: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accordion.active:before {
+  content: '▲';
+}
+
+.hcenter {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.vcenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-bg-color: #333333;
+  }
+
+  h1 {
+    color: white;
+  }
+
+  .accordion {
+    background-color: #3d3d3d;
+    color: white;
+  }
+
+  .active,
+  .accordion:hover {
+    background-color: #4d4d4d;
+  }
+
+  .accordion:after {
+    color: white;
+  }
+
+  .panel {
+    background-color: #454545;
+    color: white;
+  }
+}

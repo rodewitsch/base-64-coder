@@ -27,6 +27,9 @@ document.onreadystatechange = function () {
   const clearResultBtn = document.getElementById('clear-result');
   const saveResultBtn = document.getElementById('save-result');
   const beautifyBtn = document.getElementById('beautify-result');
+  const openExtensionPageBtn = document.getElementById('open-extension-page');
+  const openFAQBtn = document.getElementById('open-faq');
+
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
   let selectedFile;
@@ -433,7 +436,7 @@ document.onreadystatechange = function () {
       saveResultToFile();
       return false;
     }
-    if (event.shiftKey && event.key.toLowerCase() === 's') {
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 's') {
       saveResultToFile(resultText.innerText.replace(/data:.*?;base64,/, ''));
       return false;
     }
@@ -462,5 +465,13 @@ document.onreadystatechange = function () {
       case 'audio':
       case 'video': alert(`Result of ${resultType} type is not copyable. Please use context menu.`); break;
     }
+  }
+
+  openExtensionPageBtn.onclick = () => {
+    window.open('https://chromewebstore.google.com/detail/base64coder/ebgonfpmppfndacngpbmgajldoabnjkm', '_blank');
+  }
+
+  openFAQBtn.onclick = () => {
+    chrome.runtime.sendMessage({ type: 'openFAQ' });
   }
 };
