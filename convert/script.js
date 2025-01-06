@@ -190,6 +190,25 @@ document.onreadystatechange = function () {
     }
   }
 
+  function clearSource() {
+    source.value = '';
+    selectedFile = null;
+    source.style.display = 'block';
+    sourceFileInfo.classList.remove('active');
+    copySourceBtn.classList.remove('disabled');
+    pasteSourceBtn.classList.remove('disabled');
+    setCurrentResultType('text');
+    setCurrentActiveConvertBtn();
+    activateAvailableBtns();
+  }
+
+  function clearResult() {
+    resultText.innerText = '';
+    setCurrentResultType('text');
+    setCurrentActiveConvertBtn();
+    activateAvailableBtns();
+  }
+
   body.ondrop = async (event) => {
     event.preventDefault();
     dropOverlay.classList.remove('active');
@@ -400,30 +419,24 @@ document.onreadystatechange = function () {
     setCurrentResultType('text');
   };
 
-  clearSourceBtn.onclick = () => {
-    source.value = '';
-    selectedFile = null;
-    source.style.display = 'block';
-    sourceFileInfo.classList.remove('active');
-    copySourceBtn.classList.remove('disabled');
-    pasteSourceBtn.classList.remove('disabled');
-    setCurrentResultType('text');
-    setCurrentActiveConvertBtn();
-    activateAvailableBtns();
+  clearSourceBtn.onclick = (event) => {
+    clearSource();
+    if (event.shiftKey) clearResult();
+    source.focus();
   }
 
-  clearResultBtn.onclick = () => {
-    resultText.innerText = '';
-
-    setCurrentResultType('text');
-    setCurrentActiveConvertBtn();
-    activateAvailableBtns();
+  clearResultBtn.onclick = (event) => {
+    clearResult();
+    if (event.shiftKey) clearSource();
+    source.focus();
   }
 
   document.onkeyup = function (event) {
     if (!event.shiftKey) {
       copyResultBtn.querySelector('span').innerText = 'copy';
       saveResultBtn.querySelector('span').innerText = 'save';
+      clearResultBtn.querySelector('span').innerText = 'clear';
+      clearSourceBtn.querySelector('span').innerText = 'clear';
     }
   }
 
@@ -431,6 +444,8 @@ document.onreadystatechange = function () {
     if (event.shiftKey) {
       copyResultBtn.querySelector('span').innerText = 'copy*';
       saveResultBtn.querySelector('span').innerText = 'save*';
+      clearResultBtn.querySelector('span').innerText = 'clear*';
+      clearSourceBtn.querySelector('span').innerText = 'clear*';
     }
     if (event.ctrlKey && event.key === 's') {
       saveResultToFile();
@@ -438,6 +453,11 @@ document.onreadystatechange = function () {
     }
     if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 's') {
       saveResultToFile(resultText.innerText.replace(/data:.*?;base64,/, ''));
+      return false;
+    }
+    if (event.shiftKey && (event.key === "Backspace" || event.key === "Delete")) {
+      clearResult();
+      clearSource();
       return false;
     }
   };
