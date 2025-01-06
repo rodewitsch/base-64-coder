@@ -106,6 +106,10 @@ document.onreadystatechange = function () {
     }
   }
 
+  function isResult() {
+    return resultText.innerHTML && resultText.innerHTML !== '<br>' || location.origin + '/convert/null' !== resultImg.src || location.origin + '/convert/null' !== resultAudio.src || location.origin + '/convert/null' !== resultVideoSource.src;
+  }
+
   function activateAvailableBtns() {
     setTimeout(() => {
       if (source.value) {
@@ -152,7 +156,7 @@ document.onreadystatechange = function () {
         clearSourceBtn.classList.add('disabled');
       }
 
-      if (resultText.innerHTML && resultText.innerHTML !== '<br>' || location.origin + '/convert/null' !== resultImg.src || location.origin + '/convert/null' !== resultAudio.src || location.origin + '/convert/null' !== resultVideoSource.src) {
+      if (isResult()) {
         copyResultBtn.classList.remove('disabled');
         saveResultBtn.classList.remove('disabled');
         clearResultBtn.classList.remove('disabled');
@@ -442,6 +446,10 @@ document.onreadystatechange = function () {
       clearResultBtn.querySelector('span').innerText = 'clear';
       clearSourceBtn.querySelector('span').innerText = 'clear';
     }
+
+    if (!event.altKey) {
+      document.querySelectorAll('.actions .btn').forEach((elem) => elem.classList.remove('alt'));
+    }
   }
 
   document.onkeydown = function (event) {
@@ -451,19 +459,52 @@ document.onreadystatechange = function () {
       clearResultBtn.querySelector('span').innerText = 'clear*';
       clearSourceBtn.querySelector('span').innerText = 'clear*';
     }
-    if (event.ctrlKey && event.key === 's') {
-      saveResultToFile();
+
+    if (event.ctrlKey && event.code === 'KeyO') {
+      openSourceFile.click();
       return false;
     }
-    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 's') {
-      saveResultToFile(resultText.innerText.replace(/data:.*?;base64,/, ''));
+
+    if (event.ctrlKey && event.code === 'KeyS') {
+      if (isResult()) {
+        if (event.shiftKey) {
+          saveResultToFile(resultText.innerText.replace(/data:.*?;base64,/, ''));
+        } else {
+          saveResultToFile();
+        }
+      }
       return false;
     }
+
     if (event.shiftKey && (event.key === "Backspace" || event.key === "Delete")) {
       clearResult();
       clearSource();
       return false;
     }
+
+    if (event.altKey) {
+      document.querySelectorAll('.actions .btn').forEach((elem) => elem.classList.add('alt'));
+      if (event.key === '1' && !decodeBtn.classList.contains('disabled')) decodeBtn.click();
+      if (event.key === '2' && !encodeBtn.classList.contains('disabled')) encodeBtn.click();
+      if (event.key === '3' && !decodeJwtBtn.classList.contains('disabled')) decodeJwtBtn.click();
+      if (event.key === '4' && !decodeImageBtn.classList.contains('disabled')) decodeImageBtn.click();
+      if (event.key === '5' && !decodeAudioBtn.classList.contains('disabled')) decodeAudioBtn.click();
+      if (event.key === '6' && !decodeVideoBtn.classList.contains('disabled')) decodeVideoBtn.click();
+      return false;
+    }
+
+    if (event.ctrlKey && event.code === 'KeyC') {
+      const selection = window.getSelection();
+      if (!selection.toString() && (resultType === 'text' || resultType === 'base64')) {
+        if (event.shiftKey) {
+          copyToClipboard(resultText.innerText.replace(/data:.*?;base64,/, ''));
+        } else {
+          copyToClipboard(resultText.innerText);
+        }
+        return false;
+      }
+    }
+
   };
 
   saveResultBtn.onclick = (event) => {

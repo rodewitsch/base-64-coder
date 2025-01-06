@@ -21,7 +21,7 @@
       <div class="action-area-header">
         <label for="source">Source: </label>
         <div class="btn-panel">
-          <button title="Select file to encode in base64" class="btn" id="open-source-file">
+          <button title="[ Ctrl + O ] Select file to encode in base64" class="btn" id="open-source-file">
             <input type="file" name="input-name" style="display: none" />
             <img draggable="false" src="../assets/images/icons/file.png" alt="open file" />
             <span>file</span>
@@ -54,32 +54,47 @@
         <label>Convert to:</label>
       </div>
       <div class="actions">
-        <button title="Convert source value to text" class="btn disabled" id="decode-btn">
+        <button data-tooltip="1" title="[ Alt + 1 ] Convert source value to text" class="btn disabled" id="decode-btn">
           <img draggable="false" src="../assets/images/icons/text.png" alt="to text" />
           <span>text</span>
         </button>
 
-        <button title="Convert source value to base64" class="btn disabled" id="encode-btn">
+        <button data-tooltip="2" title="[ Alt + 2 ] Convert source value to base64" class="btn disabled" id="encode-btn">
           <img draggable="false" src="../assets/images/icons/base64.png" alt="to base64" />
           <span>base64</span>
         </button>
 
-        <button title="Convert source value to parsed JWT" class="btn disabled" id="decode-jwt-btn">
+        <button data-tooltip="3" title="[ Alt + 3 ] Convert source value to parsed JWT" class="btn disabled" id="decode-jwt-btn">
           <img draggable="false" src="../assets/images/icons/jwt.png" alt="decode jwt" />
           <span>jwt</span>
         </button>
 
-        <button title="Convert source base64 value to image" class="btn disabled" id="decode-image-btn">
+        <button
+          data-tooltip="4"
+          title="[ Alt + 4 ] Convert source base64 value to image"
+          class="btn disabled"
+          id="decode-image-btn"
+        >
           <img draggable="false" src="../assets/images/icons/image.png" alt="to image" />
           <span>image</span>
         </button>
 
-        <button title="Convert source base64 value to audio" class="btn disabled" id="decode-audio-btn">
+        <button
+          data-tooltip="5"
+          title="[ Alt + 5 ] Convert source base64 value to audio"
+          class="btn disabled"
+          id="decode-audio-btn"
+        >
           <img draggable="false" src="../assets/images/icons/audio.png" alt="to audio" />
           <span>audio</span>
         </button>
 
-        <button title="Convert source base64 value to video" class="btn disabled" id="decode-video-btn">
+        <button
+          data-tooltip="6"
+          title="[ Alt + 6 ] Convert source base64 value to video"
+          class="btn disabled"
+          id="decode-video-btn"
+        >
           <img draggable="false" src="../assets/images/icons/video.png" alt="to video" />
           <span>video</span>
         </button>
@@ -94,11 +109,11 @@
             <img draggable="false" src="../assets/images/icons/structure.png" alt="tree" />
             <span>pretty</span>
           </button>
-          <button title="Copy result value to clipboard" class="btn" id="copy-result">
+          <button title="[ Ctrl + C / Ctrl + Shift + C ] Copy result value to clipboard" class="btn" id="copy-result">
             <img draggable="false" src="../assets/images/icons/copy.png" alt="copy" />
             <span>copy</span>
           </button>
-          <button title="Save result value to file" class="btn" id="save-result">
+          <button title="[ Ctrl + S / Ctrl + Shift + S ] Save result value to file" class="btn" id="save-result">
             <img draggable="false" src="../assets/images/icons/save.png" alt="save" />
             <span>save</span>
           </button>
