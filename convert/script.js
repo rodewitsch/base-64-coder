@@ -152,7 +152,7 @@ document.onreadystatechange = function () {
         clearSourceBtn.classList.add('disabled');
       }
 
-      if (resultText.innerHTML) {
+      if (resultText.innerHTML && resultText.innerHTML !== '<br>' || location.origin + '/convert/null' !== resultImg.src || location.origin + '/convert/null' !== resultAudio.src || location.origin + '/convert/null' !== resultVideoSource.src) {
         copyResultBtn.classList.remove('disabled');
         saveResultBtn.classList.remove('disabled');
         clearResultBtn.classList.remove('disabled');
@@ -271,9 +271,11 @@ document.onreadystatechange = function () {
   setCurrentResultType('text');
 
   resultImg.onerror = () => {
-    resultImg.src = null;
-    resultImg.src = "../assets/images/icons/corrupted-file.png";
-    return true;
+    if (resultType === 'image') {
+      resultImg.src = null;
+      resultImg.src = "../assets/images/icons/corrupted-file.png";
+      return true;
+    }
   }
 
   openSourceFile.onclick = () => {
@@ -411,6 +413,8 @@ document.onreadystatechange = function () {
   source.onkeyup = () => activateAvailableBtns();
 
   copySourceBtn.onclick = () => copyToClipboard(source.value);
+
+  resultText.oninput = () => activateAvailableBtns();
 
   pasteSourceBtn.onclick = async () => {
     const text = await pasteFromClipboard();
