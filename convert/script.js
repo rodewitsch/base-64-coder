@@ -427,6 +427,25 @@ document.onreadystatechange = function () {
     setCurrentResultType('text');
   };
 
+  document.addEventListener('paste', async (event) => {
+    if (event.clipboardData.files.length === 0) return;
+    const files = Array.from(event.clipboardData.files);
+    selectedFile = files[0];
+    event.preventDefault();
+    const base64 = await getBase64(files[0]);
+    source.value = null;
+    resultText.innerText = base64.replace('data:text/plain;base64,', '');
+
+    source.style.display = 'none';
+    copySourceBtn.classList.add('disabled');
+    pasteSourceBtn.classList.add('disabled');
+    sourceFileInfo.classList.add('active');
+    setCurrentResultType('base64');
+    setCurrentActiveConvertBtn(encodeBtn);
+    activateAvailableBtns();
+    sourceFileName.innerText = files[0].name;
+  });
+
   clearSourceBtn.onclick = (event) => {
     clearSource();
     if (event.shiftKey) clearResult();
