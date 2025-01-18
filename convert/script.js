@@ -346,7 +346,7 @@ document.onreadystatechange = function () {
             resultTooltip.textContent = dayjs.unix(date).format('YYYY-MM-DD HH:mm:ss');
             const rect = span.getBoundingClientRect();
             resultTooltip.style.top = `${rect.top - 16}px`;
-            resultTooltip.style.left = `${rect.left - 125}px`;
+            resultTooltip.style.left = `${rect.right + 10}px`;
             span.style.backgroundColor = 'lightgrey';
             resultTooltip.style.display = 'block';
           });
