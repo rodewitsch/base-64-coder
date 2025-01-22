@@ -524,6 +524,11 @@ document.onreadystatechange = function () {
       }
     }
 
+    if (event.code === 'F1') {
+      openFAQBtn.click();
+      return false;
+    }
+
   };
 
   saveResultBtn.onclick = (event) => {
