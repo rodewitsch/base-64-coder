@@ -28,13 +28,30 @@ function getBase64(file) {
   });
 }
 
+function base64UrlEncode(str) {
+  return btoa(str)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+}
+
+function base64UrlDecode(str) {
+  str = str
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+  while (str.length % 4) {
+      str += '=';
+  }
+  return atob(str);
+}
+
 function isJWT(str) {
   const parts = str.split('.');
   if (parts.length === 3) {
     try {
-      atob(parts[0]);
-      atob(parts[1]);
-      JSON.parse(atob(parts[1]));
+      base64UrlDecode(parts[0]);
+      base64UrlDecode(parts[1]);
+      JSON.parse(base64UrlDecode(parts[1]));
       return true;
     } catch (e) {
       return false;
