@@ -84,7 +84,7 @@ async function encodeText(text, tab) {
 }
 
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-  if (request.type == 'getBase64ImageFromElement') {
+  if (request.type === 'getBase64ImageFromElement') {
     fetch(request.src)
       .then(response => response.blob())
       .then(blob => {
@@ -98,9 +98,9 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
       })
       .catch(() => errorBadge());
   }
-  if (request.type == 'error') errorBadge();
-  if (request.type == 'success') successBadge();
-  if (request.type == 'openFAQ') {
+  if (request.type === 'error') errorBadge();
+  if (request.type === 'success') successBadge();
+  if (request.type === 'openFAQ') {
     chrome.tabs.create({ url: chrome.runtime.getURL('faq/index.html') });
   }
   sendResponse({ received: true });
@@ -122,7 +122,8 @@ function errorBadge() {
 function waitBadge() {
   chrome.action.setBadgeText({ text: 'WAIT' });
   chrome.action.setBadgeBackgroundColor({ color: 'yellow' });
-  setTimeout(() => {
-    if (chrome.action.getBadgeText() == 'WAIT') errorBadge();
+  setTimeout(async () => {
+    const badgeText = await chrome.action.getBadgeText({});
+    if (badgeText === 'WAIT') errorBadge();
   }, 2000);
 }
