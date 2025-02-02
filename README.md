@@ -10,6 +10,8 @@
 - copy image to base64
 - decode JWT tokens
 
+If this extension is useful to you, please leave a few kind words in the review, it will be a good payment for me. 👉👈
+
 ### Video preview (click to play)
 
 [![Watch the video](https://img.youtube.com/vi/u8NA7PN8EaI/maxresdefault.jpg)](https://www.youtube.com/watch?v=u8NA7PN8EaI)
