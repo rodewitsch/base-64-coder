@@ -1,0 +1,4 @@
+{
+  "commitUrlFormat": "https://github.com/rodewitsch/base-64-coder/commits/{{hash}}",
+  "compareUrlFormat": "https://github.com/rodewitsch/base-64-coder/compare/{{previousTag}}...{{currentTag}}"
+}
