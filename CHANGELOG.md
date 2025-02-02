@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.25.0](https://github.com/rodewitsch/base-64-coder/compare/v1.24.2...v1.25.0) (2025-02-02)
+
+
+### Features
+
+* cut available contexts for "copy image to base64" feature ([59cfa66](https://github.com/rodewitsch/base-64-coder/commits/59cfa66afa9ba9ecd03999003ee503f37a500631))
+
 ## [1.24.2](https://github.com/rodewitsch/Base64Coder/compare/v1.24.1...v1.24.2) (2025-01-31)
 
 
@@ -286,6 +297,3 @@
 * omnibox, convert page ([48528ba](https://github.com/rodewitsch/Base64Coder/commit/48528bae84719b4e323ce8315e068a6028cca3d5))
 * prototype of features: copy from text -> base64, base64 -> text, image -> base64 ([1f0db11](https://github.com/rodewitsch/Base64Coder/commit/1f0db118cc6cd591336a532c03dae20847037f3b))
 * remove unused canvas ([043aa8b](https://github.com/rodewitsch/Base64Coder/commit/043aa8b426b32a49bbeb7b282dd7b96ab40013ed))
-
-
-
