@@ -15,7 +15,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
   title: 'copy image ➜ base64',
   id: 'base64codermenuimagebase64',
-  contexts: ['all'],
+  contexts: ['page', 'image', 'frame', 'link'],
   visible: true
 }, () => chrome.runtime.lastError);
 
