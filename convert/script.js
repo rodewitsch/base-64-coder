@@ -218,11 +218,11 @@ document.onreadystatechange = function () {
     dropOverlay.classList.remove('active');
 
     if (event.dataTransfer.items) {
-      [...event.dataTransfer.items].forEach((item, i) => {
+      [...event.dataTransfer.items].forEach((item) => {
         if (item.kind === "file") selectedFile = item.getAsFile();
       });
     } else {
-      [...event.dataTransfer.files].forEach((file, i) => selectedFile = file);
+      [...event.dataTransfer.files].forEach((file) => selectedFile = file);
     }
 
     if (selectedFile) {
@@ -323,7 +323,7 @@ document.onreadystatechange = function () {
 
       source.style.display = 'none';
       sourceFileInfo.classList.add('active');
-      sourceFileName.innerText = files[0].name;
+      sourceFileName.innerText = selectedFile.name;
     }
 
     activateAvailableBtns();
@@ -341,7 +341,7 @@ document.onreadystatechange = function () {
           node.parentNode.insertBefore(span, node);
           span.appendChild(node);
           span.style.backgroundColor = '#d3d3d347';
-          span.addEventListener('mouseover', (event) => {
+          span.addEventListener('mouseover', () => {
             const date = node.textContent.match(/"(iat|exp)": (?<date>\d+)/).groups.date;
             resultTooltip.textContent = new Date(date * 1000).toLocaleString();
             const rect = span.getBoundingClientRect();
