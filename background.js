@@ -32,7 +32,7 @@ chrome.omnibox.onInputEntered.addListener((text) => {
 });
 
 chrome.omnibox.onInputChanged.addListener((text, suggest) => {
-  text = text.replace(" ", "");
+  text = text.trim();
 
   var suggestions = [];
   suggestions.push({ content: text, description: "Base64Coder" });
