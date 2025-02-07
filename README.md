@@ -14,4 +14,4 @@ If this extension is useful to you, please leave a few kind words in the review,
 
 ### Video preview (click to play)
 
-[![Watch the video](https://img.youtube.com/vi/u8NA7PN8EaI/maxresdefault.jpg)](https://www.youtube.com/watch?v=u8NA7PN8EaI)
+[![Watch the video](https://github.com/user-attachments/assets/de640acc-f6dd-427b-9fc2-2643d3035ca5)](https://www.youtube.com/watch?v=u8NA7PN8EaI)
