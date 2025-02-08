@@ -3,15 +3,20 @@
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/ebgonfpmppfndacngpbmgajldoabnjkm?label=chrome%20web%20store%20users)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/ebgonfpmppfndacngpbmgajldoabnjkm?label=chrome%20web%20store%20rating)
 
-### Browser extension that allows:
+Base64Coder is a Chrome extension that allows you to encode and decode data in Base64 format.
 
+Features:
 - copy text to base64
 - copy base64 to text
 - copy image to base64
-- decode JWT tokens
+- encode JWT
+- encode/decode: text, audio, video, image to base64
+- drag&drop file to encode to base64
 
-If this extension is useful to you, please leave a few kind words in the review, it will be a good payment for me. 👉👈
+Supports the use of search panel. Enter "64" and press "Tab" to activate the extension.
+
+Supports light/dark themes.
 
 ### Video preview (click to play)
 
-[![Watch the video](https://img.youtube.com/vi/u8NA7PN8EaI/maxresdefault.jpg)](https://www.youtube.com/watch?v=u8NA7PN8EaI)
+[![Watch the video](https://github.com/user-attachments/assets/de640acc-f6dd-427b-9fc2-2643d3035ca5)](https://youtu.be/bKh3bAZSogo)
