@@ -10,8 +10,28 @@
     "type": "git",
     "url": "git+https://github.com/rodewitsch/Base64Coder.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "base64",
+    "coder",
+    "decode",
+    "encode",
+    "file",
+    "save",
+    "download",
+    "upload",
+    "convert",
+    "convertor",
+    "converter",
+    "string",
+    "text",
+    "image",
+    "audio",
+    "video",
+    "pdf",
+    "file-saver",
+    "is-base64"
+  ],
+  "author": "Rodevich Dmitry",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rodewitsch/Base64Coder/issues"
