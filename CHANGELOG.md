@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](https://github.com/rodewitsch/base-64-coder/compare/v1.25.1...v1.26.0) (2025-02-20)
+
+* reduce bundle size
+
 ### [1.25.1](https://github.com/rodewitsch/base-64-coder/compare/v1.25.0...v1.25.1) (2025-02-06)
 
 
