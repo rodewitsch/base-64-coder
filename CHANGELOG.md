@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](https://github.com/rodewitsch/base-64-coder/compare/v1.26.0...v1.27.0) (2025-03-29)
+
+
+### Features
+
+* do not show img meta for corrupted img ([5822b7a](https://github.com/rodewitsch/base-64-coder/commits/5822b7afb50df11d7cdfc3a7686c04686bc99721))
+* show image meta info ([14e10f8](https://github.com/rodewitsch/base-64-coder/commits/14e10f8d5cf9cad97c2edada00fcc87fb887f7db)), closes [#30](https://github.com/rodewitsch/Base64Coder/issues/30)
+
 ## [1.26.0](https://github.com/rodewitsch/base-64-coder/compare/v1.25.1...v1.26.0) (2025-02-20)
 
 * reduce bundle size
