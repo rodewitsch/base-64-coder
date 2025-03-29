@@ -11,6 +11,7 @@ document.onreadystatechange = function () {
   const resultTooltip = document.getElementById('result-tooltip');
   const resultImg = document.getElementById('result-img');
   const resultImgContainer = document.getElementById('result-img-container');
+  const resultImgMeta = document.getElementById('result-img-meta');
   const resultImgResolution = document.getElementById('result-img-meta-resolution');
   const resultImgSize = document.getElementById('result-img-meta-size');
   const resultAudio = document.getElementById('result-audio');
@@ -280,12 +281,14 @@ document.onreadystatechange = function () {
   resultImg.onload = () => {
     resultImgResolution.innerText = `${resultImg.naturalWidth} x ${resultImg.naturalHeight}`;
     resultImgSize.innerText = `${getDataUrlSize(resultImg.src)}`;
+    resultImgMeta.style.display = 'flex';
   }
-
+  
   resultImg.onerror = () => {
     if (resultType === 'image') {
       resultImg.src = null;
       resultImg.src = "../assets/images/icons/corrupted-file.png";
+      resultImgMeta.style.display = 'none';
       return true;
     }
   }
