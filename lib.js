@@ -10,6 +10,12 @@ function copyToClipboard(value) {
 }
 
 // eslint-disable-next-line no-unused-vars, no-redeclare
+function getDataUrlSize(dataUrl) {
+  const base64String = dataUrl.split(',')[1];
+  return ((base64String.length * 3 / 4 - (base64String.endsWith('==') ? 2 : 1)) / 1000).toFixed(2);
+}
+
+// eslint-disable-next-line no-unused-vars, no-redeclare
 function pasteFromClipboard() {
   if (navigator && navigator.clipboard && navigator.clipboard.readText) {
     return navigator.clipboard.readText();

@@ -10,6 +10,9 @@ document.onreadystatechange = function () {
   const resultText = document.getElementById('result');
   const resultTooltip = document.getElementById('result-tooltip');
   const resultImg = document.getElementById('result-img');
+  const resultImgContainer = document.getElementById('result-img-container');
+  const resultImgResolution = document.getElementById('result-img-meta-resolution');
+  const resultImgSize = document.getElementById('result-img-meta-size');
   const resultAudio = document.getElementById('result-audio');
   const resultVideo = document.getElementById('result-video');
   const resultVideoSource = document.getElementById('result-video-source');
@@ -45,7 +48,7 @@ document.onreadystatechange = function () {
     switch (type) {
       case 'text': {
         resultText.style.display = 'block';
-        resultImg.style.display = 'none';
+        resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
         resultImg.src = null;
@@ -59,7 +62,7 @@ document.onreadystatechange = function () {
       }
       case 'base64': {
         resultText.style.display = 'block';
-        resultImg.style.display = 'none';
+        resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
         resultImg.src = null;
@@ -72,7 +75,7 @@ document.onreadystatechange = function () {
       }
       case 'image': {
         resultText.style.display = 'none';
-        resultImg.style.display = 'block';
+        resultImgContainer.style.display = 'flex';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
         resultAudio.src = null;
@@ -83,7 +86,7 @@ document.onreadystatechange = function () {
       }
       case 'audio': {
         resultText.style.display = 'none';
-        resultImg.style.display = 'none';
+        resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'block';
         resultVideo.style.display = 'none';
         resultImg.src = null;
@@ -94,7 +97,7 @@ document.onreadystatechange = function () {
       }
       case 'video': {
         resultText.style.display = 'none';
-        resultImg.style.display = 'none';
+        resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'block';
         resultImg.src = null;
@@ -273,6 +276,11 @@ document.onreadystatechange = function () {
   activateAvailableBtns();
 
   setCurrentResultType('text');
+
+  resultImg.onload = () => {
+    resultImgResolution.innerText = `${resultImg.naturalWidth} x ${resultImg.naturalHeight}`;
+    resultImgSize.innerText = `${getDataUrlSize(resultImg.src)}`;
+  }
 
   resultImg.onerror = () => {
     if (resultType === 'image') {

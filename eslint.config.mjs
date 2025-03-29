@@ -20,6 +20,7 @@ export default [
         isJSON: true,
         saveAs: true,
         parseJwt: true,
+        getDataUrlSize: true,
       }, sourceType: "script"
     }
   },

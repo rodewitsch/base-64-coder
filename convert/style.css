@@ -205,6 +205,22 @@ button {
   margin-top: 5px;
 }
 
+#result-img {
+  margin-left: 10px;;
+}
+
+#result-img-container {
+  position: relative;
+}
+
+#result-img-meta {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  position: absolute;
+  right: -150px;
+}
+
 @media (max-width: 1366px) {
   .floating-panel {
     display: none;

@@ -58,12 +58,22 @@
           <span>text</span>
         </button>
 
-        <button data-tooltip="2" title="[ Alt + 2 ] Convert source value to base64" class="btn disabled" id="encode-btn">
+        <button
+          data-tooltip="2"
+          title="[ Alt + 2 ] Convert source value to base64"
+          class="btn disabled"
+          id="encode-btn"
+        >
           <img draggable="false" src="../assets/images/icons/base64.png" alt="to base64" />
           <span>base64</span>
         </button>
 
-        <button data-tooltip="3" title="[ Alt + 3 ] Convert source value to parsed JWT" class="btn disabled" id="decode-jwt-btn">
+        <button
+          data-tooltip="3"
+          title="[ Alt + 3 ] Convert source value to parsed JWT"
+          class="btn disabled"
+          id="decode-jwt-btn"
+        >
           <img draggable="false" src="../assets/images/icons/jwt.png" alt="decode jwt" />
           <span>jwt</span>
         </button>
@@ -125,7 +135,14 @@
       <div class="action-area-body">
         <p class="tooltip" id="result-tooltip">20.04.2004</p>
         <div id="result" contenteditable="true"></div>
-        <img draggable="false" id="result-img" alt="CORRUPTED FILE IMAGE" />
+        <div id="result-img-container" class="result-img-container">
+          <img id="result-img" draggable="false" alt="CORRUPTED FILE IMAGE" />
+          <p class="result-img-meta" id="result-img-meta">
+            <strong>Image info</strong>
+            <span>Size: <span id="result-img-meta-size">0</span> KB</span>
+            <span>Resolution: <span id="result-img-meta-resolution"></span> px</span>
+          </p>
+        </div>
         <audio id="result-audio" controls>
           Your browser does not support the
           <code>audio</code> element.
