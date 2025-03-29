@@ -40,18 +40,18 @@ function getBase64(file) {
 // eslint-disable-next-line no-unused-vars, no-redeclare
 function base64UrlEncode(str) {
   return btoa(str)
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
 }
 
 // eslint-disable-next-line no-redeclare
 function base64UrlDecode(str) {
   str = str
-      .replace(/-/g, '+')
-      .replace(/_/g, '/');
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
   while (str.length % 4) {
-      str += '=';
+    str += '=';
   }
   return atob(str);
 }
@@ -98,5 +98,9 @@ function parseJwt(token) {
 
 // eslint-disable-next-line no-unused-vars, no-redeclare
 function isBase64(str) {
-  return /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$/g.test(str);
+  try {
+    return str.length > 3 && !(str.length % 4) && atob(str) && true;
+  } catch (err) {
+    return false;
+  }
 }
