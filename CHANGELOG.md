@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/rodewitsch/base-64-coder/compare/v1.27.0...v1.28.0) (2025-04-12)
+
+
+### Features
+
+* show number of characters ([d40032d](https://github.com/rodewitsch/base-64-coder/commits/d40032d75e49f7e6603c6e2e06d60b5fb3122f45)), closes [#32](https://github.com/rodewitsch/Base64Coder/issues/32)
+
 ## [1.27.0](https://github.com/rodewitsch/base-64-coder/compare/v1.26.0...v1.27.0) (2025-03-29)
 
 
