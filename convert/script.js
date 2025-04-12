@@ -5,9 +5,11 @@ document.onreadystatechange = function () {
   const dropOverlayImg = document.getElementById('drop-overlay-img');
   const dropOverlayText = document.getElementById('drop-overlay-text');
   const source = document.getElementById('source');
+  const sourceTextLength = document.getElementById('source-text-length');
   const sourceFileInfo = document.getElementById('source-file-info');
   const sourceFileName = document.getElementById('source-file-name');
   const resultText = document.getElementById('result');
+  const resultTextLength = document.getElementById('result-text-length');
   const resultTooltip = document.getElementById('result-tooltip');
   const resultImg = document.getElementById('result-img');
   const resultImgContainer = document.getElementById('result-img-container');
@@ -49,6 +51,7 @@ document.onreadystatechange = function () {
     switch (type) {
       case 'text': {
         resultText.style.display = 'block';
+        resultTextLength.style.display = 'block';
         resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
@@ -63,6 +66,7 @@ document.onreadystatechange = function () {
       }
       case 'base64': {
         resultText.style.display = 'block';
+        resultTextLength.style.display = 'block';
         resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
@@ -76,6 +80,8 @@ document.onreadystatechange = function () {
       }
       case 'image': {
         resultText.style.display = 'none';
+        resultTextLength.style.display = 'none';
+        resultImgMeta.style.display = 'none';
         resultImgContainer.style.display = 'flex';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'none';
@@ -87,6 +93,7 @@ document.onreadystatechange = function () {
       }
       case 'audio': {
         resultText.style.display = 'none';
+        resultTextLength.style.display = 'none';
         resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'block';
         resultVideo.style.display = 'none';
@@ -98,6 +105,7 @@ document.onreadystatechange = function () {
       }
       case 'video': {
         resultText.style.display = 'none';
+        resultTextLength.style.display = 'none';
         resultImgContainer.style.display = 'none';
         resultAudio.style.display = 'none';
         resultVideo.style.display = 'block';
@@ -172,6 +180,17 @@ document.onreadystatechange = function () {
     });
   }
 
+  function showTextLength(text, textLengthElem) {
+    const length = text.length;
+    if (length > 0) {
+      textLengthElem.innerText = length + ' characters';
+    } else if (length === 1) {
+      textLengthElem.innerText = length + ' character';
+    } else {
+      textLengthElem.innerText = '0 characters';
+    }
+  }
+
   function saveResultToFile(result) {
     switch (resultType) {
       case 'text':
@@ -202,12 +221,14 @@ document.onreadystatechange = function () {
     source.value = '';
     selectedFile = null;
     source.style.display = 'block';
+    sourceTextLength.style.display = 'block';
     sourceFileInfo.classList.remove('active');
     copySourceBtn.classList.remove('disabled');
     pasteSourceBtn.classList.remove('disabled');
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
   }
 
   function clearResult() {
@@ -215,6 +236,7 @@ document.onreadystatechange = function () {
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
     activateAvailableBtns();
+    showTextLength(resultText.innerText, resultTextLength);
   }
 
   body.ondrop = async (event) => {
@@ -236,9 +258,11 @@ document.onreadystatechange = function () {
 
       setCurrentResultType('text');
       activateAvailableBtns();
+      showTextLength(source.value, sourceTextLength);
       setCurrentActiveConvertBtn(encodeBtn);
 
       source.style.display = 'none';
+      sourceTextLength.style.display = 'none';
       sourceFileInfo.classList.add('active');
       sourceFileName.innerText = selectedFile.name;
     }
@@ -275,6 +299,7 @@ document.onreadystatechange = function () {
   source.focus();
 
   activateAvailableBtns();
+  showTextLength(source.value, sourceTextLength);
 
   setCurrentResultType('text');
 
@@ -283,7 +308,7 @@ document.onreadystatechange = function () {
     resultImgSize.innerText = `${getDataUrlSize(resultImg.src)}`;
     resultImgMeta.style.display = 'flex';
   }
-  
+
   resultImg.onerror = () => {
     if (resultType === 'image') {
       resultImg.src = null;
@@ -305,12 +330,15 @@ document.onreadystatechange = function () {
         resultText.innerText = base64.replace('data:text/plain;base64,', '');
 
         source.style.display = 'none';
+        sourceTextLength.style.display = 'none';
         copySourceBtn.classList.add('disabled');
         pasteSourceBtn.classList.add('disabled');
         sourceFileInfo.classList.add('active');
         setCurrentResultType('base64');
         setCurrentActiveConvertBtn(encodeBtn);
         activateAvailableBtns();
+        showTextLength(source.value, sourceTextLength);
+        showTextLength(resultText.innerText, resultTextLength);
         sourceFileName.innerText = files[0].name;
       }
     };
@@ -333,11 +361,14 @@ document.onreadystatechange = function () {
       resultText.innerText = base64.replace('data:text/plain;base64,', '');
 
       source.style.display = 'none';
+      sourceTextLength.style.display = 'none';
       sourceFileInfo.classList.add('active');
       sourceFileName.innerText = selectedFile.name;
     }
 
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+    showTextLength(resultText.innerText, resultTextLength);
     setCurrentResultType('base64');
     setCurrentActiveConvertBtn(encodeBtn);
   };
@@ -345,6 +376,7 @@ document.onreadystatechange = function () {
   beautifyBtn.onclick = () => {
     if (isJSON(resultText.innerText)) {
       resultText.innerText = JSON.stringify(JSON.parse(resultText.innerText), null, 2);
+      showTextLength(resultText.innerText, resultTextLength);
       resultText.childNodes.forEach((node) => {
         if (!node.textContent) return;
         if (node.textContent.includes('iat') || node.textContent.includes('exp')) {
@@ -373,6 +405,8 @@ document.onreadystatechange = function () {
   decodeJwtBtn.onclick = () => {
     resultText.innerText = JSON.stringify(parseJwt(source.value));
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+    showTextLength(resultText.innerText, resultTextLength);
     setCurrentResultType('text');
     setCurrentActiveConvertBtn(decodeJwtBtn);
   }
@@ -387,6 +421,8 @@ document.onreadystatechange = function () {
     }
 
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+    showTextLength(resultText.innerText, resultTextLength);
     setCurrentResultType('text');
     setCurrentActiveConvertBtn(decodeBtn);
   };
@@ -400,6 +436,7 @@ document.onreadystatechange = function () {
     }
 
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
     setCurrentResultType('image');
     setCurrentActiveConvertBtn(decodeImageBtn);
   };
@@ -409,6 +446,7 @@ document.onreadystatechange = function () {
     resultAudio.src = `data:audio/mp3;base64,${base64}`;
 
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
     setCurrentResultType('audio');
     setCurrentActiveConvertBtn(decodeAudioBtn);
   };
@@ -419,22 +457,35 @@ document.onreadystatechange = function () {
     resultVideo.load();
 
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
     setCurrentResultType('video');
     setCurrentActiveConvertBtn(decodeVideoBtn);
   };
 
-  source.onpaste = () => activateAvailableBtns();
+  source.onpaste = () => {
+    activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+  }
 
-  source.onkeyup = () => activateAvailableBtns();
+  source.onkeyup = () => {
+    activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+  }
 
   copySourceBtn.onclick = () => copyToClipboard(source.value);
 
-  resultText.oninput = () => activateAvailableBtns();
+  resultText.oninput = () => {
+    activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+    showTextLength(resultText.innerText, resultTextLength);
+  }
 
   pasteSourceBtn.onclick = async () => {
     const text = await pasteFromClipboard();
     source.value = text;
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+    showTextLength(resultText.innerText, resultTextLength);
     setCurrentResultType('text');
   };
 
@@ -448,12 +499,14 @@ document.onreadystatechange = function () {
     resultText.innerText = base64.replace('data:text/plain;base64,', '');
 
     source.style.display = 'none';
+    sourceTextLength.style.display = 'none';
     copySourceBtn.classList.add('disabled');
     pasteSourceBtn.classList.add('disabled');
     sourceFileInfo.classList.add('active');
     setCurrentResultType('base64');
     setCurrentActiveConvertBtn(encodeBtn);
     activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
     sourceFileName.innerText = files[0].name;
   });
 

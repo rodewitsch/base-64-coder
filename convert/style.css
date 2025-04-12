@@ -131,6 +131,14 @@ button {
   font-family: 'Consolas', 'Courier New', monospace;
 }
 
+#source-text-length, 
+#result-text-length {
+  position: absolute;
+  right: 0vw;
+  bottom: -20px;
+  color: gray;
+}
+
 .actions {
   display: flex;
   flex-direction: row;
