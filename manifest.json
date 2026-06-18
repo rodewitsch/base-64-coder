@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Base64Coder",
-  "description": "Base64Coder is a Chrome extension that allows you to encode and decode data in Base64 format.",
-  "version": "1.28.0",
+  "name": "Base64Coder: Encode, Decode & JWT Inspector",
+  "description": "Base64 encoder/decoder, JWT inspector & image-to-base64 converter for developers.",
+  "version": "1.28.1",
   "omnibox": {
     "keyword": "64"
   },
