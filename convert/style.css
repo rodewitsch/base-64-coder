@@ -299,4 +299,8 @@ button {
   #result-img[src*='corrupted-file.png'] {
     filter: invert(90%);
   }
+
+  #result-img-meta {
+  color: white;
+}
 }
