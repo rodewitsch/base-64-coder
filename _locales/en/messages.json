@@ -1,0 +1,417 @@
+{
+  "appName": {
+    "message": "Base64Coder: Encode, Decode & JWT Inspector",
+    "description": "Extension name"
+  },
+  "appDescription": {
+    "message": "Base64 encoder/decoder, JWT inspector & image-to-base64 converter for developers.",
+    "description": "Extension description"
+  },
+  "appShortName": {
+    "message": "Base64Coder",
+    "description": "Short name used in omnibox and page titles"
+  },
+  "appGuideTitle": {
+    "message": "Base64Coder Guide",
+    "description": "Title of the FAQ/guide page"
+  },
+
+  "contextMenu_base64ToText": {
+    "message": "copy base64 ➜ text",
+    "description": "Context menu: decode base64 to text"
+  },
+  "contextMenu_textToBase64": {
+    "message": "copy text ➜ base64",
+    "description": "Context menu: encode text to base64"
+  },
+  "contextMenu_imageToBase64": {
+    "message": "copy image ➜ base64",
+    "description": "Context menu: convert image to base64"
+  },
+  "contextMenu_openBase64": {
+    "message": "open base64",
+    "description": "Context menu: open base64 in extension"
+  },
+
+  "omnibox_description": {
+    "message": "Base64Coder",
+    "description": "Omnibox default suggestion"
+  },
+  "omnibox_base64ToText": {
+    "message": "base64 ➜ text",
+    "description": "Omnibox: decode direction"
+  },
+  "omnibox_textToBase64": {
+    "message": "text ➜ base64",
+    "description": "Omnibox: encode direction"
+  },
+
+  "badge_done": {
+    "message": "DONE",
+    "description": "Badge text for successful operation"
+  },
+  "badge_error": {
+    "message": "ERR",
+    "description": "Badge text for failed operation"
+  },
+  "badge_wait": {
+    "message": "WAIT",
+    "description": "Badge text for operation in progress"
+  },
+
+  "label_source": {
+    "message": "Source:",
+    "description": "Label for source textarea"
+  },
+  "label_convertTo": {
+    "message": "Convert to:",
+    "description": "Label for conversion action buttons"
+  },
+  "label_result": {
+    "message": "Result:",
+    "description": "Label for result area"
+  },
+
+  "btn_file": {
+    "message": "file",
+    "description": "Button label: open file"
+  },
+  "btn_copy": {
+    "message": "copy",
+    "description": "Button label: copy"
+  },
+  "btn_paste": {
+    "message": "paste",
+    "description": "Button label: paste"
+  },
+  "btn_clear": {
+    "message": "clear",
+    "description": "Button label: clear"
+  },
+  "btn_clearStar": {
+    "message": "clear*",
+    "description": "Button label: clear (shift mode)"
+  },
+  "btn_copyStar": {
+    "message": "copy*",
+    "description": "Button label: copy (shift mode)"
+  },
+  "btn_saveStar": {
+    "message": "save*",
+    "description": "Button label: save (shift mode)"
+  },
+  "btn_text": {
+    "message": "text",
+    "description": "Button label: convert to text"
+  },
+  "btn_base64": {
+    "message": "base64",
+    "description": "Button label: convert to base64"
+  },
+  "btn_jwt": {
+    "message": "jwt",
+    "description": "Button label: decode JWT"
+  },
+  "btn_image": {
+    "message": "image",
+    "description": "Button label: decode to image"
+  },
+  "btn_audio": {
+    "message": "audio",
+    "description": "Button label: decode to audio"
+  },
+  "btn_video": {
+    "message": "video",
+    "description": "Button label: decode to video"
+  },
+  "btn_pretty": {
+    "message": "pretty",
+    "description": "Button label: format/beautify JSON"
+  },
+  "btn_save": {
+    "message": "save",
+    "description": "Button label: save to file"
+  },
+
+  "title_openFile": {
+    "message": "[ Ctrl + O ] Select file to encode in base64",
+    "description": "Tooltip: open file button"
+  },
+  "title_copySource": {
+    "message": "Copy source value",
+    "description": "Tooltip: copy source button"
+  },
+  "title_pasteSource": {
+    "message": "Paste value from clipboard",
+    "description": "Tooltip: paste source button"
+  },
+  "title_clearSource": {
+    "message": "Clear source value",
+    "description": "Tooltip: clear source button"
+  },
+  "title_decodeBtn": {
+    "message": "[ Alt + 1 ] Convert source value to text",
+    "description": "Tooltip: decode to text button"
+  },
+  "title_encodeBtn": {
+    "message": "[ Alt + 2 ] Convert source value to base64",
+    "description": "Tooltip: encode to base64 button"
+  },
+  "title_decodeJwtBtn": {
+    "message": "[ Alt + 3 ] Convert source value to parsed JWT",
+    "description": "Tooltip: decode JWT button"
+  },
+  "title_decodeImageBtn": {
+    "message": "[ Alt + 4 ] Convert source base64 value to image",
+    "description": "Tooltip: decode to image button"
+  },
+  "title_decodeAudioBtn": {
+    "message": "[ Alt + 5 ] Convert source base64 value to audio",
+    "description": "Tooltip: decode to audio button"
+  },
+  "title_decodeVideoBtn": {
+    "message": "[ Alt + 6 ] Convert source base64 value to video",
+    "description": "Tooltip: decode to video button"
+  },
+  "title_beautifyBtn": {
+    "message": "Format JSON value",
+    "description": "Tooltip: beautify/format button"
+  },
+  "title_copyResult": {
+    "message": "[ Ctrl + C / Ctrl + Shift + C ] Copy result value to clipboard",
+    "description": "Tooltip: copy result button"
+  },
+  "title_saveResult": {
+    "message": "[ Ctrl + S / Ctrl + Shift + S ] Save result value to file",
+    "description": "Tooltip: save result button"
+  },
+  "title_clearResult": {
+    "message": "Clear result value",
+    "description": "Tooltip: clear result button"
+  },
+  "title_faq": {
+    "message": "FAQ",
+    "description": "Tooltip: open FAQ button"
+  },
+  "title_extensionPage": {
+    "message": "Open extension page",
+    "description": "Tooltip: open Chrome Web Store page"
+  },
+
+  "placeholder_source": {
+    "message": "Enter your text or drop your file.",
+    "description": "Placeholder for source textarea"
+  },
+
+  "fileInfo_noFile": {
+    "message": "No file selected",
+    "description": "Text when no file is selected"
+  },
+  "chars_zero": {
+    "message": "0 characters",
+    "description": "Character count: zero"
+  },
+  "chars_one": {
+    "message": "character",
+    "description": "Character count: singular suffix"
+  },
+  "chars_many": {
+    "message": "characters",
+    "description": "Character count: plural suffix"
+  },
+
+  "dropOverlay_text": {
+    "message": "Drag & Drop to Upload File",
+    "description": "Text on file drop overlay"
+  },
+
+  "imageInfo_title": {
+    "message": "Image info",
+    "description": "Image metadata section title"
+  },
+  "imageInfo_size": {
+    "message": "Size:",
+    "description": "Image size label"
+  },
+  "imageInfo_resolution": {
+    "message": "Resolution:",
+    "description": "Image resolution label"
+  },
+  "imageInfo_unit_kb": {
+    "message": "KB",
+    "description": "Kilobyte unit"
+  },
+  "imageInfo_unit_px": {
+    "message": "px",
+    "description": "Pixel unit"
+  },
+
+  "audio_notSupported": {
+    "message": "Your browser does not support the $ELEMENT$ element.",
+    "description": "Fallback text for unsupported audio/video",
+    "placeholders": {
+      "element": {
+        "content": "$1",
+        "example": "audio"
+      }
+    }
+  },
+
+  "alt_corruptedFile": {
+    "message": "CORRUPTED FILE IMAGE",
+    "description": "Alt text for corrupted file image"
+  },
+
+  "alert_videoNotSupported": {
+    "message": "Video is not supported yet.",
+    "description": "Alert when trying to save video"
+  },
+  "alert_resultNotCopyable": {
+    "message": "Result of $TYPE$ type is not copyable. Please use context menu.",
+    "description": "Alert when result type cannot be copied",
+    "placeholders": {
+      "type": {
+        "content": "$1",
+        "example": "image"
+      }
+    }
+  },
+
+  "faq_title": {
+    "message": "Base64Coder Guide",
+    "description": "FAQ page heading"
+  },
+  "faq_section1_title": {
+    "message": "How to use the extension in the search bar",
+    "description": "FAQ accordion section 1 title"
+  },
+  "faq_section1_p1": {
+    "message": "To activate the extension, enter '64' in the search bar and press 'Tab'.",
+    "description": "FAQ section 1 paragraph 1"
+  },
+  "faq_section1_p2": {
+    "message": "Write or paste text that you want to convert and choose the conversion direction: 'base64 - text' or 'text - base64' using keyboard or mouse.",
+    "description": "FAQ section 1 paragraph 2"
+  },
+  "faq_section2_title": {
+    "message": "Context menu features",
+    "description": "FAQ accordion section 2 title"
+  },
+  "faq_section2_p1": {
+    "message": "The context menu provides access to the following extension features:",
+    "description": "FAQ section 2 intro"
+  },
+  "faq_section2_li1": {
+    "message": "copy base64 -> text - converts the selected text from base64 to text.",
+    "description": "FAQ section 2 list item 1"
+  },
+  "faq_section2_li2": {
+    "message": "copy text -> base64 - converts the selected text to base64.",
+    "description": "FAQ section 2 list item 2"
+  },
+  "faq_section2_li3": {
+    "message": "copy image -> base64 - converts and copy the image under the pointer to base64. Process of converting images to base64 can take some time, you can see the progress in the extension icon.",
+    "description": "FAQ section 2 list item 3"
+  },
+  "faq_section2_li3_progress": {
+    "message": "the process is running.",
+    "description": "FAQ: progress status running"
+  },
+  "faq_section2_li3_done": {
+    "message": "the process is done.",
+    "description": "FAQ: progress status done"
+  },
+  "faq_section2_li3_error": {
+    "message": "an error occurred during the process.",
+    "description": "FAQ: progress status error"
+  },
+  "faq_section2_li4": {
+    "message": "open base64 - opens the selected text in the extension where you can covert it to what you need.",
+    "description": "FAQ section 2 list item 4"
+  },
+  "faq_section3_title": {
+    "message": "Available hot keys",
+    "description": "FAQ accordion section 3 title"
+  },
+  "faq_section3_p1": {
+    "message": "The extension provides the following keyboard shortcuts:",
+    "description": "FAQ section 3 intro"
+  },
+  "faq_section3_li1": {
+    "message": "Ctrl + S - saves the result to the file. (Video is not supported)",
+    "description": "FAQ section 3 list item 1"
+  },
+  "faq_section3_li2": {
+    "message": "Ctrl + Shift + S - saves the result to the file without base64 mime prefix. (Video is not supported)",
+    "description": "FAQ section 3 list item 2"
+  },
+  "faq_section3_li3": {
+    "message": "Shift - buttons \"Copy\" and \"Save\" will do their function removing base64 mime prefix. The \"Clear\" buttons simultaneously clear the source and the result.",
+    "description": "FAQ section 3 list item 3"
+  },
+  "faq_section3_li4": {
+    "message": "Shift + Backspace or Shift + Delete - clears the source and the result.",
+    "description": "FAQ section 3 list item 4"
+  },
+  "faq_section3_li5": {
+    "message": "Alt + Number - activates the corresponding button in the action area.",
+    "description": "FAQ section 3 list item 5"
+  },
+  "faq_section3_li6": {
+    "message": "Ctrl + C - copies text result to clipboard if nothing is selected. If something is selected, then the combination works as usual.",
+    "description": "FAQ section 3 list item 6"
+  },
+  "faq_section3_li7": {
+    "message": "Ctrl + Shift + C - copies text result to clipboard without mime type prefix if nothing is selected. If something is selected, then the combination works as usual.",
+    "description": "FAQ section 3 list item 7"
+  },
+  "faq_section3_li8": {
+    "message": "Ctrl + O - opens the file in the extension.",
+    "description": "FAQ section 3 list item 8"
+  },
+  "faq_section4_title": {
+    "message": "Result formatting",
+    "description": "FAQ accordion section 4 title"
+  },
+  "faq_section4_p1": {
+    "message": "If the result is JSON, you can use the \"Pretty\" button, which formats the JSON. If JSON contains properties such as \"iat\", \"exp\" (which usually exist in JWT), the extension allows you to view the date/time in a human-readable format.",
+    "description": "FAQ section 4 paragraph 1"
+  },
+  "faq_section5_title": {
+    "message": "What to do if something goes wrong?",
+    "description": "FAQ accordion section 5 title"
+  },
+  "faq_section5_p1": {
+    "message": "Try turning it off and then turning it back on.",
+    "description": "FAQ section 5 paragraph 1"
+  },
+  "faq_section5_p2": {
+    "message": "If this doesn't help, write to me. Maybe I can help.",
+    "description": "FAQ section 5 paragraph 2"
+  },
+  "faq_section5_email": {
+    "message": "E-mail:",
+    "description": "FAQ section 5 email label"
+  },
+
+  "json_filename": {
+    "message": "data.json",
+    "description": "Default filename for saving JSON"
+  },
+  "text_filename": {
+    "message": "text.txt",
+    "description": "Default filename for saving text"
+  },
+  "image_png_filename": {
+    "message": "image.png",
+    "description": "Default filename for saving PNG image"
+  },
+  "image_jpeg_filename": {
+    "message": "image.jpeg",
+    "description": "Default filename for saving JPEG image"
+  },
+  "audio_filename": {
+    "message": "audio.mp3",
+    "description": "Default filename for saving audio"
+  }
+}

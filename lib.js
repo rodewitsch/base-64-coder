@@ -1,4 +1,23 @@
 // eslint-disable-next-line no-unused-vars, no-redeclare
+function initI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    el.textContent = chrome.i18n.getMessage(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+    el.innerHTML = chrome.i18n.getMessage(el.dataset.i18nHtml);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(function (el) {
+    el.title = chrome.i18n.getMessage(el.dataset.i18nTitle);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+    el.placeholder = chrome.i18n.getMessage(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+    el.alt = chrome.i18n.getMessage(el.dataset.i18nAlt);
+  });
+}
+
+// eslint-disable-next-line no-unused-vars, no-redeclare
 function copyToClipboard(value) {
   if (navigator && navigator.clipboard && navigator.clipboard.writeText && typeof value === 'string') {
     return navigator.clipboard.writeText(value);

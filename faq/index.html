@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Base64Coder Guide</title>
+    <title data-i18n="faq_title">Base64Coder Guide</title>
     <link rel="icon" type="image/x-icon" href="../assets/images/icons/b64c48.png" />
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="../lib.js" type="text/javascript"></script>
     <script src="./script.js"></script>
   </head>
 
@@ -12,14 +13,14 @@
     <div class="container">
       <h1>
         <img draggable="false" src="../assets/images/icons/b64c48.png" alt="Base64Coder" />
-        Base64Coder Guide
+        <span data-i18n="faq_title">Base64Coder Guide</span>
       </h1>
 
-      <button class="accordion">How to use the extension in the search bar</button>
+      <button class="accordion" data-i18n="faq_section1_title">How to use the extension in the search bar</button>
       <div class="panel">
-        <p>To activate the extension, enter '64' in the search bar and press 'Tab'.</p>
+        <p data-i18n="faq_section1_p1">To activate the extension, enter '64' in the search bar and press 'Tab'.</p>
 
-        <p>
+        <p data-i18n="faq_section1_p2">
           Write or paste text that you want to convert and choose the conversion direction: 'base64 - text' or 'text -
           base64' using keyboard or mouse.
         </p>
@@ -38,37 +39,33 @@
         </p>
       </div>
 
-      <button class="accordion">Context menu features</button>
+      <button class="accordion" data-i18n="faq_section2_title">Context menu features</button>
       <div class="panel">
         <p class="hcenter">
           <img draggable="false" src="../assets/images/context menu.jpg" alt="context menu" />
         </p>
 
-        <p>The context menu provides access to the following extension features:</p>
+        <p data-i18n="faq_section2_p1">The context menu provides access to the following extension features:</p>
 
         <ul>
-          <li><b>copy base64 -> text</b> - converts the selected text from base64 to text.</li>
-          <li><b>copy text -> base64</b> - converts the selected text to base64.</li>
+          <li data-i18n-html="faq_section2_li1"><b>copy base64 -> text</b> - converts the selected text from base64 to text.</li>
+          <li data-i18n-html="faq_section2_li2"><b>copy text -> base64</b> - converts the selected text to base64.</li>
           <li>
-            <b>copy image -> base64</b> - converts and copy the image under the pointer to base64. Process of converting
-            images to base64 can take some time, you can see the progress in the extension icon.
+            <span data-i18n-html="faq_section2_li3"><b>copy image -> base64</b> - converts and copy the image under the pointer to base64. Process of converting images to base64 can take some time, you can see the progress in the extension icon.</span>
 
             <p class="vcenter">
-              <img draggable="false " src="../assets/images/wait.jpg" alt="wait icon" /> - the process is running.
+              <img draggable="false " src="../assets/images/wait.jpg" alt="wait icon" /> - <span data-i18n="faq_section2_li3_progress">the process is running.</span>
             </p>
 
             <p class="vcenter">
-              <img draggable="false" src="../assets/images/done.jpg" alt="done icon" /> - the process is done.
+              <img draggable="false" src="../assets/images/done.jpg" alt="done icon" /> - <span data-i18n="faq_section2_li3_done">the process is done.</span>
             </p>
 
             <p class="vcenter">
-              <img draggable="false" src="../assets/images/err.jpg" alt="err icon" /> - an error occurred during the
-              process.
+              <img draggable="false" src="../assets/images/err.jpg" alt="err icon" /> - <span data-i18n="faq_section2_li3_error">an error occurred during the process.</span>
             </p>
           </li>
-          <li>
-            <b>open base64</b> - opens the selected text in the extension where you can covert it to what you need.
-          </li>
+          <li data-i18n-html="faq_section2_li4"><b>open base64</b> - opens the selected text in the extension where you can covert it to what you need.</li>
         </ul>
 
         <p class="hcenter">
@@ -85,44 +82,33 @@
         </p>
       </div>
 
-      <button class="accordion">Available hot keys</button>
+      <button class="accordion" data-i18n="faq_section3_title">Available hot keys</button>
       <div class="panel">
-        <p>The extension provides the following keyboard shortcuts:</p>
+        <p data-i18n="faq_section3_p1">The extension provides the following keyboard shortcuts:</p>
 
         <ul>
-          <li><b>Ctrl + S</b> - saves the result to the file. (Video is not supported)</li>
-          <li>
-            <b>Ctrl + Shift + S</b> - saves the result to the file without base64 mime prefix. (Video is not supported)
-          </li>
-          <li>
-            <b>Shift</b> - buttons "Copy" and "Save" will do their function removing base64 mime prefix. The "Clear"
-            buttons simultaneously clear the source and the result.
-          </li>
-          <li><b>Shift + Backspace</b> or <b>Shift + Delete</b> - clears the source and the result.</li>
+          <li data-i18n-html="faq_section3_li1"><b>Ctrl + S</b> - saves the result to the file. (Video is not supported)</li>
+          <li data-i18n-html="faq_section3_li2"><b>Ctrl + Shift + S</b> - saves the result to the file without base64 mime prefix. (Video is not supported)</li>
+          <li data-i18n-html="faq_section3_li3"><b>Shift</b> - buttons "Copy" and "Save" will do their function removing base64 mime prefix. The "Clear" buttons simultaneously clear the source and the result.</li>
+          <li data-i18n-html="faq_section3_li4"><b>Shift + Backspace</b> or <b>Shift + Delete</b> - clears the source and the result.</li>
           <p class="hcenter">
             <img src="../assets/images/extended copy mode.jpg" alt="extended copy mode" />
           </p>
           <li>
-            <b>Alt + Number</b> - activates the corresponding button in the action area.
+            <span data-i18n-html="faq_section3_li5"><b>Alt + Number</b> - activates the corresponding button in the action area.</span>
             <p class="hcenter">
               <img src="../assets/images/alt actions.jpg" alt="alt actions" />
             </p>
           </li>
-          <li>
-            <b>Ctrl + C</b> - copies text result to clipboard if nothing is selected. If something is selected, then the combination works as usual.
-          </li>
-          <li>
-            <b>Ctrl + Shift + C</b> - copies text result to clipboard without mime type prefix if nothing is selected. If something is selected, then the combination works as usual.
-          </li>
-          <li>
-            <b>Ctrl + O</b> - opens the file in the extension.
-          </li>
+          <li data-i18n-html="faq_section3_li6"><b>Ctrl + C</b> - copies text result to clipboard if nothing is selected. If something is selected, then the combination works as usual.</li>
+          <li data-i18n-html="faq_section3_li7"><b>Ctrl + Shift + C</b> - copies text result to clipboard without mime type prefix if nothing is selected. If something is selected, then the combination works as usual.</li>
+          <li data-i18n-html="faq_section3_li8"><b>Ctrl + O</b> - opens the file in the extension.</li>
         </ul>
       </div>
 
-      <button class="accordion">Result formatting</button>
+      <button class="accordion" data-i18n="faq_section4_title">Result formatting</button>
       <div class="panel">
-        <p>
+        <p data-i18n="faq_section4_p1">
           If the result is JSON, you can use the "Pretty" button, which formats the JSON. If JSON contains properties
           such as "iat", "exp" (which usually exist in JWT), the extension allows you to view the date/time in a
           human-readable format.
@@ -133,18 +119,18 @@
         </p>
       </div>
 
-      <button class="accordion">What to do if something goes wrong?</button>
+      <button class="accordion" data-i18n="faq_section5_title">What to do if something goes wrong?</button>
       <div class="panel">
-        <p>Try turning it off and then turning it back on.</p>
+        <p data-i18n="faq_section5_p1">Try turning it off and then turning it back on.</p>
 
         <p style="display: flex; justify-content: space-around">
           <img width="400" src="../assets/images/browser extension menu.jpg" alt="browser extension menu" />
           <img width="400" src="../assets/images/reload.jpg" alt="reload" />
         </p>
 
-        <p>If this doesn't help, write to me. Maybe I can help.</p>
+        <p data-i18n="faq_section5_p2">If this doesn't help, write to me. Maybe I can help.</p>
 
-        <p>E-mail: <a href="mailto:rodewitsch@inbox.ru">rodewitsch@inbox.ru</a></p>
+        <p><span data-i18n="faq_section5_email">E-mail:</span> <a href="mailto:rodewitsch@inbox.ru">rodewitsch@inbox.ru</a></p>
       </div>
     </div>
   </body>

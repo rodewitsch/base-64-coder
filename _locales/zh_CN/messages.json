@@ -1,0 +1,138 @@
+{
+  "appName": {
+    "message": "Base64Coder: 编码、解码和JWT检查器",
+    "description": "Extension name"
+  },
+  "appDescription": {
+    "message": "Base64编码/解码器、JWT检查器和图像转Base64转换器，专为开发者设计。",
+    "description": "Extension description"
+  },
+  "appShortName": {
+    "message": "Base64Coder",
+    "description": "Short name used in omnibox and page titles"
+  },
+  "appGuideTitle": {
+    "message": "Base64Coder 指南",
+    "description": "Title of the FAQ/guide page"
+  },
+  "contextMenu_base64ToText": {
+    "message": "复制 base64 ➜ 文本",
+    "description": "Context menu: decode base64 to text"
+  },
+  "contextMenu_textToBase64": {
+    "message": "复制 文本 ➜ base64",
+    "description": "Context menu: encode text to base64"
+  },
+  "contextMenu_imageToBase64": {
+    "message": "复制 图片 ➜ base64",
+    "description": "Context menu: convert image to base64"
+  },
+  "contextMenu_openBase64": {
+    "message": "打开 base64",
+    "description": "Context menu: open base64 in extension"
+  },
+  "omnibox_description": {
+    "message": "Base64Coder",
+    "description": "Omnibox default suggestion"
+  },
+  "omnibox_base64ToText": {
+    "message": "base64 ➜ 文本",
+    "description": "Omnibox: decode direction"
+  },
+  "omnibox_textToBase64": {
+    "message": "文本 ➜ base64",
+    "description": "Omnibox: encode direction"
+  },
+  "badge_done": { "message": "完成" },
+  "badge_error": { "message": "错误" },
+  "badge_wait": { "message": "等待" },
+  "label_source": { "message": "源：" },
+  "label_convertTo": { "message": "转换为：" },
+  "label_result": { "message": "结果：" },
+  "btn_file": { "message": "文件" },
+  "btn_copy": { "message": "复制" },
+  "btn_paste": { "message": "粘贴" },
+  "btn_clear": { "message": "清除" },
+  "btn_clearStar": { "message": "清除*" },
+  "btn_copyStar": { "message": "复制*" },
+  "btn_saveStar": { "message": "保存*" },
+  "btn_text": { "message": "文本" },
+  "btn_base64": { "message": "base64" },
+  "btn_jwt": { "message": "jwt" },
+  "btn_image": { "message": "图片" },
+  "btn_audio": { "message": "音频" },
+  "btn_video": { "message": "视频" },
+  "btn_pretty": { "message": "美化" },
+  "btn_save": { "message": "保存" },
+  "title_openFile": { "message": "[ Ctrl + O ] 选择要编码为base64的文件" },
+  "title_copySource": { "message": "复制源值" },
+  "title_pasteSource": { "message": "从剪贴板粘贴" },
+  "title_clearSource": { "message": "清除源值" },
+  "title_decodeBtn": { "message": "[ Alt + 1 ] 将源值转换为文本" },
+  "title_encodeBtn": { "message": "[ Alt + 2 ] 将源值转换为base64" },
+  "title_decodeJwtBtn": { "message": "[ Alt + 3 ] 将源值转换为解析后的JWT" },
+  "title_decodeImageBtn": { "message": "[ Alt + 4 ] 将源base64值转换为图片" },
+  "title_decodeAudioBtn": { "message": "[ Alt + 5 ] 将源base64值转换为音频" },
+  "title_decodeVideoBtn": { "message": "[ Alt + 6 ] 将源base64值转换为视频" },
+  "title_beautifyBtn": { "message": "格式化JSON值" },
+  "title_copyResult": { "message": "[ Ctrl + C / Ctrl + Shift + C ] 将结果复制到剪贴板" },
+  "title_saveResult": { "message": "[ Ctrl + S / Ctrl + Shift + S ] 将结果保存到文件" },
+  "title_clearResult": { "message": "清除结果值" },
+  "title_faq": { "message": "常见问题" },
+  "title_extensionPage": { "message": "打开扩展页面" },
+  "placeholder_source": { "message": "输入文本或拖放文件。" },
+  "fileInfo_noFile": { "message": "未选择文件" },
+  "chars_zero": { "message": "0 个字符" },
+  "chars_one": { "message": "个字符" },
+  "chars_many": { "message": "个字符" },
+  "dropOverlay_text": { "message": "拖放以上传文件" },
+  "imageInfo_title": { "message": "图片信息" },
+  "imageInfo_size": { "message": "大小：" },
+  "imageInfo_resolution": { "message": "分辨率：" },
+  "imageInfo_unit_kb": { "message": "KB" },
+  "imageInfo_unit_px": { "message": "px" },
+  "audio_notSupported": {
+    "message": "您的浏览器不支持 $ELEMENT$ 元素。",
+    "placeholders": { "element": { "content": "$1", "example": "audio" } }
+  },
+  "alt_corruptedFile": { "message": "损坏的文件图片" },
+  "alert_videoNotSupported": { "message": "尚不支持视频。" },
+  "alert_resultNotCopyable": {
+    "message": "$TYPE$ 类型的结果不可复制。请使用上下文菜单。",
+    "placeholders": { "type": { "content": "$1", "example": "image" } }
+  },
+  "faq_title": { "message": "Base64Coder 指南" },
+  "faq_section1_title": { "message": "如何在搜索栏中使用扩展" },
+  "faq_section1_p1": { "message": "要激活扩展，请在搜索栏中输入 '64' 并按 'Tab' 键。" },
+  "faq_section1_p2": { "message": "输入或粘贴要转换的文本，然后使用键盘或鼠标选择转换方向：'base64 - 文本' 或 '文本 - base64'。" },
+  "faq_section2_title": { "message": "上下文菜单功能" },
+  "faq_section2_p1": { "message": "上下文菜单提供以下扩展功能：" },
+  "faq_section2_li1": { "message": "复制 base64 -> 文本 - 将选中的文本从base64转换为文本。" },
+  "faq_section2_li2": { "message": "复制 文本 -> base64 - 将选中的文本转换为base64。" },
+  "faq_section2_li3": { "message": "复制 图片 -> base64 - 将指针下的图片转换并复制为base64。转换图片的过程可能需要一些时间，您可以在扩展图标中查看进度。" },
+  "faq_section2_li3_progress": { "message": "正在处理。" },
+  "faq_section2_li3_done": { "message": "处理完成。" },
+  "faq_section2_li3_error": { "message": "处理过程中发生错误。" },
+  "faq_section2_li4": { "message": "打开 base64 - 在扩展中打开选中的文本，您可以将其转换为您需要的内容。" },
+  "faq_section3_title": { "message": "可用快捷键" },
+  "faq_section3_p1": { "message": "扩展提供以下键盘快捷键：" },
+  "faq_section3_li1": { "message": "Ctrl + S - 将结果保存到文件。（不支持视频）" },
+  "faq_section3_li2": { "message": "Ctrl + Shift + S - 将结果保存到文件（不含base64 mime前缀）。（不支持视频）" },
+  "faq_section3_li3": { "message": "Shift - \"复制\"和\"保存\"按钮将在移除base64 mime前缀后执行操作。\"清除\"按钮同时清除源和结果。" },
+  "faq_section3_li4": { "message": "Shift + Backspace 或 Shift + Delete - 清除源和结果。" },
+  "faq_section3_li5": { "message": "Alt + 数字 - 激活操作区域中相应的按钮。" },
+  "faq_section3_li6": { "message": "Ctrl + C - 如果未选中任何内容，则将文本结果复制到剪贴板。如果已选中内容，则正常操作。" },
+  "faq_section3_li7": { "message": "Ctrl + Shift + C - 如果未选中任何内容，则将文本结果复制到剪贴板（不含mime类型前缀）。如果已选中内容，则正常操作。" },
+  "faq_section3_li8": { "message": "Ctrl + O - 在扩展中打开文件。" },
+  "faq_section4_title": { "message": "结果格式化" },
+  "faq_section4_p1": { "message": "如果结果是JSON，您可以使用\"美化\"按钮来格式化JSON。如果JSON包含\"iat\"、\"exp\"等属性（通常存在于JWT中），扩展允许您以可读格式查看日期/时间。" },
+  "faq_section5_title": { "message": "如果出现问题怎么办？" },
+  "faq_section5_p1": { "message": "尝试关闭再重新打开。" },
+  "faq_section5_p2": { "message": "如果这没有帮助，请写信给我。也许我能帮忙。" },
+  "faq_section5_email": { "message": "电子邮件：" },
+  "json_filename": { "message": "data.json" },
+  "text_filename": { "message": "text.txt" },
+  "image_png_filename": { "message": "image.png" },
+  "image_jpeg_filename": { "message": "image.jpeg" },
+  "audio_filename": { "message": "audio.mp3" }
+}

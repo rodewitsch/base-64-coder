@@ -40,6 +40,19 @@ document.onreadystatechange = function () {
   const text = query.get('text');
   let selectedFile;
 
+  // Initialize i18n for all data-i18n elements
+  initI18n();
+
+  // Set up audio fallback with i18n
+  document.getElementById('result-audio-fallback').innerHTML =
+    chrome.i18n.getMessage('audio_notSupported', ['<code>audio</code>']);
+
+  // Set up image meta lines with i18n (child spans need IDs for dynamic updates)
+  document.getElementById('img-meta-size-line').innerHTML =
+    chrome.i18n.getMessage('imageInfo_size') + ' <span id="result-img-meta-size">0</span> ' + chrome.i18n.getMessage('imageInfo_unit_kb');
+  document.getElementById('img-meta-resolution-line').innerHTML =
+    chrome.i18n.getMessage('imageInfo_resolution') + ' <span id="result-img-meta-resolution"></span> ' + chrome.i18n.getMessage('imageInfo_unit_px');
+
 
   function setCurrentActiveConvertBtn(btn) {
     Array.from(document.querySelectorAll('.actions .active')).forEach((elem) => { elem.classList.remove('active'); })
@@ -182,12 +195,12 @@ document.onreadystatechange = function () {
 
   function showTextLength(text, textLengthElem) {
     const length = text.length;
-    if (length > 0) {
-      textLengthElem.innerText = length + ' characters';
+    if (length > 1) {
+      textLengthElem.innerText = length + ' ' + chrome.i18n.getMessage('chars_many');
     } else if (length === 1) {
-      textLengthElem.innerText = length + ' character';
+      textLengthElem.innerText = length + ' ' + chrome.i18n.getMessage('chars_one');
     } else {
-      textLengthElem.innerText = '0 characters';
+      textLengthElem.innerText = chrome.i18n.getMessage('chars_zero');
     }
   }
 
@@ -197,23 +210,23 @@ document.onreadystatechange = function () {
       case 'base64': {
         if (isJSON(resultText.innerText)) {
           const blob = new Blob([JSON.stringify(JSON.parse(resultText.innerText), null, 2)], { type: 'application/json' });
-          saveAs(blob, "data.json");
+          saveAs(blob, chrome.i18n.getMessage('json_filename'));
         } else {
           const blob = new Blob([result || resultText.innerText], { type: 'text/plain' });
-          saveAs(blob, "text.txt");
+          saveAs(blob, chrome.i18n.getMessage('text_filename'));
         }
         break;
       }
       case 'image': {
         if (resultImg.src.startsWith('data:image/png;base64,')) {
-          saveAs(resultImg.src, "image.png");
+          saveAs(resultImg.src, chrome.i18n.getMessage('image_png_filename'));
         } else {
-          saveAs(resultImg.src, "image.jpeg");
+          saveAs(resultImg.src, chrome.i18n.getMessage('image_jpeg_filename'));
         }
         break;
       }
-      case 'audio': saveAs(resultAudio.src, "audio.mp3"); break;
-      case 'video': alert('Video is not supported yet.'); break;
+      case 'audio': saveAs(resultAudio.src, chrome.i18n.getMessage('audio_filename')); break;
+      case 'video': alert(chrome.i18n.getMessage('alert_videoNotSupported')); break;
     }
   }
 
@@ -524,10 +537,10 @@ document.onreadystatechange = function () {
 
   document.onkeyup = function (event) {
     if (!event.shiftKey) {
-      copyResultBtn.querySelector('span').innerText = 'copy';
-      saveResultBtn.querySelector('span').innerText = 'save';
-      clearResultBtn.querySelector('span').innerText = 'clear';
-      clearSourceBtn.querySelector('span').innerText = 'clear';
+      copyResultBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_copy');
+      saveResultBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_save');
+      clearResultBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_clear');
+      clearSourceBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_clear');
     }
 
     if (!event.altKey) {
@@ -537,10 +550,10 @@ document.onreadystatechange = function () {
 
   document.onkeydown = function (event) {
     if (event.shiftKey) {
-      copyResultBtn.querySelector('span').innerText = 'copy*';
-      saveResultBtn.querySelector('span').innerText = 'save*';
-      clearResultBtn.querySelector('span').innerText = 'clear*';
-      clearSourceBtn.querySelector('span').innerText = 'clear*';
+      copyResultBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_copyStar');
+      saveResultBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_saveStar');
+      clearResultBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_clearStar');
+      clearSourceBtn.querySelector('span').innerText = chrome.i18n.getMessage('btn_clearStar');
     }
 
     if (event.ctrlKey && event.code === 'KeyO') {
@@ -616,7 +629,7 @@ document.onreadystatechange = function () {
       }
       case 'image':
       case 'audio':
-      case 'video': alert(`Result of ${resultType} type is not copyable. Please use context menu.`); break;
+      case 'video': alert(chrome.i18n.getMessage('alert_resultNotCopyable', resultType)); break;
     }
   }
 

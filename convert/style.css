@@ -131,7 +131,7 @@ button {
   font-family: 'Consolas', 'Courier New', monospace;
 }
 
-#source-text-length, 
+#source-text-length,
 #result-text-length {
   position: absolute;
   right: 0vw;
@@ -214,7 +214,7 @@ button {
 }
 
 #result-img {
-  margin-left: 10px;;
+  margin-left: 10px;
 }
 
 #result-img-container {
@@ -301,6 +301,6 @@ button {
   }
 
   #result-img-meta {
-  color: white;
-}
+    color: white;
+  }
 }

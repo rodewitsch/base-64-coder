@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Base64Coder</title>
+    <title data-i18n="appShortName">Base64Coder</title>
     <link rel="icon" type="image/x-icon" href="../assets/images/icons/b64c48.png" />
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
@@ -13,141 +13,145 @@
   <body>
     <div id="drop-overlay">
       <img draggable="false" id="drop-overlay-img" src="../assets/images/icons/drag.png" alt="drag" />
-      <p id="drop-overlay-text">Drag & Drop to Upload File</p>
+      <p id="drop-overlay-text" data-i18n="dropOverlay_text">Drag & Drop to Upload File</p>
     </div>
 
     <div class="action-area">
       <div class="action-area-header">
-        <label for="source">Source: </label>
+        <label for="source" data-i18n="label_source">Source:</label>
         <div class="btn-panel">
-          <button title="[ Ctrl + O ] Select file to encode in base64" class="btn" id="open-source-file">
+          <button data-i18n-title="title_openFile" title="[ Ctrl + O ] Select file to encode in base64" class="btn" id="open-source-file">
             <input type="file" name="input-name" style="display: none" />
             <img draggable="false" src="../assets/images/icons/file.png" alt="open file" />
-            <span>file</span>
+            <span data-i18n="btn_file">file</span>
           </button>
-          <button title="Copy source value" class="btn" id="copy-source">
+          <button data-i18n-title="title_copySource" title="Copy source value" class="btn" id="copy-source">
             <img draggable="false" src="../assets/images/icons/copy.png" alt="copy" />
-            <span>copy</span>
+            <span data-i18n="btn_copy">copy</span>
           </button>
-          <button title="Paste value from clipboard" class="btn" id="paste-source">
+          <button data-i18n-title="title_pasteSource" title="Paste value from clipboard" class="btn" id="paste-source">
             <img draggable="false" src="../assets/images/icons/paste.png" alt="paste" />
-            <span>paste</span>
+            <span data-i18n="btn_paste">paste</span>
           </button>
-          <button title="Clear source value" class="btn" id="clear-source">
+          <button data-i18n-title="title_clearSource" title="Clear source value" class="btn" id="clear-source">
             <img draggable="false" src="../assets/images/icons/delete.png" alt="clear" />
-            <span>clear</span>
+            <span data-i18n="btn_clear">clear</span>
           </button>
         </div>
       </div>
       <div class="action-area-body">
         <div id="source-file-info" class="file-info">
           <img draggable="false" src="../assets/images/icons/file.png" alt="opened file" />
-          <label id="source-file-name">No file selected</label>
+          <label id="source-file-name" data-i18n="fileInfo_noFile">No file selected</label>
         </div>
-        <textarea id="source" placeholder="Enter your text or drop your file."></textarea>
-        <span id="source-text-length">0 characters</span>
+        <textarea id="source" data-i18n-placeholder="placeholder_source" placeholder="Enter your text or drop your file."></textarea>
+        <span id="source-text-length" data-i18n="chars_zero">0 characters</span>
       </div>
     </div>
 
     <div class="action-area">
       <div class="action-area-header">
-        <label>Convert to:</label>
+        <label data-i18n="label_convertTo">Convert to:</label>
       </div>
       <div class="actions">
-        <button data-tooltip="1" title="[ Alt + 1 ] Convert source value to text" class="btn disabled" id="decode-btn">
+        <button data-tooltip="1" data-i18n-title="title_decodeBtn" title="[ Alt + 1 ] Convert source value to text" class="btn disabled" id="decode-btn">
           <img draggable="false" src="../assets/images/icons/text.png" alt="to text" />
-          <span>text</span>
+          <span data-i18n="btn_text">text</span>
         </button>
 
         <button
           data-tooltip="2"
+          data-i18n-title="title_encodeBtn"
           title="[ Alt + 2 ] Convert source value to base64"
           class="btn disabled"
           id="encode-btn"
         >
           <img draggable="false" src="../assets/images/icons/base64.png" alt="to base64" />
-          <span>base64</span>
+          <span data-i18n="btn_base64">base64</span>
         </button>
 
         <button
           data-tooltip="3"
+          data-i18n-title="title_decodeJwtBtn"
           title="[ Alt + 3 ] Convert source value to parsed JWT"
           class="btn disabled"
           id="decode-jwt-btn"
         >
           <img draggable="false" src="../assets/images/icons/jwt.png" alt="decode jwt" />
-          <span>jwt</span>
+          <span data-i18n="btn_jwt">jwt</span>
         </button>
 
         <button
           data-tooltip="4"
+          data-i18n-title="title_decodeImageBtn"
           title="[ Alt + 4 ] Convert source base64 value to image"
           class="btn disabled"
           id="decode-image-btn"
         >
           <img draggable="false" src="../assets/images/icons/image.png" alt="to image" />
-          <span>image</span>
+          <span data-i18n="btn_image">image</span>
         </button>
 
         <button
           data-tooltip="5"
+          data-i18n-title="title_decodeAudioBtn"
           title="[ Alt + 5 ] Convert source base64 value to audio"
           class="btn disabled"
           id="decode-audio-btn"
         >
           <img draggable="false" src="../assets/images/icons/audio.png" alt="to audio" />
-          <span>audio</span>
+          <span data-i18n="btn_audio">audio</span>
         </button>
 
         <button
           data-tooltip="6"
+          data-i18n-title="title_decodeVideoBtn"
           title="[ Alt + 6 ] Convert source base64 value to video"
           class="btn disabled"
           id="decode-video-btn"
         >
           <img draggable="false" src="../assets/images/icons/video.png" alt="to video" />
-          <span>video</span>
+          <span data-i18n="btn_video">video</span>
         </button>
       </div>
     </div>
 
     <div class="action-area">
       <div class="action-area-header">
-        <label for="result">Result:</label>
+        <label for="result" data-i18n="label_result">Result:</label>
         <div class="btn-panel">
-          <button title="Format JSON value" class="btn" id="beautify-result">
+          <button data-i18n-title="title_beautifyBtn" title="Format JSON value" class="btn" id="beautify-result">
             <img draggable="false" src="../assets/images/icons/structure.png" alt="tree" />
-            <span>pretty</span>
+            <span data-i18n="btn_pretty">pretty</span>
           </button>
-          <button title="[ Ctrl + C / Ctrl + Shift + C ] Copy result value to clipboard" class="btn" id="copy-result">
+          <button data-i18n-title="title_copyResult" title="[ Ctrl + C / Ctrl + Shift + C ] Copy result value to clipboard" class="btn" id="copy-result">
             <img draggable="false" src="../assets/images/icons/copy.png" alt="copy" />
-            <span>copy</span>
+            <span data-i18n="btn_copy">copy</span>
           </button>
-          <button title="[ Ctrl + S / Ctrl + Shift + S ] Save result value to file" class="btn" id="save-result">
+          <button data-i18n-title="title_saveResult" title="[ Ctrl + S / Ctrl + Shift + S ] Save result value to file" class="btn" id="save-result">
             <img draggable="false" src="../assets/images/icons/save.png" alt="save" />
-            <span>save</span>
+            <span data-i18n="btn_save">save</span>
           </button>
-          <button title="Clear result value" class="btn" id="clear-result">
+          <button data-i18n-title="title_clearResult" title="Clear result value" class="btn" id="clear-result">
             <img draggable="false" src="../assets/images/icons/delete.png" alt="clear" />
-            <span>clear</span>
+            <span data-i18n="btn_clear">clear</span>
           </button>
         </div>
       </div>
       <div class="action-area-body">
         <p class="tooltip" id="result-tooltip">20.04.2004</p>
         <div id="result" contenteditable="true"></div>
-        <span id="result-text-length">0 characters</span>
+        <span id="result-text-length" data-i18n="chars_zero">0 characters</span>
         <div id="result-img-container" class="result-img-container">
-          <img id="result-img" draggable="false" alt="CORRUPTED FILE IMAGE" />
+          <img id="result-img" draggable="false" alt="CORRUPTED FILE IMAGE" data-i18n-alt="alt_corruptedFile" />
           <p class="result-img-meta" id="result-img-meta">
-            <strong>Image info</strong>
-            <span>Size: <span id="result-img-meta-size">0</span> KB</span>
-            <span>Resolution: <span id="result-img-meta-resolution"></span> px</span>
+            <strong data-i18n="imageInfo_title">Image info</strong>
+            <span id="img-meta-size-line"></span>
+            <span id="img-meta-resolution-line"></span>
           </p>
         </div>
         <audio id="result-audio" controls>
-          Your browser does not support the
-          <code>audio</code> element.
+          <span id="result-audio-fallback">Your browser does not support the <code>audio</code> element.</span>
         </audio>
         <video controls id="result-video">
           <source id="result-video-source" src="" />
@@ -156,11 +160,11 @@
     </div>
 
     <div class="floating-panel">
-      <button title="FAQ" class="btn" id="open-faq">
+      <button data-i18n-title="title_faq" title="FAQ" class="btn" id="open-faq">
         <img draggable="false" src="../assets/images/icons/question-mark.png" alt="FAQ" />
       </button>
 
-      <button title="Open extension page" class="btn" id="open-extension-page">
+      <button data-i18n-title="title_extensionPage" title="Open extension page" class="btn" id="open-extension-page">
         <img class="preserve-color" draggable="false" src="../assets/images/icons/b64c128.png" alt="FAQ" />
       </button>
     </div>

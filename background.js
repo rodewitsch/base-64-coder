@@ -1,26 +1,26 @@
 chrome.contextMenus.create({
-  title: 'copy base64 ➜ text',
+  title: chrome.i18n.getMessage('contextMenu_base64ToText'),
   id: 'base64coderbase64text',
   contexts: ['selection'],
   visible: true
 }, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
-  title: 'copy text ➜ base64',
+  title: chrome.i18n.getMessage('contextMenu_textToBase64'),
   id: 'base64codermenutextbase64',
   contexts: ['selection'],
   visible: true
 }, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
-  title: 'copy image ➜ base64',
+  title: chrome.i18n.getMessage('contextMenu_imageToBase64'),
   id: 'base64codermenuimagebase64',
   contexts: ['page', 'image', 'frame', 'link'],
   visible: true
 }, () => chrome.runtime.lastError);
 
 chrome.contextMenus.create({
-  title: 'open base64',
+  title: chrome.i18n.getMessage('contextMenu_openBase64'),
   id: 'base64coderopenbase64',
   contexts: ['selection'],
   visible: true
@@ -35,9 +35,9 @@ chrome.omnibox.onInputChanged.addListener((text, suggest) => {
   text = text.trim();
 
   var suggestions = [];
-  suggestions.push({ content: text, description: "Base64Coder" });
-  suggestions.push({ content: "[from] " + text, description: "base64 ➜ text" });
-  suggestions.push({ content: "[to] " + text, description: "text ➜ base64" });
+  suggestions.push({ content: text, description: chrome.i18n.getMessage('omnibox_description') });
+  suggestions.push({ content: "[from] " + text, description: chrome.i18n.getMessage('omnibox_base64ToText') });
+  suggestions.push({ content: "[to] " + text, description: chrome.i18n.getMessage('omnibox_textToBase64') });
 
   // Set first suggestion as the default suggestion
   chrome.omnibox.setDefaultSuggestion({ description: suggestions[0].description });
@@ -108,22 +108,22 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
 
 function successBadge() {
-  chrome.action.setBadgeText({ text: 'DONE' });
+  chrome.action.setBadgeText({ text: chrome.i18n.getMessage('badge_done') });
   chrome.action.setBadgeBackgroundColor({ color: 'green' });
   setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);
 }
 
 function errorBadge() {
-  chrome.action.setBadgeText({ text: 'ERR' });
+  chrome.action.setBadgeText({ text: chrome.i18n.getMessage('badge_error') });
   chrome.action.setBadgeBackgroundColor({ color: 'red' });
   setTimeout(() => chrome.action.setBadgeText({ text: '' }), 500);
 }
 
 function waitBadge() {
-  chrome.action.setBadgeText({ text: 'WAIT' });
+  chrome.action.setBadgeText({ text: chrome.i18n.getMessage('badge_wait') });
   chrome.action.setBadgeBackgroundColor({ color: 'yellow' });
   setTimeout(async () => {
     const badgeText = await chrome.action.getBadgeText({});
-    if (badgeText === 'WAIT') errorBadge();
+    if (badgeText === chrome.i18n.getMessage('badge_wait')) errorBadge();
   }, 2000);
 }
