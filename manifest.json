@@ -3,12 +3,17 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDescription__",
   "default_locale": "en",
-  "version": "1.29.0",
+  "version": "2.0.0",
   "omnibox": {
     "keyword": "64"
   },
   "action": {
-    "default_icon": "/assets/images/icons/b64c128.png"
+    "default_icon": "/assets/images/icons/b64c128.png",
+    "default_popup": "popup/index.html"
+  },
+  "options_ui": {
+    "page": "options/index.html",
+    "open_in_tab": true
   },
   "icons": {
     "16": "/assets/images/icons/b64c16.png",
@@ -21,7 +26,8 @@
     "type": "module"
   },
   "permissions": [
-    "contextMenus"
+    "contextMenus",
+    "storage"
   ],
   "content_scripts": [
     {
