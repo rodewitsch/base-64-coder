@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
       await chrome.runtime.sendMessage({ type: 'success', tabId: request.tabId });
     }
   } catch (err) {
-    await chrome.runtime.sendMessage({ type: 'error', tabId: request.tabId, err });
+    await chrome.runtime.sendMessage({ type: 'error', tabId: request.tabId, err: String(err) });
   } finally {
     sendResponse({ received: true });
   }
