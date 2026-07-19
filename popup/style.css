@@ -1,0 +1,151 @@
+:root {
+  --main-bg-color: #f8f8f8;
+  --text-color: #333;
+  --surface-color: #ffffff;
+  --surface-border: gray;
+  --btn-hover: #e1e1e1;
+  --input-bg: #ffffff;
+  --input-color: #333;
+  --select-bg: #ffffff;
+  --select-color: #333;
+  --btn-bg: #f8f8f8;
+  --btn-color: #333;
+}
+
+/* Forced dark theme (from settings) */
+:root.theme-dark {
+  --main-bg-color: #333333;
+  --text-color: #ffffff;
+  --surface-color: #454545;
+  --surface-border: #555;
+  --btn-hover: #4d4d4d;
+  --input-bg: #454545;
+  --input-color: #ffffff;
+  --select-bg: #454545;
+  --select-color: #ffffff;
+  --btn-bg: #3d3d3d;
+  --btn-color: #ffffff;
+}
+
+/* Auto dark mode (system preference) — only when no forced theme */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light):not(.theme-dark) {
+    --main-bg-color: #333333;
+    --text-color: #ffffff;
+    --surface-color: #454545;
+    --surface-border: #555;
+    --btn-hover: #4d4d4d;
+    --input-bg: #454545;
+    --input-color: #ffffff;
+    --select-bg: #454545;
+    --select-color: #ffffff;
+    --btn-bg: #3d3d3d;
+    --btn-color: #ffffff;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 420px;
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 6px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-header select {
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--select-bg);
+  color: var(--select-color);
+  font-size: 12px;
+}
+
+.popup-header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn {
+  background: var(--btn-bg);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--btn-color);
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--btn-hover);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn svg {
+  color: currentColor;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 6px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.action-btn.active {
+  background: var(--btn-hover);
+}
+
+#source, #result {
+  width: 100%;
+  height: 120px;
+  resize: none;
+  border-radius: 4px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--input-bg);
+  color: var(--input-color);
+  padding: 6px;
+  font-size: 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: hidden;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.popup-footer {
+  display: flex;
+  gap: 4px;
+}
