@@ -33,19 +33,37 @@ document.onreadystatechange = function () {
   const clearResultBtn = document.getElementById('clear-result');
   const saveResultBtn = document.getElementById('save-result');
   const beautifyBtn = document.getElementById('beautify-result');
+  const minifyBtn = document.getElementById('minify-result');
+  const sourcePrettyBtn = document.getElementById('source-pretty');
+  const sourceMinifyBtn = document.getElementById('source-minify');
+  const swapBtn = document.getElementById('swap-btn');
+  const encodingSelect = document.getElementById('encoding-select');
   const openExtensionPageBtn = document.getElementById('open-extension-page');
   const openFAQBtn = document.getElementById('open-faq');
+  const openSettingsBtn = document.getElementById('open-settings');
 
   const query = new URLSearchParams(window.location.search);
   const text = query.get('text');
   let selectedFile;
 
-  // Initialize i18n for all data-i18n elements
-  initI18n();
+  function applyConvertTheme(theme) {
+    document.documentElement.classList.remove('theme-light', 'theme-dark');
+    if (theme === 'light') {
+      document.documentElement.classList.add('theme-light');
+    } else if (theme === 'dark') {
+      document.documentElement.classList.add('theme-dark');
+    }
+  }
 
-  // Set up audio fallback with i18n
-  document.getElementById('result-audio-fallback').innerHTML =
-    chrome.i18n.getMessage('audio_notSupported', ['<code>audio</code>']);
+  // Initialize i18n and theme for all data-i18n elements
+  chrome.storage.sync.get(['language', 'theme'], async (data) => {
+    applyConvertTheme(data.theme || 'auto');
+    await setLanguage(data.language || 'system');
+
+    // Set up audio fallback with i18n
+    document.getElementById('result-audio-fallback').innerHTML =
+      _getMessage('audio_notSupported', ['<code>audio</code>']);
+  });
 
   // Set up image meta lines with i18n (child spans need IDs for dynamic updates)
   document.getElementById('img-meta-size-line').innerHTML =
@@ -72,8 +90,13 @@ document.onreadystatechange = function () {
         resultAudio.src = null;
         resultVideoSource.src = null;
         beautifyBtn.style.display = 'none';
+        minifyBtn.style.display = 'none';
+        encodingSelect.style.display = resultText.innerText ? 'inline-block' : 'none';
 
-        if (isJSON(resultText.innerText)) beautifyBtn.style.display = 'inline';
+        if (isJSON(resultText.innerText)) {
+          beautifyBtn.style.display = 'inline';
+          minifyBtn.style.display = 'inline';
+        }
         copyResultBtn.classList.remove('disabled');
         break;
       }
@@ -88,6 +111,8 @@ document.onreadystatechange = function () {
         resultVideoSource.src = null;
 
         beautifyBtn.style.display = 'none';
+        minifyBtn.style.display = 'none';
+        encodingSelect.style.display = 'none';
         copyResultBtn.classList.remove('disabled');
         break;
       }
@@ -102,6 +127,7 @@ document.onreadystatechange = function () {
         resultVideoSource.src = null;
 
         copyResultBtn.classList.add('disabled');
+        encodingSelect.style.display = 'none';
         break;
       }
       case 'audio': {
@@ -114,6 +140,7 @@ document.onreadystatechange = function () {
         resultVideoSource.src = null;
 
         copyResultBtn.classList.add('disabled');
+        encodingSelect.style.display = 'none';
         break;
       }
       case 'video': {
@@ -126,13 +153,21 @@ document.onreadystatechange = function () {
         resultAudio.src = null;
 
         copyResultBtn.classList.add('disabled');
+        encodingSelect.style.display = 'none';
         break;
       }
     }
   }
 
+  function hasDataUrl(src) {
+    return src && (src.startsWith('data:') || src.startsWith('blob:') || src.startsWith('http'));
+  }
+
   function isResult() {
-    return resultText.innerHTML && resultText.innerHTML !== '<br>' || location.origin + '/convert/null' !== resultImg.src || location.origin + '/convert/null' !== resultAudio.src || location.origin + '/convert/null' !== resultVideoSource.src;
+    return (resultText.innerText && resultText.innerText !== '') ||
+      hasDataUrl(resultImg.src) ||
+      hasDataUrl(resultAudio.src) ||
+      hasDataUrl(resultVideoSource.src);
   }
 
   function activateAvailableBtns() {
@@ -158,6 +193,14 @@ document.onreadystatechange = function () {
 
         copySourceBtn.classList.remove('disabled');
         clearSourceBtn.classList.remove('disabled');
+
+        if (isJSON(source.value)) {
+          sourcePrettyBtn.style.display = 'inline';
+          sourceMinifyBtn.style.display = 'inline';
+        } else {
+          sourcePrettyBtn.style.display = 'none';
+          sourceMinifyBtn.style.display = 'none';
+        }
       } else if (selectedFile) {
         decodeBtn.classList.add('disabled');
         encodeBtn.classList.remove('disabled');
@@ -169,6 +212,8 @@ document.onreadystatechange = function () {
         pasteSourceBtn.classList.add('disabled');
         copySourceBtn.classList.add('disabled');
         clearSourceBtn.classList.remove('disabled');
+        sourcePrettyBtn.style.display = 'none';
+        sourceMinifyBtn.style.display = 'none';
       } else {
         decodeBtn.classList.add('disabled');
         encodeBtn.classList.add('disabled');
@@ -179,6 +224,8 @@ document.onreadystatechange = function () {
 
         copySourceBtn.classList.add('disabled');
         clearSourceBtn.classList.add('disabled');
+        sourcePrettyBtn.style.display = 'none';
+        sourceMinifyBtn.style.display = 'none';
       }
 
       if (isResult()) {
@@ -190,6 +237,32 @@ document.onreadystatechange = function () {
         saveResultBtn.classList.add('disabled');
         clearResultBtn.classList.add('disabled');
       }
+
+      // Update result JSON buttons visibility
+      if (resultText.innerText && (resultType === 'text' || resultType === 'base64') && isJSON(resultText.innerText)) {
+        beautifyBtn.style.display = 'inline';
+        minifyBtn.style.display = 'inline';
+      } else if (resultType !== 'text' && resultType !== 'base64') {
+        // non-text types — hidden by setCurrentResultType
+      } else {
+        beautifyBtn.style.display = 'none';
+        minifyBtn.style.display = 'none';
+      }
+
+      // Show encoding select only for text result type with content
+      if (resultType === 'text' && resultText.innerText) {
+        encodingSelect.style.display = 'inline-block';
+      } else if (resultType === 'text') {
+        encodingSelect.style.display = 'none';
+      }
+
+      // Show swap button when at least one value exists
+      if (source.value || resultText.innerText) {
+        swapBtn.style.display = '';
+      } else {
+        swapBtn.style.display = 'none';
+      }
+      // For other types, setCurrentResultType handles it
     });
   }
 
@@ -238,6 +311,8 @@ document.onreadystatechange = function () {
     sourceFileInfo.classList.remove('active');
     copySourceBtn.classList.remove('disabled');
     pasteSourceBtn.classList.remove('disabled');
+    sourcePrettyBtn.style.display = 'none';
+    sourceMinifyBtn.style.display = 'none';
     setCurrentResultType('text');
     setCurrentActiveConvertBtn();
     activateAvailableBtns();
@@ -346,6 +421,8 @@ document.onreadystatechange = function () {
         sourceTextLength.style.display = 'none';
         copySourceBtn.classList.add('disabled');
         pasteSourceBtn.classList.add('disabled');
+        sourcePrettyBtn.style.display = 'none';
+        sourceMinifyBtn.style.display = 'none';
         sourceFileInfo.classList.add('active');
         setCurrentResultType('base64');
         setCurrentActiveConvertBtn(encodeBtn);
@@ -364,7 +441,7 @@ document.onreadystatechange = function () {
       const text = source.value;
       try {
         encodedText = btoa(text);
-      } catch (err) {
+      } catch {
         encodedText = btoa(encodeURIComponent(text));
       }
       resultText.innerText = encodedText;
@@ -388,7 +465,7 @@ document.onreadystatechange = function () {
 
   beautifyBtn.onclick = () => {
     if (isJSON(resultText.innerText)) {
-      resultText.innerText = JSON.stringify(JSON.parse(resultText.innerText), null, 2);
+      resultText.innerText = prettyJSON(resultText.innerText);
       showTextLength(resultText.innerText, resultTextLength);
       resultText.childNodes.forEach((node) => {
         if (!node.textContent) return;
@@ -398,7 +475,9 @@ document.onreadystatechange = function () {
           span.appendChild(node);
           span.style.backgroundColor = '#d3d3d347';
           span.addEventListener('mouseover', () => {
-            const date = node.textContent.match(/"(iat|exp)": (?<date>\d+)/).groups.date;
+            const m = node.textContent.match(/"(iat|exp)": (?<date>\d+)/);
+            if (!m) return;
+            const date = m.groups.date;
             resultTooltip.textContent = new Date(date * 1000).toLocaleString();
             const rect = span.getBoundingClientRect();
             resultTooltip.style.top = `${rect.top - 16}px`;
@@ -415,6 +494,63 @@ document.onreadystatechange = function () {
     }
   }
 
+  minifyBtn.onclick = () => {
+    if (isJSON(resultText.innerText)) {
+      resultText.innerText = minifyJSON(resultText.innerText);
+      showTextLength(resultText.innerText, resultTextLength);
+    }
+  }
+
+  sourcePrettyBtn.onclick = () => {
+    if (isJSON(source.value)) {
+      source.value = prettyJSON(source.value);
+      showTextLength(source.value, sourceTextLength);
+    }
+  }
+
+  sourceMinifyBtn.onclick = () => {
+    if (isJSON(source.value)) {
+      source.value = minifyJSON(source.value);
+      showTextLength(source.value, sourceTextLength);
+    }
+  }
+
+  swapBtn.onclick = () => {
+    const sourceVal = source.value;
+    const resultVal = resultText.innerText;
+
+    if (selectedFile) {
+      // If a file is selected, swap is limited: put result into source
+      selectedFile = null;
+      source.style.display = 'block';
+      sourceTextLength.style.display = 'block';
+      sourceFileInfo.classList.remove('active');
+      copySourceBtn.classList.remove('disabled');
+      pasteSourceBtn.classList.remove('disabled');
+      source.value = resultVal;
+      resultText.innerText = '';
+    } else {
+      source.value = resultVal;
+      resultText.innerText = sourceVal;
+    }
+
+    activateAvailableBtns();
+    showTextLength(source.value, sourceTextLength);
+    showTextLength(resultText.innerText, resultTextLength);
+
+    // Swap the active conversion button
+    if (resultType === 'text') {
+      resultType = 'base64';
+      setCurrentActiveConvertBtn(encodeBtn);
+    } else if (resultType === 'base64') {
+      resultType = 'text';
+      setCurrentActiveConvertBtn(decodeBtn);
+    }
+
+    setCurrentResultType(resultType || 'text');
+    source.focus();
+  }
+
   decodeJwtBtn.onclick = () => {
     resultText.innerText = JSON.stringify(parseJwt(source.value));
     activateAvailableBtns();
@@ -425,12 +561,25 @@ document.onreadystatechange = function () {
   }
 
   decodeBtn.onclick = () => {
-    const base64 = source.value.replace(/data:.+?;base64,/, '');
+    let base64 = source.value.replace(/data:.+?;base64,/, '');
+    // Trim quotes from base64 string without modifying source
+    base64 = trimQuotes(base64.trim());
+
+    const encoding = encodingSelect.value;
     try {
-      resultText.innerText = decodeURIComponent(atob(base64));
-    }
-    catch (err) {
-      resultText.innerText = atob(base64);
+      if (encoding === 'auto') {
+        const detected = autoDetectEncoding(base64);
+        resultText.innerText = decodeBase64WithEncoding(base64, detected);
+      } else {
+        resultText.innerText = decodeBase64WithEncoding(base64, encoding);
+      }
+    } catch {
+      // Fallback: try standard decodeURIComponent approach
+      try {
+        resultText.innerText = decodeURIComponent(atob(base64));
+      } catch {
+        resultText.innerText = atob(base64);
+      }
     }
 
     activateAvailableBtns();
@@ -639,5 +788,9 @@ document.onreadystatechange = function () {
 
   openFAQBtn.onclick = () => {
     chrome.runtime.sendMessage({ type: 'openFAQ' });
+  }
+
+  openSettingsBtn.onclick = () => {
+    chrome.runtime.openOptionsPage();
   }
 };

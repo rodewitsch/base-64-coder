@@ -5,7 +5,6 @@
     <link rel="icon" type="image/x-icon" href="../assets/images/icons/b64c48.png" />
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="../node_modules/file-saver/dist/FileSaver.min.js"></script>
     <script src="../lib.js" type="text/javascript"></script>
     <script src="./script.js" type="text/javascript"></script>
   </head>
@@ -20,6 +19,14 @@
       <div class="action-area-header">
         <label for="source" data-i18n="label_source">Source:</label>
         <div class="btn-panel">
+          <button data-i18n-title="title_sourcePretty" title="Format JSON in source" class="btn" id="source-pretty" style="display:none">
+            <img draggable="false" src="../assets/images/icons/structure.png" alt="pretty" />
+            <span data-i18n="btn_pretty">pretty</span>
+          </button>
+          <button data-i18n-title="title_sourceMinify" title="Minify JSON in source" class="btn" id="source-minify" style="display:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+            <span data-i18n="btn_minify">minify</span>
+          </button>
           <button data-i18n-title="title_openFile" title="[ Ctrl + O ] Select file to encode in base64" class="btn" id="open-source-file">
             <input type="file" name="input-name" style="display: none" />
             <img draggable="false" src="../assets/images/icons/file.png" alt="open file" />
@@ -54,7 +61,8 @@
         <label data-i18n="label_convertTo">Convert to:</label>
       </div>
       <div class="actions">
-        <button data-tooltip="1" data-i18n-title="title_decodeBtn" title="[ Alt + 1 ] Convert source value to text" class="btn disabled" id="decode-btn">
+        <div class="action-tools">
+          <button data-tooltip="1" data-i18n-title="title_decodeBtn" title="[ Alt + 1 ] Convert source value to text" class="btn disabled" id="decode-btn">
           <img draggable="false" src="../assets/images/icons/text.png" alt="to text" />
           <span data-i18n="btn_text">text</span>
         </button>
@@ -113,16 +121,39 @@
           <img draggable="false" src="../assets/images/icons/video.png" alt="to video" />
           <span data-i18n="btn_video">video</span>
         </button>
+        </div>
+        <button data-i18n-title="title_swapBtn" title="Swap source and result" class="btn" id="swap-btn" style="display:none">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+          <span data-i18n="btn_swap">swap</span>
+        </button>
       </div>
     </div>
 
     <div class="action-area">
       <div class="action-area-header">
-        <label for="result" data-i18n="label_result">Result:</label>
+        <div class="result-header-left">
+          <label for="result" data-i18n="label_result">Result:</label>
+          <div class="encoding-selector">
+            <select id="encoding-select">
+              <option value="auto" data-i18n="encoding_auto">auto</option>
+              <option value="utf-8">UTF-8</option>
+              <option value="windows-1251">Windows-1251</option>
+              <option value="iso-8859-5">ISO-8859-5</option>
+              <option value="koi8-r">KOI8-R</option>
+              <option value="cp866">CP866</option>
+              <option value="utf-16">UTF-16</option>
+              <option value="iso-8859-1">ISO-8859-1</option>
+            </select>
+          </div>
+        </div>
         <div class="btn-panel">
-          <button data-i18n-title="title_beautifyBtn" title="Format JSON value" class="btn" id="beautify-result">
+          <button data-i18n-title="title_beautifyBtn" title="Format JSON value" class="btn" id="beautify-result" style="display:none">
             <img draggable="false" src="../assets/images/icons/structure.png" alt="tree" />
             <span data-i18n="btn_pretty">pretty</span>
+          </button>
+          <button data-i18n-title="title_minifyBtn" title="Minify JSON value" class="btn" id="minify-result" style="display:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+            <span data-i18n="btn_minify">minify</span>
           </button>
           <button data-i18n-title="title_copyResult" title="[ Ctrl + C / Ctrl + Shift + C ] Copy result value to clipboard" class="btn" id="copy-result">
             <img draggable="false" src="../assets/images/icons/copy.png" alt="copy" />
@@ -160,6 +191,10 @@
     </div>
 
     <div class="floating-panel">
+      <button data-i18n-title="title_settings" title="Settings" class="btn" id="open-settings">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+
       <button data-i18n-title="title_faq" title="FAQ" class="btn" id="open-faq">
         <img draggable="false" src="../assets/images/icons/question-mark.png" alt="FAQ" />
       </button>

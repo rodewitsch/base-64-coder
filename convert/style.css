@@ -1,10 +1,59 @@
 :root {
   --main-bg-color: #f8f8f8;
+  --text-color: #333;
+  --input-bg: #ffffff;
+  --input-color: #333;
+  --btn-bg: #f8f8f8;
+  --btn-color: #333;
+  --btn-hover: #e1e1e1;
+  --label-color: #333;
+  --select-bg: #ffffff;
+  --select-color: #333;
+  --select-border: gray;
+  --drop-text-color: #333;
+  --img-filter: none;
+}
+
+/* Forced dark theme (from settings) */
+:root.theme-dark {
+  --main-bg-color: #333333;
+  --text-color: #ffffff;
+  --input-bg: #454545;
+  --input-color: #ffffff;
+  --btn-bg: #3d3d3d;
+  --btn-color: #ffffff;
+  --btn-hover: #4d4d4d;
+  --label-color: #ffffff;
+  --select-bg: #454545;
+  --select-color: #ffffff;
+  --select-border: #555;
+  --drop-text-color: #ffffff;
+  --img-filter: invert(90%);
+}
+
+/* Auto dark mode (system preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light):not(.theme-dark) {
+    --main-bg-color: #333333;
+    --text-color: #ffffff;
+    --input-bg: #454545;
+    --input-color: #ffffff;
+    --btn-bg: #3d3d3d;
+    --btn-color: #ffffff;
+    --btn-hover: #4d4d4d;
+    --label-color: #ffffff;
+    --select-bg: #454545;
+    --select-color: #ffffff;
+    --select-border: #555;
+    --drop-text-color: #ffffff;
+    --img-filter: invert(90%);
+  }
 }
 
 html,
 body {
   background-color: var(--main-bg-color);
+  color: var(--text-color);
   user-select: none;
   height: 100%;
 }
@@ -21,6 +70,7 @@ label {
   font-size: 2em;
   margin: 0.67em 0;
   font-weight: bold;
+  color: var(--label-color);
 }
 
 button {
@@ -51,6 +101,7 @@ button {
 #drop-overlay p {
   font-size: 1vw;
   font-weight: bold;
+  color: var(--drop-text-color);
 }
 
 .action-area {
@@ -88,7 +139,7 @@ button {
 }
 
 .btn {
-  background: var(--main-bg-color);
+  background: var(--btn-bg);
   border: none;
   width: 45px;
   height: 45px;
@@ -98,15 +149,22 @@ button {
   border-radius: 5px;
   padding-top: 2px;
   margin-left: 5px;
+  color: var(--btn-color);
 }
 
 .btn:not(.disabled):hover,
 .btn.active {
-  background: #e1e1e1 !important;
+  background: var(--btn-hover) !important;
 }
 
 .btn img {
   width: 25px;
+}
+
+.btn svg {
+  width: 22px;
+  height: 22px;
+  color: inherit;
 }
 
 .btn span {
@@ -123,8 +181,9 @@ button {
   width: 100%;
   height: 30vh;
   border-radius: 5px;
-  border: 1px solid gray;
-  background-color: white;
+  border: 1px solid var(--select-border);
+  background-color: var(--input-bg);
+  color: var(--input-color);
   padding: 5px;
   font-size: 14px;
   white-space: pre-wrap;
@@ -143,26 +202,40 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: left;
-  width: 40vw;
+  justify-content: flex-start;
+  width: 100%;
+  position: relative;
 }
 
-.actions .btn::before {
+.action-tools {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.actions #swap-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.action-tools .btn::before {
   content: attr(data-tooltip);
   display: none;
   position: absolute;
   font-size: 10px;
 }
 
-.actions .btn.alt::before {
+.action-tools .btn.alt::before {
   display: block;
 }
 
-.actions .btn img {
+.action-tools .btn img {
   width: 40px;
 }
 
-.actions .btn {
+.action-tools .btn {
   width: 62px;
   height: 62px;
 }
@@ -199,6 +272,43 @@ button {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.encoding-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.result-header-left select {
+  margin-top: 5px;
+}
+
+
+.encoding-selector label {
+  font-size: 1em;
+  margin: 0;
+}
+
+.encoding-selector select {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--select-border);
+  background-color: var(--select-bg);
+  color: var(--select-color);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.encoding-selector .btn {
+  width: 45px;
+  height: 45px;
 }
 
 .floating-panel {
@@ -254,53 +364,17 @@ button {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --main-bg-color: #333333;
-  }
+.btn.disabled {
+  background: var(--btn-bg);
+}
 
-  label {
-    color: white;
-  }
+.btn img:not(.preserve-color),
+#drop-overlay img,
+.file-info img,
+#result-img[src*='corrupted-file.png'] {
+  filter: var(--img-filter);
+}
 
-  #source,
-  #result {
-    background-color: #454545;
-    color: white;
-  }
-
-  .btn {
-    background: #3d3d3d;
-    color: white;
-  }
-
-  .btn.disabled {
-    background: #3d3d3d;
-  }
-
-  .btn:not(.disabled):hover,
-  .btn.active {
-    background: #4d4d4d !important;
-  }
-
-  .btn img:not(.preserve-color) {
-    filter: invert(90%);
-  }
-
-  #drop-overlay img,
-  .file-info img {
-    filter: invert(90%);
-  }
-
-  #drop-overlay p {
-    color: white;
-  }
-
-  #result-img[src*='corrupted-file.png'] {
-    filter: invert(90%);
-  }
-
-  #result-img-meta {
-    color: white;
-  }
+#result-img-meta {
+  color: var(--text-color);
 }
