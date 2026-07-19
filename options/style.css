@@ -1,0 +1,110 @@
+:root {
+  --main-bg-color: #f8f8f8;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --card-border: #ddd;
+  --select-bg: #ffffff;
+  --select-color: #333;
+  --select-border: gray;
+}
+
+/* Forced dark theme (from settings) */
+:root.theme-dark {
+  --main-bg-color: #333333;
+  --text-color: #ffffff;
+  --card-bg: #454545;
+  --card-border: #555;
+  --select-bg: #454545;
+  --select-color: #ffffff;
+  --select-border: #555;
+}
+
+/* Auto dark mode (system preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light):not(.theme-dark) {
+    --main-bg-color: #333333;
+    --text-color: #ffffff;
+    --card-bg: #454545;
+    --card-border: #555;
+    --select-bg: #454545;
+    --select-color: #ffffff;
+    --select-border: #555;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+.options-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.option-group {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+}
+
+.option-group h2 {
+  font-size: 16px;
+  margin: 0 0 12px 0;
+}
+
+select {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--select-border);
+  background-color: var(--select-bg);
+  color: var(--select-color);
+  font-size: 14px;
+  width: 100%;
+  max-width: 300px;
+  cursor: pointer;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.radio-group input[type="radio"] {
+  margin: 0;
+}
+
+.saved-msg {
+  text-align: center;
+  color: #4caf50;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.saved-msg.visible {
+  opacity: 1;
+}
