@@ -21,6 +21,14 @@ export default [
         saveAs: true,
         parseJwt: true,
         getDataUrlSize: true,
+        initI18n: true,
+        setLanguage: true,
+        _getMessage: true,
+        trimQuotes: true,
+        autoDetectEncoding: true,
+        decodeBase64WithEncoding: true,
+        prettyJSON: true,
+        minifyJSON: true,
       }, sourceType: "script"
     }
   },
