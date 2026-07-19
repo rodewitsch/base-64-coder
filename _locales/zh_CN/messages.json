@@ -80,6 +80,7 @@
   "title_clearResult": { "message": "清除结果值" },
   "title_faq": { "message": "常见问题" },
   "title_extensionPage": { "message": "打开扩展页面" },
+  "title_settings": { "message": "设置" },
   "placeholder_source": { "message": "输入文本或拖放文件。" },
   "fileInfo_noFile": { "message": "未选择文件" },
   "chars_zero": { "message": "0 个字符" },
@@ -134,5 +135,30 @@
   "text_filename": { "message": "text.txt" },
   "image_png_filename": { "message": "image.png" },
   "image_jpeg_filename": { "message": "image.jpeg" },
-  "audio_filename": { "message": "audio.mp3" }
+  "audio_filename": { "message": "audio.mp3" },
+
+  "btn_swap": { "message": "交换" },
+  "btn_minify": { "message": "压缩" },
+  "label_encoding": { "message": "编码:" },
+  "encoding_auto": { "message": "自动" },
+
+  "title_swapBtn": { "message": "交换源和结果" },
+  "title_minifyBtn": { "message": "压缩 JSON" },
+  "title_sourcePretty": { "message": "格式化源 JSON" },
+  "title_sourceMinify": { "message": "压缩源 JSON" },
+
+  "placeholder_result": { "message": "结果将显示在这里..." },
+
+  "options_title": { "message": "Base64Coder 设置" },
+  "options_language": { "message": "语言" },
+  "options_languageSystem": { "message": "系统默认" },
+  "options_theme": { "message": "主题" },
+  "options_themeAuto": { "message": "自动（系统）" },
+  "options_themeLight": { "message": "浅色" },
+  "options_themeDark": { "message": "深色" },
+  "options_workMode": { "message": "工作模式" },
+  "options_workModeTab": { "message": "在新标签页中打开" },
+  "options_workModePopup": { "message": "在弹出窗口中工作" },
+  "options_defaultEncoding": { "message": "默认编码" },
+  "options_saved": { "message": "设置已保存" }
 }

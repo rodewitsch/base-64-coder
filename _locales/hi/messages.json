@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "परिणाम मान साफ़ करें" },
   "title_faq": { "message": "सामान्य प्रश्न" },
   "title_extensionPage": { "message": "एक्सटेंशन पेज खोलें" },
+  "title_settings": { "message": "सेटिंग्स" },
   "placeholder_source": { "message": "अपना टेक्स्ट दर्ज करें या फ़ाइल ड्रॉप करें।" },
   "fileInfo_noFile": { "message": "कोई फ़ाइल चयनित नहीं" },
   "chars_zero": { "message": "0 अक्षर" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "text.txt" },
   "image_png_filename": { "message": "image.png" },
   "image_jpeg_filename": { "message": "image.jpeg" },
-  "audio_filename": { "message": "audio.mp3" }
+  "audio_filename": { "message": "audio.mp3" },
+
+  "btn_swap": { "message": "अदला-बदली" },
+  "btn_minify": { "message": "छोटा करें" },
+  "label_encoding": { "message": "एन्कोडिंग:" },
+  "encoding_auto": { "message": "स्वचालित" },
+
+  "title_swapBtn": { "message": "स्रोत और परिणाम बदलें" },
+  "title_minifyBtn": { "message": "JSON छोटा करें" },
+  "title_sourcePretty": { "message": "स्रोत JSON को सुंदर बनाएं" },
+  "title_sourceMinify": { "message": "स्रोत JSON छोटा करें" },
+
+  "placeholder_result": { "message": "परिणाम यहाँ दिखाई देगा..." },
+
+  "options_title": { "message": "Base64Coder सेटिंग्स" },
+  "options_language": { "message": "भाषा" },
+  "options_languageSystem": { "message": "सिस्टम डिफ़ॉल्ट" },
+  "options_theme": { "message": "थीम" },
+  "options_themeAuto": { "message": "स्वचालित (सिस्टम)" },
+  "options_themeLight": { "message": "हल्का" },
+  "options_themeDark": { "message": "गहरा" },
+  "options_workMode": { "message": "कार्य मोड" },
+  "options_workModeTab": { "message": "नए टैब में खोलें" },
+  "options_workModePopup": { "message": "पॉपअप में काम करें" },
+  "options_defaultEncoding": { "message": "डिफ़ॉल्ट एन्कोडिंग" },
+  "options_saved": { "message": "सेटिंग्स सहेजी गईं" }
 }

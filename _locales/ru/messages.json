@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Base64Coder: Кодирование, Декодирование и Инспектор JWT",
+    "message": "Base64Coder: Декодирование, Кодирование Base64 и Инспектор JWT",
     "description": "Extension name"
   },
   "appDescription": {
-    "message": "Base64 кодер/декодер, инспектор JWT и конвертер изображений в base64 для разработчиков.",
+    "message": "Base64 декодер/кодер, инспектор JWT и конвертер изображений в base64 для разработчиков.",
     "description": "Extension description"
   },
   "appShortName": {
@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "Очистить результат" },
   "title_faq": { "message": "Справка" },
   "title_extensionPage": { "message": "Открыть страницу расширения" },
+  "title_settings": { "message": "Настройки" },
   "placeholder_source": { "message": "Введите текст или перетащите файл." },
   "fileInfo_noFile": { "message": "Файл не выбран" },
   "chars_zero": { "message": "0 символов" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "текст.txt" },
   "image_png_filename": { "message": "изображение.png" },
   "image_jpeg_filename": { "message": "изображение.jpeg" },
-  "audio_filename": { "message": "аудио.mp3" }
+  "audio_filename": { "message": "аудио.mp3" },
+
+  "btn_swap": { "message": "обмен" },
+  "btn_minify": { "message": "сжать" },
+  "label_encoding": { "message": "Кодировка:" },
+  "encoding_auto": { "message": "авто" },
+
+  "title_swapBtn": { "message": "Обменять источник и результат" },
+  "title_minifyBtn": { "message": "Сжать JSON" },
+  "title_sourcePretty": { "message": "Форматировать JSON в источнике" },
+  "title_sourceMinify": { "message": "Сжать JSON в источнике" },
+
+  "placeholder_result": { "message": "Результат появится здесь..." },
+
+  "options_title": { "message": "Настройки Base64Coder" },
+  "options_language": { "message": "Язык" },
+  "options_languageSystem": { "message": "Системный" },
+  "options_theme": { "message": "Тема" },
+  "options_themeAuto": { "message": "Автоматически (системная)" },
+  "options_themeLight": { "message": "Светлая" },
+  "options_themeDark": { "message": "Тёмная" },
+  "options_workMode": { "message": "Режим работы" },
+  "options_workModeTab": { "message": "Открывать в новой вкладке (полная страница)" },
+  "options_workModePopup": { "message": "Работать во всплывающем окне" },
+  "options_defaultEncoding": { "message": "Кодировка по умолчанию" },
+  "options_saved": { "message": "Настройки сохранены" }
 }

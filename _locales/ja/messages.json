@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "結果を消去" },
   "title_faq": { "message": "よくある質問" },
   "title_extensionPage": { "message": "拡張機能ページを開く" },
+  "title_settings": { "message": "設定" },
   "placeholder_source": { "message": "テキストを入力するか、ファイルをドロップしてください。" },
   "fileInfo_noFile": { "message": "ファイルが選択されていません" },
   "chars_zero": { "message": "0文字" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "text.txt" },
   "image_png_filename": { "message": "image.png" },
   "image_jpeg_filename": { "message": "image.jpeg" },
-  "audio_filename": { "message": "audio.mp3" }
+  "audio_filename": { "message": "audio.mp3" },
+
+  "btn_swap": { "message": "入れ替え" },
+  "btn_minify": { "message": "縮小" },
+  "label_encoding": { "message": "エンコーディング:" },
+  "encoding_auto": { "message": "自動" },
+
+  "title_swapBtn": { "message": "ソースと結果を入れ替え" },
+  "title_minifyBtn": { "message": "JSONを縮小" },
+  "title_sourcePretty": { "message": "ソースのJSONを整形" },
+  "title_sourceMinify": { "message": "ソースのJSONを縮小" },
+
+  "placeholder_result": { "message": "結果がここに表示されます..." },
+
+  "options_title": { "message": "Base64Coder 設定" },
+  "options_language": { "message": "言語" },
+  "options_languageSystem": { "message": "システム既定" },
+  "options_theme": { "message": "テーマ" },
+  "options_themeAuto": { "message": "自動（システム）" },
+  "options_themeLight": { "message": "ライト" },
+  "options_themeDark": { "message": "ダーク" },
+  "options_workMode": { "message": "作業モード" },
+  "options_workModeTab": { "message": "新しいタブで開く" },
+  "options_workModePopup": { "message": "ポップアップで作業" },
+  "options_defaultEncoding": { "message": "デフォルトエンコーディング" },
+  "options_saved": { "message": "設定を保存しました" }
 }

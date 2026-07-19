@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "Limpiar resultado" },
   "title_faq": { "message": "Preguntas frecuentes" },
   "title_extensionPage": { "message": "Abrir página de la extensión" },
+  "title_settings": { "message": "Configuración" },
   "placeholder_source": { "message": "Ingrese su texto o arrastre un archivo." },
   "fileInfo_noFile": { "message": "Ningún archivo seleccionado" },
   "chars_zero": { "message": "0 caracteres" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "texto.txt" },
   "image_png_filename": { "message": "imagen.png" },
   "image_jpeg_filename": { "message": "imagen.jpeg" },
-  "audio_filename": { "message": "audio.mp3" }
+  "audio_filename": { "message": "audio.mp3" },
+
+  "btn_swap": { "message": "intercambiar" },
+  "btn_minify": { "message": "minificar" },
+  "label_encoding": { "message": "Codificación:" },
+  "encoding_auto": { "message": "auto" },
+
+  "title_swapBtn": { "message": "Intercambiar origen y resultado" },
+  "title_minifyBtn": { "message": "Minificar JSON" },
+  "title_sourcePretty": { "message": "Formatear JSON en origen" },
+  "title_sourceMinify": { "message": "Minificar JSON en origen" },
+
+  "placeholder_result": { "message": "El resultado aparecerá aquí..." },
+
+  "options_title": { "message": "Configuración de Base64Coder" },
+  "options_language": { "message": "Idioma" },
+  "options_languageSystem": { "message": "Predeterminado del sistema" },
+  "options_theme": { "message": "Tema" },
+  "options_themeAuto": { "message": "Automático (sistema)" },
+  "options_themeLight": { "message": "Claro" },
+  "options_themeDark": { "message": "Oscuro" },
+  "options_workMode": { "message": "Modo de trabajo" },
+  "options_workModeTab": { "message": "Abrir en nueva pestaña" },
+  "options_workModePopup": { "message": "Trabajar en ventana emergente" },
+  "options_defaultEncoding": { "message": "Codificación predeterminada" },
+  "options_saved": { "message": "Configuración guardada" }
 }

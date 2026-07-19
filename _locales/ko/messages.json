@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "결과 지우기" },
   "title_faq": { "message": "자주 묻는 질문" },
   "title_extensionPage": { "message": "확장 프로그램 페이지 열기" },
+  "title_settings": { "message": "설정" },
   "placeholder_source": { "message": "텍스트를 입력하거나 파일을 드롭하세요." },
   "fileInfo_noFile": { "message": "선택된 파일 없음" },
   "chars_zero": { "message": "0자" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "텍스트.txt" },
   "image_png_filename": { "message": "이미지.png" },
   "image_jpeg_filename": { "message": "이미지.jpeg" },
-  "audio_filename": { "message": "오디오.mp3" }
+  "audio_filename": { "message": "오디오.mp3" },
+
+  "btn_swap": { "message": "교환" },
+  "btn_minify": { "message": "축소" },
+  "label_encoding": { "message": "인코딩:" },
+  "encoding_auto": { "message": "자동" },
+
+  "title_swapBtn": { "message": "소스와 결과 교환" },
+  "title_minifyBtn": { "message": "JSON 축소" },
+  "title_sourcePretty": { "message": "소스 JSON 정리" },
+  "title_sourceMinify": { "message": "소스 JSON 축소" },
+
+  "placeholder_result": { "message": "결과가 여기에 표시됩니다..." },
+
+  "options_title": { "message": "Base64Coder 설정" },
+  "options_language": { "message": "언어" },
+  "options_languageSystem": { "message": "시스템 기본값" },
+  "options_theme": { "message": "테마" },
+  "options_themeAuto": { "message": "자동 (시스템)" },
+  "options_themeLight": { "message": "밝게" },
+  "options_themeDark": { "message": "어둡게" },
+  "options_workMode": { "message": "작업 모드" },
+  "options_workModeTab": { "message": "새 탭에서 열기" },
+  "options_workModePopup": { "message": "팝업에서 작업" },
+  "options_defaultEncoding": { "message": "기본 인코딩" },
+  "options_saved": { "message": "설정이 저장되었습니다" }
 }

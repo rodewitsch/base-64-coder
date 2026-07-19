@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "Ergebnis löschen" },
   "title_faq": { "message": "FAQ" },
   "title_extensionPage": { "message": "Erweiterungsseite öffnen" },
+  "title_settings": { "message": "Einstellungen" },
   "placeholder_source": { "message": "Text eingeben oder Datei hier ablegen." },
   "fileInfo_noFile": { "message": "Keine Datei ausgewählt" },
   "chars_zero": { "message": "0 Zeichen" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "text.txt" },
   "image_png_filename": { "message": "bild.png" },
   "image_jpeg_filename": { "message": "bild.jpeg" },
-  "audio_filename": { "message": "audio.mp3" }
+  "audio_filename": { "message": "audio.mp3" },
+
+  "btn_swap": { "message": "tauschen" },
+  "btn_minify": { "message": "minimieren" },
+  "label_encoding": { "message": "Kodierung:" },
+  "encoding_auto": { "message": "auto" },
+
+  "title_swapBtn": { "message": "Quelle und Ergebnis tauschen" },
+  "title_minifyBtn": { "message": "JSON minimieren" },
+  "title_sourcePretty": { "message": "JSON in Quelle formatieren" },
+  "title_sourceMinify": { "message": "JSON in Quelle minimieren" },
+
+  "placeholder_result": { "message": "Ergebnis erscheint hier..." },
+
+  "options_title": { "message": "Base64Coder Einstellungen" },
+  "options_language": { "message": "Sprache" },
+  "options_languageSystem": { "message": "Systemstandard" },
+  "options_theme": { "message": "Thema" },
+  "options_themeAuto": { "message": "Automatisch (System)" },
+  "options_themeLight": { "message": "Hell" },
+  "options_themeDark": { "message": "Dunkel" },
+  "options_workMode": { "message": "Arbeitsmodus" },
+  "options_workModeTab": { "message": "In neuem Tab öffnen" },
+  "options_workModePopup": { "message": "Im Popup-Fenster arbeiten" },
+  "options_defaultEncoding": { "message": "Standardkodierung" },
+  "options_saved": { "message": "Einstellungen gespeichert" }
 }

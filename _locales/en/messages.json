@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Base64Coder: Encode, Decode & JWT Inspector",
+    "message": "Base64Coder: Base64 Decode, Encode & JWT Inspector",
     "description": "Extension name"
   },
   "appDescription": {
-    "message": "Base64 encoder/decoder, JWT inspector & image-to-base64 converter for developers.",
+    "message": "Base64 decode/encode, JWT inspector & image-to-base64 converter for developers.",
     "description": "Extension description"
   },
   "appShortName": {
@@ -196,6 +196,10 @@
   "title_extensionPage": {
     "message": "Open extension page",
     "description": "Tooltip: open Chrome Web Store page"
+  },
+  "title_settings": {
+    "message": "Settings",
+    "description": "Tooltip: open settings"
   },
 
   "placeholder_source": {
@@ -413,5 +417,93 @@
   "audio_filename": {
     "message": "audio.mp3",
     "description": "Default filename for saving audio"
+  },
+
+  "btn_swap": {
+    "message": "swap",
+    "description": "Button label: swap source and result"
+  },
+  "btn_minify": {
+    "message": "minify",
+    "description": "Button label: minify JSON"
+  },
+  "label_encoding": {
+    "message": "Encoding:",
+    "description": "Label for encoding selector"
+  },
+  "encoding_auto": {
+    "message": "auto",
+    "description": "Auto-detect encoding option"
+  },
+
+  "title_swapBtn": {
+    "message": "Swap source and result",
+    "description": "Tooltip: swap button"
+  },
+  "title_minifyBtn": {
+    "message": "Minify JSON value",
+    "description": "Tooltip: minify button"
+  },
+  "title_sourcePretty": {
+    "message": "Format JSON in source",
+    "description": "Tooltip: source pretty button"
+  },
+  "title_sourceMinify": {
+    "message": "Minify JSON in source",
+    "description": "Tooltip: source minify button"
+  },
+
+  "placeholder_result": {
+    "message": "Result will appear here...",
+    "description": "Placeholder for result textarea"
+  },
+
+  "options_title": {
+    "message": "Base64Coder Settings",
+    "description": "Options page title"
+  },
+  "options_language": {
+    "message": "Language",
+    "description": "Options: language section"
+  },
+  "options_languageSystem": {
+    "message": "System default",
+    "description": "Options: system language"
+  },
+  "options_theme": {
+    "message": "Theme",
+    "description": "Options: theme section"
+  },
+  "options_themeAuto": {
+    "message": "Automatic (system)",
+    "description": "Options: auto theme"
+  },
+  "options_themeLight": {
+    "message": "Light",
+    "description": "Options: light theme"
+  },
+  "options_themeDark": {
+    "message": "Dark",
+    "description": "Options: dark theme"
+  },
+  "options_workMode": {
+    "message": "Work Mode",
+    "description": "Options: work mode section"
+  },
+  "options_workModeTab": {
+    "message": "Open in new tab (full page)",
+    "description": "Options: tab work mode"
+  },
+  "options_workModePopup": {
+    "message": "Work in popup window",
+    "description": "Options: popup work mode"
+  },
+  "options_defaultEncoding": {
+    "message": "Default Encoding",
+    "description": "Options: default encoding section"
+  },
+  "options_saved": {
+    "message": "Settings saved",
+    "description": "Options: saved confirmation"
   }
 }

@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "مسح النتيجة" },
   "title_faq": { "message": "الأسئلة الشائعة" },
   "title_extensionPage": { "message": "فتح صفحة الإضافة" },
+  "title_settings": { "message": "الإعدادات" },
   "placeholder_source": { "message": "أدخل النص أو أسقط ملفك." },
   "fileInfo_noFile": { "message": "لم يتم تحديد ملف" },
   "chars_zero": { "message": "0 حرف" },
@@ -125,5 +126,30 @@
   "text_filename": { "message": "نص.txt" },
   "image_png_filename": { "message": "صورة.png" },
   "image_jpeg_filename": { "message": "صورة.jpeg" },
-  "audio_filename": { "message": "صوت.mp3" }
+  "audio_filename": { "message": "صوت.mp3" },
+
+  "btn_swap": { "message": "تبديل" },
+  "btn_minify": { "message": "تصغير" },
+  "label_encoding": { "message": "الترميز:" },
+  "encoding_auto": { "message": "تلقائي" },
+
+  "title_swapBtn": { "message": "تبديل المصدر والنتيجة" },
+  "title_minifyBtn": { "message": "تصغير JSON" },
+  "title_sourcePretty": { "message": "تنسيق JSON في المصدر" },
+  "title_sourceMinify": { "message": "تصغير JSON في المصدر" },
+
+  "placeholder_result": { "message": "ستظهر النتيجة هنا..." },
+
+  "options_title": { "message": "إعدادات Base64Coder" },
+  "options_language": { "message": "اللغة" },
+  "options_languageSystem": { "message": "افتراضي النظام" },
+  "options_theme": { "message": "المظهر" },
+  "options_themeAuto": { "message": "تلقائي (النظام)" },
+  "options_themeLight": { "message": "فاتح" },
+  "options_themeDark": { "message": "داكن" },
+  "options_workMode": { "message": "وضع العمل" },
+  "options_workModeTab": { "message": "فتح في علامة تبويب جديدة" },
+  "options_workModePopup": { "message": "العمل في نافذة منبثقة" },
+  "options_defaultEncoding": { "message": "الترميز الافتراضي" },
+  "options_saved": { "message": "تم حفظ الإعدادات" }
 }
