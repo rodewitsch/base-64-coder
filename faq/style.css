@@ -1,10 +1,41 @@
 :root {
   --main-bg-color: #f8f8f8;
+  --text-color: #333;
+  --panel-bg: #ffffff;
+  --accordion-bg: #eee;
+  --accordion-color: #444;
+  --accordion-hover: #ccc;
+  --accordion-arrow: #777;
+}
+
+/* Forced dark theme (from settings) */
+:root.theme-dark {
+  --main-bg-color: #333333;
+  --text-color: #ffffff;
+  --panel-bg: #454545;
+  --accordion-bg: #3d3d3d;
+  --accordion-color: #ffffff;
+  --accordion-hover: #4d4d4d;
+  --accordion-arrow: #ffffff;
+}
+
+/* Auto dark mode (system preference) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light):not(.theme-dark) {
+    --main-bg-color: #333333;
+    --text-color: #ffffff;
+    --panel-bg: #454545;
+    --accordion-bg: #3d3d3d;
+    --accordion-color: #ffffff;
+    --accordion-hover: #4d4d4d;
+    --accordion-arrow: #ffffff;
+  }
 }
 
 html,
 body {
   background-color: var(--main-bg-color);
+  color: var(--text-color);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -15,6 +46,7 @@ body {
 h1 {
   display: flex;
   align-items: center;
+  color: var(--text-color);
 }
 
 h1 img {
@@ -27,8 +59,8 @@ h1 img {
 }
 
 .accordion {
-  background-color: #eee;
-  color: #444;
+  background-color: var(--accordion-bg);
+  color: var(--accordion-color);
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -48,12 +80,12 @@ h1 img {
 
 .active,
 .accordion:hover {
-  background-color: #ccc;
+  background-color: var(--accordion-hover);
 }
 
 .panel {
   padding: 0 18px;
-  background-color: white;
+  background-color: var(--panel-bg);
   display: none;
   overflow: hidden;
   margin-top: -10px;
@@ -61,11 +93,12 @@ h1 img {
   border-radius: 0 0 10px 10px;
   font-size: 16px;
   padding-bottom: 20px;
+  color: var(--text-color);
 }
 
 .accordion:before {
   content: '▼';
-  color: #777;
+  color: var(--accordion-arrow);
   float: left;
   margin-right: 10px;
   width: 10px;
@@ -90,32 +123,4 @@ h1 img {
   flex-direction: row;
   align-items: center;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --main-bg-color: #333333;
-  }
-
-  h1 {
-    color: white;
-  }
-
-  .accordion {
-    background-color: #3d3d3d;
-    color: white;
-  }
-
-  .active,
-  .accordion:hover {
-    background-color: #4d4d4d;
-  }
-
-  .accordion:after {
-    color: white;
-  }
-
-  .panel {
-    background-color: #454545;
-    color: white;
-  }
 }

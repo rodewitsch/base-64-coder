@@ -1,6 +1,17 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
 
-  initI18n();
+  function applyFaqTheme(theme) {
+    document.documentElement.classList.remove('theme-light', 'theme-dark');
+    if (theme === 'light') {
+      document.documentElement.classList.add('theme-light');
+    } else if (theme === 'dark') {
+      document.documentElement.classList.add('theme-dark');
+    }
+  }
+
+  const settings = await chrome.storage.sync.get(['language', 'theme']);
+  applyFaqTheme(settings.theme || 'auto');
+  await setLanguage(settings.language || 'system');
 
   const acc = document.querySelectorAll(".accordion");
 
