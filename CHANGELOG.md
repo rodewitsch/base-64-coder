@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/rodewitsch/base-64-coder/compare/v1.29.0...v2.0.0) (2026-07-20)
+
+
+### Features
+
+* **background:** add language-aware context menus ([257c4d6](https://github.com/rodewitsch/base-64-coder/commits/257c4d6b7e8bf2590b6c2ae0c73e3dd986775d01))
+* **convert:** add theme support, fix isResult and beautifyBtn ([d25c383](https://github.com/rodewitsch/base-64-coder/commits/d25c3830ab0853fe0877234586382d88e8b6a5c0))
+* **faq:** add theme-aware CSS and language support ([f32f888](https://github.com/rodewitsch/base-64-coder/commits/f32f88891486107022866e542de84badb6ccbcff))
+* **i18n:** add locale messages for options, popup, and theme features ([246d87f](https://github.com/rodewitsch/base-64-coder/commits/246d87fd3a9dbc89568fe3dfac7140582e3e7704))
+* **lib:** add custom i18n system and fix utility functions ([1b945c8](https://github.com/rodewitsch/base-64-coder/commits/1b945c89316f04f274a6625302133c362e091a34))
+* **manifest:** add options page, popup, and storage permission ([6750488](https://github.com/rodewitsch/base-64-coder/commits/6750488b56dd006e0dbf855014bf45f1238f1133))
+* **options:** add theme-aware CSS and language application on load ([5106e35](https://github.com/rodewitsch/base-64-coder/commits/5106e354142f6090014b3269f271dffce32ccd2d))
+* **popup:** add theme support and CSS variable refactoring ([91c7b7c](https://github.com/rodewitsch/base-64-coder/commits/91c7b7c9a78d9ba3574049055710a6cedfad3a62))
+
+
+### Bug Fixes
+
+* **content:** serialize error object in message passing ([dd25725](https://github.com/rodewitsch/base-64-coder/commits/dd2572531ba3956700651556488fb2c762963350))
+
 ### [1.28.1](https://github.com/rodewitsch/base-64-coder/compare/v1.28.0...v1.28.1) (2026-06-18)
 
 ## [1.28.0](https://github.com/rodewitsch/base-64-coder/compare/v1.27.0...v1.28.0) (2025-04-12)
