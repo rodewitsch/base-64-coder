@@ -151,5 +151,9 @@
   "options_workModeTab": { "message": "Ouvrir dans un nouvel onglet" },
   "options_workModePopup": { "message": "Travailler dans la fenêtre popup" },
   "options_defaultEncoding": { "message": "Encodage par défaut" },
-  "options_saved": { "message": "Paramètres enregistrés" }
+  "options_saved": { "message": "Paramètres enregistrés" },
+
+  "faq_section6_title": { "message": "JWT Inspector & JSON tools" },
+  "faq_section6_p1": { "message": "The extension can automatically detect JWT tokens and decode them with a single click using the \"jwt\" button. The payload is displayed as formatted JSON." },
+  "faq_section6_p2": { "message": "For any JSON result (including JWT), use the \"pretty\" button to format it with indentation or \"minify\" to compress it. If the JSON contains JWT timestamp fields like \"iat\" (issued at) or \"exp\" (expiration), hover over them to see the date/time in a human-readable tooltip." }
 }

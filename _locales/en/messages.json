@@ -505,5 +505,18 @@
   "options_saved": {
     "message": "Settings saved",
     "description": "Options: saved confirmation"
+  },
+
+  "faq_section6_title": {
+    "message": "JWT Inspector & JSON tools",
+    "description": "FAQ accordion section 6 title"
+  },
+  "faq_section6_p1": {
+    "message": "The extension can automatically detect JWT tokens and decode them with a single click using the \"jwt\" button. The payload is displayed as formatted JSON.",
+    "description": "FAQ section 6 paragraph 1"
+  },
+  "faq_section6_p2": {
+    "message": "For any JSON result (including JWT), use the \"pretty\" button to format it with indentation or \"minify\" to compress it. If the JSON contains JWT timestamp fields like \"iat\" (issued at) or \"exp\" (expiration), hover over them to see the date/time in a human-readable tooltip.",
+    "description": "FAQ section 6 paragraph 2"
   }
 }
