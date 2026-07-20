@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Base64Coder — Test Checklist</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --card-bg: #fff;
+      --text: #333;
+      --border: #ddd;
+      --accent: #4a90d9;
+      --pass: #4caf50;
+      --fail: #e53935;
+      --tag-bg: #e8e8e8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e1e1e;
+        --card-bg: #2d2d2d;
+        --text: #e0e0e0;
+        --border: #444;
+        --accent: #64b5f6;
+        --pass: #81c784;
+        --fail: #ef5350;
+        --tag-bg: #3d3d3d;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat strong { font-size: 20px; }
+    .stat.passed strong { color: var(--pass); }
+    .stat.failed strong { color: var(--fail); }
+    .stat.total strong { color: var(--accent); }
+    .section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 14px 18px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header:hover { background: rgba(128,128,128,0.05); }
+    .section-header .count {
+      font-weight: 400;
+      font-size: 12px;
+      color: #888;
+      margin-left: auto;
+    }
+    .section-header .arrow {
+      transition: transform 0.2s;
+      font-size: 12px;
+      color: #888;
+    }
+    .section-header.collapsed .arrow { transform: rotate(-90deg); }
+    .section-body { padding: 6px 0; }
+    .section-header.collapsed + .section-body { display: none; }
+    .test-case {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 18px;
+      border-bottom: 1px solid rgba(128,128,128,0.1);
+      font-size: 14px;
+    }
+    .test-case:last-child { border-bottom: none; }
+    .test-case input[type="checkbox"] {
+      margin-top: 2px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .test-case .label {
+      flex: 1;
+      line-height: 1.5;
+    }
+    .test-case .label code {
+      background: var(--tag-bg);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .test-case .tag {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--tag-bg);
+      color: #888;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .test-case.checked .label { text-decoration: line-through; opacity: 0.5; }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .toolbar button {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .toolbar button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>
+    ✅ Base64Coder
+    <span style="font-size:14px;font-weight:400;color:#888">Manual Test Checklist</span>
+  </h1>
+  <p class="subtitle" id="date"></p>
+
+  <div class="stats" id="stats">
+    <div class="stat total">Total <strong id="total">0</strong></div>
+    <div class="stat passed">Passed <strong id="passed">0</strong></div>
+    <div class="stat failed">Failed <strong id="failed">0</strong></div>
+  </div>
+
+  <div class="toolbar">
+    <button onclick="checkAll()">✔ Check All</button>
+    <button onclick="uncheckAll()">✖ Uncheck All</button>
+    <button onclick="resetAll()">↺ Reset</button>
+  </div>
+
+  <div id="sections"></div>
+  <footer>
+    Base64Coder &mdash; <span id="date-footer"></span>
+  </footer>
+</div>
+
+<script>
+  const DATA = [
+    {
+      title: "1. Кастомная система i18n (переключение языка)",
+      tag: "i18n",
+      cases: [
+        "Открыть страницу конвертации — все тексты на английском",
+        "Настройки → Language → Русский → Save — страница перерисовывается на русском",
+        "Обновить страницу настроек (F5) — язык остаётся русским",
+        "Открыть popup (клик по иконке) — popup на русском языке",
+        "Открыть convert/index.html в новой вкладке — на русском",
+        "Открыть faq/index.html — FAQ на русском языке",
+        "Настройки → Language → System default → Save — язык возвращается к системному",
+        "Контекстное меню — пункты на выбранном языке (после перезагрузки расширения)",
+      ]
+    },
+    {
+      title: "2. Тёмная / светлая тема",
+      tag: "theme",
+      cases: [
+        "Настройки → Theme → Dark — вся страница тёмная (фон, карточки, select, текст)",
+        "Обновить страницу настроек — тема остаётся тёмной",
+        "Открыть popup — popup в тёмной теме",
+        "Открыть convert/index.html — страница конвертации в тёмной теме",
+        "Открыть faq/index.html — FAQ в тёмной теме",
+        "Настройки → Theme → Light — вся страница становится светлой",
+        "Проверить popup, convert, faq — все в светлой теме",
+        "Настройки → Theme → Automatic — тема следует за системной настройкой ОС",
+        "Проверить &lt;select&gt; элементы — фон соответствует теме (белый / тёмный)",
+      ]
+    },
+    {
+      title: "3. Popup (всплывающее окно)",
+      tag: "popup",
+      cases: [
+        "Настройки → Work Mode → Work in popup window → Save — режим popup активирован",
+        "Клик по иконке расширения — открывается popup-окно",
+        'Ввести <code>dGVzdA==</code> → нажать <code>text</code> — в Result <code>test</code>',
+        'Нажать <code>swap</code> — Source и Result меняются местами',
+        'Ввести <code>test</code> → нажать <code>base64</code> — в Result <code>dGVzdA==</code>',
+        'Нажать <code>copy</code> — результат скопирован в буфер обмена',
+        'Нажать <code>clear</code> — оба поля очищены',
+        "Выбрать кодировку Windows-1251 — применяется при декодировании",
+        "Ввести JWT токен — кнопка jwt активна, парсится корректно",
+        "Настройки → Work Mode → Open in new tab → Save — режим возвращён",
+      ]
+    },
+    {
+      title: "4. Страница конвертации (convert/index.html)",
+      tag: "convert",
+      cases: [
+        "Клик по иконке расширения (в режиме tab) — открывается convert/index.html",
+        'Ввести текст → нажать <code>base64</code> (Alt+2) — закодировано',
+        'Нажать <code>text</code> (Alt+1) — декодировано обратно',
+        "Ввести base64 изображения → нажать image (Alt+4) — изображение отображается",
+        "Ввести base64 аудио → нажать audio (Alt+5) — аудиоплеер",
+        "Ввести base64 видео → нажать video (Alt+6) — видеоплеер",
+        "Ввести JWT → нажать jwt (Alt+3) — JWT декодирован в JSON",
+        "Навести на iat/exp в отформатированном JSON — всплывает дата",
+        'Нажать <code>pretty</code> на JSON — отформатирован с отступами',
+        'Нажать <code>minify</code> — JSON сжат в одну строку',
+        'Нажать <code>copy</code> (Ctrl+C / Ctrl+Shift+C) — скопировано',
+        'Нажать <code>save</code> (Ctrl+S / Ctrl+Shift+S) — файл скачан',
+        "Перетащить файл в окно — файл закодирован в base64",
+        "Вставить изображение из буфера (Ctrl+V) — закодировано в base64",
+        'Нажать <code>file</code> (Ctrl+O) — диалог выбора файла',
+        'Shift + copy/save — копирование/сохранение без mime-префикса',
+        'Shift + clear — очищаются и source, и result',
+        "Shift+Backspace или Shift+Delete — очищаются source и result",
+      ]
+    },
+    {
+      title: "5. Настройки (options)",
+      tag: "options",
+      cases: [
+        "ПКМ по иконке → Options — открывается страница настроек",
+        "Изменить язык, тему, режим, кодировку — появляется «Settings saved»",
+        "Обновить страницу — все настройки сохранены",
+        "Изменить язык → проверить popup/convert/faq — язык изменился везде",
+      ]
+    },
+    {
+      title: "6. Контекстное меню",
+      tag: "contextMenu",
+      cases: [
+        "Выделить base64 → ПКМ → copy base64 ➜ text — декодировано и скопировано",
+        "Выделить текст → ПКМ → copy text ➜ base64 — закодировано и скопировано",
+        "ПКМ по изображению → copy image ➜ base64 — WAIT → DONE, скопировано",
+        "Выделить base64 → ПКМ → open base64 — открывается страница с этим base64",
+      ]
+    },
+    {
+      title: "7. Omnibox (адресная строка)",
+      tag: "omnibox",
+      cases: [
+        'В адресной строке <code>64</code> + Tab — активируется Base64Coder',
+        'Ввести <code>dGVzdA==</code> → base64 ➜ text — страница с декодированным текстом',
+        'Ввести <code>test</code> → text ➜ base64 — страница с закодированным base64',
+      ]
+    },
+    {
+      title: "8. Регрессия — тесты",
+      tag: "regression",
+      cases: [
+        'Выполнить <code>npm test</code> — 39/39 тестов пройдено',
+        "Открыть все страницы расширения — нет ошибок в консоли",
+      ]
+    },
+  ];
+
+  function render() {
+    const container = document.getElementById('sections');
+    container.innerHTML = '';
+    DATA.forEach((section, si) => {
+      const sec = document.createElement('div');
+      sec.className = 'section';
+
+      const header = document.createElement('div');
+      header.className = 'section-header';
+      header.innerHTML = `
+        <span class="arrow">▼</span>
+        ${section.title}
+        <span class="count">0/${section.cases.length}</span>
+      `;
+      header.onclick = () => header.classList.toggle('collapsed');
+      sec.appendChild(header);
+
+      const body = document.createElement('div');
+      body.className = 'section-body';
+      section.cases.forEach((text, ci) => {
+        const id = `c-${si}-${ci}`;
+        const tc = document.createElement('div');
+        tc.className = 'test-case';
+        tc.id = id;
+        tc.innerHTML = `
+          <input type="checkbox" id="cb-${id}" onchange="updateStats()" />
+          <label class="label" for="cb-${id}">${text}</label>
+          <span class="tag">${section.tag}</span>
+        `;
+        body.appendChild(tc);
+
+        // Restore saved state
+        const saved = localStorage.getItem(id);
+        if (saved === 'true') {
+          document.getElementById(`cb-${id}`).checked = true;
+        }
+      });
+      sec.appendChild(body);
+      container.appendChild(sec);
+    });
+    updateStats();
+  }
+
+  function updateStats() {
+    const all = document.querySelectorAll('.test-case');
+    const checked = document.querySelectorAll('.test-case input:checked');
+    document.getElementById('total').textContent = all.length;
+    document.getElementById('passed').textContent = checked.length;
+    document.getElementById('failed').textContent = all.length - checked.length;
+
+    // Animate counts
+    ['passed', 'failed', 'total'].forEach(id => {
+      const el = document.getElementById(id);
+      el.style.transition = 'color 0.3s';
+      el.style.color = '#4a90d9';
+      setTimeout(() => el.style.color = '', 300);
+    });
+
+    // Save state
+    all.forEach(tc => {
+      const cb = tc.querySelector('input');
+      localStorage.setItem(tc.id, cb.checked);
+    });
+
+    // Update section counts
+    document.querySelectorAll('.section').forEach(sec => {
+      const cases = sec.querySelectorAll('.test-case');
+      const checked = sec.querySelectorAll('.test-case input:checked');
+      const count = sec.querySelector('.count');
+      if (count) count.textContent = `${checked.length}/${cases.length}`;
+    });
+  }
+
+  function checkAll() {
+    document.querySelectorAll('.test-case input').forEach(cb => cb.checked = true);
+    updateStats();
+  }
+  function uncheckAll() {
+    document.querySelectorAll('.test-case input').forEach(cb => cb.checked = false);
+    updateStats();
+  }
+  function resetAll() {
+    if (!confirm('Reset all checkboxes?')) return;
+    localStorage.removeItem('base64coder-checklist');
+    document.querySelectorAll('.test-case input').forEach(cb => cb.checked = false);
+    updateStats();
+  }
+
+  document.getElementById('date').textContent = new Date().toISOString().slice(0, 10);
+  document.getElementById('date-footer').textContent = new Date().toLocaleString();
+  render();
+</script>
+</body>
+</html>
