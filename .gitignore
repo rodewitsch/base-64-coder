@@ -1,1 +1,3 @@
 node_modules/
+.playwright*
+.last-run.json
