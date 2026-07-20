@@ -238,6 +238,7 @@ button {
 .action-tools .btn {
   width: 62px;
   height: 62px;
+  position: relative;
 }
 
 .action-area-body {
