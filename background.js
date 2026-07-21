@@ -182,7 +182,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === 'error') errorBadge();
   if (request.type === 'success') successBadge();
   if (request.type === 'openFAQ') {
-    chrome.tabs.create({ url: chrome.runtime.getURL('faq/index.html') });
+    chrome.tabs.create({ url: 'https://base64coder.rodevich.com/faq/' });
   }
   if (request.type === 'openFullPage') {
     const text = request.text || '';

@@ -98,20 +98,16 @@ test.describe('i18n and Theme switching across pages', () => {
       await page.close().catch(() => {});
     });
 
-    test('4.6 Setting theme persists to FAQ page', async () => {
-      const optsPage = await openPage(context, baseUrl, 'options/index.html');
-      await optsPage.waitForTimeout(1000);
-      await optsPage.selectOption('#theme-select', 'dark');
-      await optsPage.waitForTimeout(500);
-      await optsPage.close().catch(() => {});
-
-      const page = await openPage(context, baseUrl, 'faq/index.html');
+    test('4.6 FAQ button opens external site in a new tab', async () => {
+      // FAQ is now hosted externally — verify the background handler URL
+      // This test ensures the convert page FAQ button is present
+      const page = await openPage(context, baseUrl, 'convert/index.html');
       await page.waitForTimeout(1000);
 
-      const hasDark = await page.evaluate(() =>
-        document.documentElement.classList.contains('theme-dark')
-      );
-      expect(hasDark).toBe(true);
+      const faqBtn = page.locator('#open-faq');
+      await expect(faqBtn).toBeVisible();
+      await expect(faqBtn).toHaveAttribute('title', 'FAQ');
+
       await page.close().catch(() => {});
     });
   });

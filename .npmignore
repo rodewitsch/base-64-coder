@@ -1,3 +1,8 @@
 CHANGELOG.md
 eslint.config.mjs
+vitest.config.mjs
 .versionrc.json
+tests/
+test-results/
+node_modules/
+.github/
