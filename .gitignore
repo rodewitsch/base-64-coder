@@ -1,3 +1,6 @@
 node_modules/
 .playwright*
 .last-run.json
+*.tgz
+dist/
+*.zip
