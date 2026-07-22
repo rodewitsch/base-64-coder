@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/rodewitsch/base-64-coder/compare/v2.0.0...v2.1.0) (2026-07-22)
+
+
+### Features
+
+* move FAQ page to separate site ([44ce026](https://github.com/rodewitsch/base-64-coder/commits/44ce026d6b60940b67a882380ed50797ee333116))
+
 ## [2.0.0](https://github.com/rodewitsch/base-64-coder/compare/v1.29.0...v2.0.0) (2026-07-20)
 
 
