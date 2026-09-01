@@ -100,8 +100,11 @@ test.describe('i18n and Theme switching across pages', () => {
 
     test('4.6 FAQ button opens external site in a new tab', async () => {
       // FAQ is now hosted externally — verify the background handler URL
-      // This test ensures the convert page FAQ button is present
+      // This test ensures the convert page FAQ button is present.
+      // The floating panel is hidden below 1366px viewport width (responsive),
+      // so use a wide viewport to make the panel visible.
       const page = await openPage(context, baseUrl, 'convert/index.html');
+      await page.setViewportSize({ width: 1400, height: 900 });
       await page.waitForTimeout(1000);
 
       const faqBtn = page.locator('#open-faq');
