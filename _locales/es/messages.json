@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "Limpiar resultado" },
   "title_faq": { "message": "Preguntas frecuentes" },
   "title_extensionPage": { "message": "Abrir página de la extensión" },
+  "title_donate": { "message": "Donar / Apoyar el proyecto" },
   "title_settings": { "message": "Configuración" },
   "placeholder_source": { "message": "Ingrese su texto o arrastre un archivo." },
   "fileInfo_noFile": { "message": "Ningún archivo seleccionado" },

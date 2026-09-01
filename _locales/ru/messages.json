@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "Очистить результат" },
   "title_faq": { "message": "Справка" },
   "title_extensionPage": { "message": "Открыть страницу расширения" },
+  "title_donate": { "message": "Пожертвовать / Поддержать проект" },
   "title_settings": { "message": "Настройки" },
   "placeholder_source": { "message": "Введите текст или перетащите файл." },
   "fileInfo_noFile": { "message": "Файл не выбран" },

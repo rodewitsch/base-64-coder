@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "결과 지우기" },
   "title_faq": { "message": "자주 묻는 질문" },
   "title_extensionPage": { "message": "확장 프로그램 페이지 열기" },
+  "title_donate": { "message": "후원하기 / 프로젝트 지원" },
   "title_settings": { "message": "설정" },
   "placeholder_source": { "message": "텍스트를 입력하거나 파일을 드롭하세요." },
   "fileInfo_noFile": { "message": "선택된 파일 없음" },

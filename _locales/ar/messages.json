@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "مسح النتيجة" },
   "title_faq": { "message": "الأسئلة الشائعة" },
   "title_extensionPage": { "message": "فتح صفحة الإضافة" },
+  "title_donate": { "message": "تبرع / ادعم المشروع" },
   "title_settings": { "message": "الإعدادات" },
   "placeholder_source": { "message": "أدخل النص أو أسقط ملفك." },
   "fileInfo_noFile": { "message": "لم يتم تحديد ملف" },

@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "結果を消去" },
   "title_faq": { "message": "よくある質問" },
   "title_extensionPage": { "message": "拡張機能ページを開く" },
+  "title_donate": { "message": "寄付 / プロジェクトを支援" },
   "title_settings": { "message": "設定" },
   "placeholder_source": { "message": "テキストを入力するか、ファイルをドロップしてください。" },
   "fileInfo_noFile": { "message": "ファイルが選択されていません" },

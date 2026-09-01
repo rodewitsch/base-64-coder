@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "Ergebnis löschen" },
   "title_faq": { "message": "FAQ" },
   "title_extensionPage": { "message": "Erweiterungsseite öffnen" },
+  "title_donate": { "message": "Spenden / Projekt unterstützen" },
   "title_settings": { "message": "Einstellungen" },
   "placeholder_source": { "message": "Text eingeben oder Datei hier ablegen." },
   "fileInfo_noFile": { "message": "Keine Datei ausgewählt" },

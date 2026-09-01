@@ -80,6 +80,7 @@
   "title_clearResult": { "message": "清除结果值" },
   "title_faq": { "message": "常见问题" },
   "title_extensionPage": { "message": "打开扩展页面" },
+  "title_donate": { "message": "捐赠 / 支持项目" },
   "title_settings": { "message": "设置" },
   "placeholder_source": { "message": "输入文本或拖放文件。" },
   "fileInfo_noFile": { "message": "未选择文件" },

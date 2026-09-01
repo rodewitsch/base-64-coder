@@ -71,6 +71,7 @@
   "title_clearResult": { "message": "परिणाम मान साफ़ करें" },
   "title_faq": { "message": "सामान्य प्रश्न" },
   "title_extensionPage": { "message": "एक्सटेंशन पेज खोलें" },
+  "title_donate": { "message": "दान करें / प्रोजेक्ट का समर्थन करें" },
   "title_settings": { "message": "सेटिंग्स" },
   "placeholder_source": { "message": "अपना टेक्स्ट दर्ज करें या फ़ाइल ड्रॉप करें।" },
   "fileInfo_noFile": { "message": "कोई फ़ाइल चयनित नहीं" },

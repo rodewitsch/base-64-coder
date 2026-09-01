@@ -39,6 +39,7 @@ document.onreadystatechange = function () {
   const swapBtn = document.getElementById('swap-btn');
   const encodingSelect = document.getElementById('encoding-select');
   const openExtensionPageBtn = document.getElementById('open-extension-page');
+  const openDonateBtn = document.getElementById('open-donate');
   const openFAQBtn = document.getElementById('open-faq');
   const openSettingsBtn = document.getElementById('open-settings');
 
@@ -784,6 +785,10 @@ document.onreadystatechange = function () {
 
   openExtensionPageBtn.onclick = () => {
     window.open('https://chromewebstore.google.com/detail/base64coder/ebgonfpmppfndacngpbmgajldoabnjkm', '_blank');
+  }
+
+  openDonateBtn.onclick = () => {
+    window.open('https://boosty.to/rodevich/donate', '_blank');
   }
 
   openFAQBtn.onclick = () => {

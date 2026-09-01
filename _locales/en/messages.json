@@ -197,6 +197,10 @@
     "message": "Open extension page",
     "description": "Tooltip: open Chrome Web Store page"
   },
+  "title_donate": {
+    "message": "Donate / Support the project",
+    "description": "Tooltip: open donation page"
+  },
   "title_settings": {
     "message": "Settings",
     "description": "Tooltip: open settings"
