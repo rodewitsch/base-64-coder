@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/rodewitsch/base-64-coder/compare/v2.1.0...v2.2.0) (2026-09-01)
+
+
+### Features
+
+* add donate button to convert page ([0dcffa6](https://github.com/rodewitsch/base-64-coder/commits/0dcffa678de9b4f1729be11e5efdb38f140fee35))
+
 ## [2.1.0](https://github.com/rodewitsch/base-64-coder/compare/v2.0.0...v2.1.0) (2026-07-22)
 
 

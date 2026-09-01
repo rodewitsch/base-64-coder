@@ -1,6 +1,6 @@
 {
   "name": "base64coder",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Base64 Decode/Encode & JWT Inspector — browser extension",
   "main": "background.js",
   "scripts": {
