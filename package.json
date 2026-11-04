@@ -59,7 +59,7 @@
     "eslint": "^9.39.5",
     "globals": "^15.14.0",
     "html-minifier-terser": "^7.2.0",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "standard-version": "^9.5.0",
     "terser": "^5.49.0",
     "vitest": "^4.1.10"
